@@ -1,0 +1,22 @@
+{
+  "name": "ci6game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://yoshikizh@github.com/yoshikizh/ci6game.git"
+  },
+  "dependencies": {
+    "webpack": "4.42.0"
+  },
+  "author": "yoshikizh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yoshikizh/ci6game/issues"
+  },
+  "homepage": "https://github.com/yoshikizh/ci6game#readme"
+}
