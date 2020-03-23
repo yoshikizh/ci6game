@@ -17,14 +17,36 @@ const config = {
       {
         test: /\.css$/,
         use: [
+          { loader: "style-loader" },
           {
             loader: 'css-loader',
             options: {
               modules: true
             }
-          }
+          },
         ]
       }, 
+      {
+        test: /\.scss$/,
+        use: [{
+          loader: "style-loader"
+        }, {
+          loader: "css-loader"
+        }, {
+          loader: "sass-loader"
+        }]
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            }
+          }
+        ]
+      },
       {
         test: /\.html$/,
         loader: 'html-loader',
