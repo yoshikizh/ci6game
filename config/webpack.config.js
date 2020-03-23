@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Uglify = require('uglifyjs-webpack-plugin');
 const path = require('path');
+
 
 const config = {
   target: 'web',
@@ -24,6 +26,14 @@ const config = {
         ]
       }, 
       {
+        test: /\.html$/,
+        loader: 'html-loader',
+      },
+      {
+        test: /\.json5$/,
+        loader: 'json5-loader'
+      },
+      {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         use: {
@@ -33,10 +43,17 @@ const config = {
           }
         }
       }
-    ]
+    ],
   },
   plugins: [
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin(),
+    new Uglify({
+      uglifyOptions: {
+        output: {
+          comments: false
+        }
+      }
+    })
   ],
 };
 
