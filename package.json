@@ -2,16 +2,26 @@
   "name": "ci6game",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "config/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack-dev-server --port 9000 --mode development --config config/webpack.config.js",
+    "build": "webpack --progress --hide-modules --mode production --config config/webpack.config.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://yoshikizh@github.com/yoshikizh/ci6game.git"
   },
   "dependencies": {
-    "webpack": "4.42.0"
+    "html-webpack-plugin": "3.2.0",
+    "css-loader": "3.4.2",
+    "webpack": "4.42.0",
+    "webpack-cli": "3.3.11",
+    "webpack-dev-server": "3.10.3",
+    "@babel/core": "7.9.0",
+    "babel-loader": "8.1.0",
+    "@babel/preset-env": "7.9.0",
+    "@babel/preset-es2015": "7.0.0-beta.53",
+    "@babel/cli": "7.8.4"
   },
   "author": "yoshikizh",
   "license": "ISC",
