@@ -42,7 +42,7 @@ const config = {
           {
             loader: 'url-loader',
             options: {
-              limit: 8192
+              limit: 10240
             }
           }
         ]
@@ -56,7 +56,7 @@ const config = {
         loader: 'json5-loader'
       },
       {
-        test: /\.js$/,
+        test: /(\.jsx|\.js)$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',

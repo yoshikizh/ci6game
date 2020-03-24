@@ -28,7 +28,10 @@
     "@babel/preset-es2015": "7.0.0-beta.53",
     "@babel/cli": "7.8.4",
     "uglifyjs-webpack-plugin": "2.2.0",
-    "json5-loader": "3.0.0"
+    "json5-loader": "3.0.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "@babel/preset-react": "7.9.1"
   },
   "author": "yoshikizh",
   "license": "ISC",
