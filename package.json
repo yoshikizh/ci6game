@@ -4,8 +4,8 @@
   "description": "",
   "main": "config/index.js",
   "scripts": {
-    "dev": "webpack-dev-server --port 9000 --mode development --config config/webpack.config.js",
-    "build": "webpack --progress --hide-modules --mode production --config config/webpack.config.js"
+    "dev": "NODE_ENV=development webpack-dev-server --port 9000 --mode development --config config/webpack.config.js",
+    "build": "NODE_ENV=production webpack --progress --hide-modules --mode production --config config/webpack.config.js"
   },
   "repository": {
     "type": "git",

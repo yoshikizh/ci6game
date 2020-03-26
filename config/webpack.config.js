@@ -2,7 +2,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Uglify = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const path = require('path');
-
+const webpack = require('webpack');
+const env = process.env.NODE_ENV;
+const isDev = env === "development";
 
 const config = {
   target: 'web',
@@ -76,7 +78,9 @@ const config = {
     extensions: [".js", ".jsx",".json"]
   },
   plugins: [
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: isDev ? 'src/templates/index.html' : 'src/templates/index.prod.html',
+    }),
     new ExtractTextPlugin("stylesheets.css"),
     new Uglify({
       uglifyOptions: {
