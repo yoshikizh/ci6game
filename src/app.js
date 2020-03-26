@@ -33,8 +33,14 @@ function initializeManagement(){
 // 初始化 React 组件
 function initializeReactComponent(){
 
-  // 初始化 index 组件 (内部加载其他组件)
+  // 初始化 index 组件
+  require("./components/index");
 
+}
+
+// 初始化 Assets
+function initializeAssets(){
+  require("./assets/styles/scss/app.scss");
 }
 
 // 入口函数
@@ -42,6 +48,7 @@ function main(){
   initializeConfig();
   initializeGameData();
   initializeManagement();
+  initializeAssets();
   initializeReactComponent();
 }
 
