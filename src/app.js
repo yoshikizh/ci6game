@@ -40,6 +40,7 @@ function initializeReactComponent(){
 
 // 初始化 Assets
 function initializeAssets(){
+  require("./assets/styles/app.css");
   require("./assets/styles/scss/app.scss");
 }
 

@@ -1,30 +1,35 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Uglify = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const path = require('path');
 
 
 const config = {
   target: 'web',
   entry: {
+    libs: ['./libs/pixi.js'],
     app: './src/app.js'
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: 'ci6game.production.js'
+    filename: '[name].bundle.js'
   },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: [
-          { loader: "style-loader" },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use:[
+            {
+              loader:"css-loader",
+              options: {
+                url: false,
+                sourceMap: true
+              }
             }
-          },
-        ]
+          ]
+        })
       }, 
       {
         test: /\.scss$/,
@@ -72,6 +77,7 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin(),
+    new ExtractTextPlugin("stylesheets.css"),
     new Uglify({
       uglifyOptions: {
         output: {
