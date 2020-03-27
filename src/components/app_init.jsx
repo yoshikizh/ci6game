@@ -5,9 +5,15 @@ export class AppHeaderInit extends React.Component {
     super(props);
   }
 
+  
+
   render() {
     return (
-      <div>Header</div>
+      <>
+      <div id="header-proj"></div>
+      <div id="header-toolbar"></div>
+      <div id="header-user"></div>
+      </>
     )
   }
 }

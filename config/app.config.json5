@@ -1,0 +1,6 @@
+{
+  interface_size: {
+    header_height: 40
+  },
+  default_lang: "zh"
+}
