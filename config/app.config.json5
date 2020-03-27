@@ -1,6 +1,10 @@
 {
   interface_size: {
-    header_height: 40
+    header_height: 45,
+    body_height: null,
+    footer_height: 24,
+    window_width: null,
+    window_height: null
   },
   default_lang: "zh"
 }

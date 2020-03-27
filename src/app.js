@@ -3,9 +3,12 @@ function initializeConfig(){
 
   // 初始化 app 配置
   const app_config = require("../config/app.config.json5");
-  const default_lang = app_config.default_lang;
+  app_config.interface_size.window_width = window.innerWidth;
+  app_config.interface_size.window_height = window.innerHeight;
+  app_config.interface_size.body_height = window.innerHeight - app_config.interface_size.header_height - app_config.interface_size.footer_height;
 
   // 初始化 多语言 配置
+  const default_lang = app_config.default_lang;
   const i18n_config = require(`../config/i18n/${default_lang}.config.json5`);
 
   // 配置全局Config
@@ -17,21 +20,21 @@ function initializeConfig(){
 
 // 初始化游戏数据
 function initializeGameData(){
-  const data_actors = require(`../data/Actors.json5`);             // 角色数据
-  const data_classes = require(`../data/Animations.json5`);        // 职业数据
-  const data_weapons = require(`../data/Weapons.json5`);        // 武器数据
-  const data_armors = require(`../data/Armors.json5`);         // 防具数据
-  const data_skills = require(`../data/Skills.json5`);         // 技能数据
-  const data_items = require(`../data/Items.json5`);          // 物品数据
-  const data_animations = require(`../data/Animations.json5`);     // 动画数据
-  const data_enemies = require(`../data/Enemies.json5`);        // 敌人数据
-  const data_troops = require(`../data/Troops.json5`);         // 敌人队伍数据
-  const data_states = require(`../data/States.json5`);         // 状态数据
-  const data_tilesets = require(`../data/Tilesets.json5`);       // 图块数据
-  const data_system = require(`../data/System.json5`);         // 系统设置数据
+  const data_actors = require(`../data/Actors.json5`);               // 角色数据
+  const data_classes = require(`../data/Animations.json5`);          // 职业数据
+  const data_weapons = require(`../data/Weapons.json5`);             // 武器数据
+  const data_armors = require(`../data/Armors.json5`);               // 防具数据
+  const data_skills = require(`../data/Skills.json5`);               // 技能数据
+  const data_items = require(`../data/Items.json5`);                 // 物品数据
+  const data_animations = require(`../data/Animations.json5`);       // 动画数据
+  const data_enemies = require(`../data/Enemies.json5`);             // 敌人数据
+  const data_troops = require(`../data/Troops.json5`);               // 敌人队伍数据
+  const data_states = require(`../data/States.json5`);               // 状态数据
+  const data_tilesets = require(`../data/Tilesets.json5`);           // 图块数据
+  const data_system = require(`../data/System.json5`);               // 系统设置数据
   const data_common_events = require(`../data/CommonEvents.json5`);  // 公共事件数据
-  const data_map_infos = require(`../data/MapInfos.json5`);      // 地图信息数据
-  const data_map001 = require(`../data/Map001.json5`);         // 初始地图数据
+  const data_map_infos = require(`../data/MapInfos.json5`);          // 地图信息数据
+  const data_map001 = require(`../data/Map001.json5`);               // 初始地图数据
 
   window.App.game_data = {
     actors: data_actors,
