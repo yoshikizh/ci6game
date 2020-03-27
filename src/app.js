@@ -17,24 +17,52 @@ function initializeConfig(){
 
 // 初始化游戏数据
 function initializeGameData(){
+  const data_actors = require(`../data/Actors.json5`);             // 角色数据
+  const data_classes = require(`../data/Animations.json5`);        // 职业数据
+  const data_weapons = require(`../data/Weapons.json5`);        // 武器数据
+  const data_armors = require(`../data/Armors.json5`);         // 防具数据
+  const data_skills = require(`../data/Skills.json5`);         // 技能数据
+  const data_items = require(`../data/Items.json5`);          // 物品数据
+  const data_animations = require(`../data/Animations.json5`);     // 动画数据
+  const data_enemies = require(`../data/Enemies.json5`);        // 敌人数据
+  const data_troops = require(`../data/Troops.json5`);         // 敌人队伍数据
+  const data_states = require(`../data/States.json5`);         // 状态数据
+  const data_tilesets = require(`../data/Tilesets.json5`);       // 图块数据
+  const data_system = require(`../data/System.json5`);         // 系统设置数据
+  const data_common_events = require(`../data/CommonEvents.json5`);  // 公共事件数据
+  const data_map_infos = require(`../data/MapInfos.json5`);      // 地图信息数据
+  const data_map001 = require(`../data/Map001.json5`);         // 初始地图数据
 
-  // 角色数据
-
-  // 敌人数据
-
-  // 地图数据
-
-  // ...
+  window.App.game_data = {
+    actors: data_actors,
+    classes: data_classes,
+    weapons: data_weapons,
+    armors: data_armors,
+    skills: data_skills,
+    items: data_items,
+    animations: data_animations,
+    enemies: data_enemies,
+    troops: data_troops,
+    states: data_states,
+    tilesets: data_tilesets,
+    system: data_system,
+    common_events: data_common_events,
+    map_infos: data_map_infos,
+    default_map: data_map001
+  };
 }
 
 // 初始化管理器(单例管理器)
 function initializeManagement(){
 
   // 初始化 Cache 管理器
+  window.CacheManagement = {};
 
   // 初始化 主题 管理器
+  window.ThemeManagement = {};
 
   // 初始化 Api 管理器
+  window.ApiManagement = {};
 
 }
 
