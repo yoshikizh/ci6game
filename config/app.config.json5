@@ -34,6 +34,6 @@
       character_generator: "assets/images/toolbar/character-generator.png",
       play_test: "assets/images/toolbar/play.png"
     }
-  }
+  },
   default_lang: "zh"
 }
