@@ -8,9 +8,31 @@
   },
   toolbar: {
     images: {
-      new_proj: "",
-      import_porj: "",
-      save_proj: ""
+      new: "assets/images/toolbar/new.png",
+      import: "assets/images/toolbar/import.png",
+      save: "assets/images/toolbar/save.png",
+      export: "assets/images/toolbar/open.png",
+      cut: "assets/images/toolbar/cut.png",
+      copy: "assets/images/toolbar/copy.png",
+      paste: "assets/images/toolbar/paste.png",
+      undo: "assets/images/toolbar/undo.png",
+      map_edit: "assets/images/toolbar/map-edit.png",
+      event: "assets/images/toolbar/event.png",
+      pencil: "assets/images/toolbar/pencil.png",
+      square: "assets/images/toolbar/square.png",
+      ellipse: "assets/images/toolbar/ellipse.png",
+      fill: "assets/images/toolbar/fill.png",
+      shadow_pen: "assets/images/toolbar/shadow-pen.png",
+      zoom_in: "assets/images/toolbar/zoom-in.png",
+      zoom_out: "assets/images/toolbar/zoom-out.png",
+      zoom_origin: "assets/images/toolbar/zoom-origin.png",
+      database: "assets/images/toolbar/database.png",
+      plugin: "assets/images/toolbar/plugin.png",
+      sound: "assets/images/toolbar/sound.png",
+      event_search: "assets/images/toolbar/event-search.png",
+      resource_manager: "assets/images/toolbar/resource-manager.png",
+      character_generator: "assets/images/toolbar/character-generator.png",
+      play_test: "assets/images/toolbar/play.png"
     }
   }
   default_lang: "zh"

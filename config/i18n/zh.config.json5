@@ -1,16 +1,105 @@
 {
     toolbar: {
-        new_proj: {
+        new: {
             name: "新项目",
             desc: "创建一个新项目"
         },
-        import_porj: {
+        import: {
             name: "导入项目",
             desc: "导入一个已存在的项目"
         },
-        save_proj: {
+        save: {
             name: "保存项目",
             desc: "保存项目到当前浏览器缓存"
-        }
+        },
+        export: {
+            name: "导出项目",
+            desc: "下载当前项目到本地"
+        },
+        cut: {
+            name: "剪切",
+            desc: "移除当前选中的事件到剪贴板"
+        },
+        copy: {
+            name: "复制",
+            desc: "复制当前选中的事件到剪贴板"
+        },
+        paste: {
+            name: "粘贴",
+            desc: "粘贴剪贴板的内容到当前区域"
+        },
+        undo: {
+            name: "撤销",
+            desc: "撤销上一步操作"
+        },
+        map_edit: {
+            name: "地图",
+            desc: "切换到地图编辑模式"
+        },
+        event: {
+            name: "事件",
+            desc: "切换到事件编辑模式"
+        },
+        pencil: {
+            name: "铅笔工具",
+            desc: "使用铅笔工具绘制图块"
+        },
+        square: {
+            name: "矩形工具",
+            desc: "使用矩形工具绘制图块"
+        },
+        ellipse: {
+            name: "椭圆工具",
+            desc: "使用椭圆工具绘制图块"
+        },
+        fill: {
+            name: "填充工具",
+            desc: "使用填充工具填满闭环区域"
+        },
+        shadow_pen: {
+            name: "阴影笔",
+            desc: "绘制或清除阴影"
+        },
+        zoom_in: {
+            name: "放大",
+            desc: "放大地图编辑区域"
+        },
+        zoom_out: {
+            name: "缩小",
+            desc: "缩小地图编辑区域"
+        },
+        zoom_origin: {
+            name: "原始比例",
+            desc: "缩放地图编辑区域至原始比例"
+        },
+        database: {
+            name: "数据库",
+            desc: "打开数据库编辑器"
+        },
+        plugin: {
+            name: "插件管理",
+            desc: "打开插件管理器"
+        },
+        sound: {
+            name: "音乐测试",
+            desc: "打开音乐测试管理器"
+        },
+        event_search: {
+            name: "事件搜索",
+            desc: "打开事件搜索器"
+        },
+        resource_manager: {
+            name: "资源管理器",
+            desc: "打开资源管理器"
+        },
+        character_generator: {
+            name: "角色创造管理器",
+            desc: "打开角色创造管理器"
+        },
+        play_test: {
+            name: "运行测试",
+            desc: "保存并运行游戏测试"
+        },
     }
 }
+
