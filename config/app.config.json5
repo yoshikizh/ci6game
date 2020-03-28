@@ -6,5 +6,12 @@
     window_width: null,
     window_height: null
   },
+  toolbar: {
+    images: {
+      new_proj: "",
+      import_porj: "",
+      save_proj: ""
+    }
+  }
   default_lang: "zh"
 }

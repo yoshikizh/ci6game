@@ -1,3 +1,16 @@
 {
-	
+    toolbar: {
+        new_proj: {
+            name: "新项目",
+            desc: "创建一个新项目"
+        },
+        import_porj: {
+            name: "导入项目",
+            desc: "导入一个已存在的项目"
+        },
+        save_proj: {
+            name: "保存项目",
+            desc: "保存项目到当前浏览器缓存"
+        }
+    }
 }
