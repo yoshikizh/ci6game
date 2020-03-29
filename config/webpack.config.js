@@ -44,15 +44,28 @@ const config = {
         }]
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        // test: /\.(png|jpg|gif)$/,
+        // use: [
+        //   {
+        //     loader: 'url-loader',
+        //     options: {
+        //       limit: 10240
+        //     }
+        //   }
+        // ]
+
+        test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
+          'file-loader',
           {
-            loader: 'url-loader',
+            loader: 'image-webpack-loader',
             options: {
-              limit: 10240
-            }
-          }
+              bypassOnDebug: true, // webpack@1.x
+              disable: true, // webpack@2.x and newer
+            },
+          },
         ]
+
       },
       {
         test: /\.html$/,

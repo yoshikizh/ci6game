@@ -51,7 +51,7 @@ function initializeGameData(){
     system: data_system,
     common_events: data_common_events,
     map_infos: data_map_infos,
-    default_map: data_map001
+    maps: [null, data_map001]
   };
 }
 

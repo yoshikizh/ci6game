@@ -1,9 +1,6 @@
 {
+    default_proj_name: "新项目",
     toolbar: {
-        new: {
-            name: "新项目",
-            desc: "创建一个新项目"
-        },
         import: {
             name: "导入项目",
             desc: "导入一个已存在的项目"

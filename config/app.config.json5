@@ -1,4 +1,5 @@
 {
+  default_proj_name: "New Project",
   interface_size: {
     header_height: 45,
     body_height: null,
@@ -7,33 +8,49 @@
     window_height: null
   },
   toolbar: {
-    images: {
-      new: "assets/images/toolbar/new.png",
-      import: "assets/images/toolbar/import.png",
-      save: "assets/images/toolbar/save.png",
-      export: "assets/images/toolbar/open.png",
-      cut: "assets/images/toolbar/cut.png",
-      copy: "assets/images/toolbar/copy.png",
-      paste: "assets/images/toolbar/paste.png",
-      undo: "assets/images/toolbar/undo.png",
-      map_edit: "assets/images/toolbar/map-edit.png",
-      event: "assets/images/toolbar/event.png",
-      pencil: "assets/images/toolbar/pencil.png",
-      square: "assets/images/toolbar/square.png",
-      ellipse: "assets/images/toolbar/ellipse.png",
-      fill: "assets/images/toolbar/fill.png",
-      shadow_pen: "assets/images/toolbar/shadow-pen.png",
-      zoom_in: "assets/images/toolbar/zoom-in.png",
-      zoom_out: "assets/images/toolbar/zoom-out.png",
-      zoom_origin: "assets/images/toolbar/zoom-origin.png",
-      database: "assets/images/toolbar/database.png",
-      plugin: "assets/images/toolbar/plugin.png",
-      sound: "assets/images/toolbar/sound.png",
-      event_search: "assets/images/toolbar/event-search.png",
-      resource_manager: "assets/images/toolbar/resource-manager.png",
-      character_generator: "assets/images/toolbar/character-generator.png",
-      play_test: "assets/images/toolbar/play.png"
-    }
+    images: [
+      [
+        {name: "new", path: "assets/images/toolbar/new.png"},
+        {name: "import", path: "assets/images/toolbar/import.png"},
+        {name: "save", path: "assets/images/toolbar/save.png"},
+        {name: "export", path: "assets/images/toolbar/open.png"}
+      ],
+      [
+        {name: "cut", path: "assets/images/toolbar/cut.png"},
+        {name: "copy", path: "assets/images/toolbar/copy.png"},
+        {name: "paste", path: "assets/images/toolbar/paste.png"}
+      ],
+      [
+        {name: "undo", path: "assets/images/toolbar/undo.png"}
+      ],
+      [
+        {name: "map_edit", path: "assets/images/toolbar/map-edit.png"},
+        {name: "event", path: "assets/images/toolbar/event.png"}
+      ],
+      [
+        {name: "pencil", path: "assets/images/toolbar/pencil.png"},
+        {name: "square", path: "assets/images/toolbar/square.png"},
+        {name: "ellipse", path: "assets/images/toolbar/ellipse.png"},
+        {name: "fill", path: "assets/images/toolbar/fill.png"},
+        {name: "shadow_pen", path: "assets/images/toolbar/shadow-pen.png"}
+      ],
+      [
+        {name: "zoom_in", path: "assets/images/toolbar/zoom-in.png"},
+        {name: "zoom_out", path: "assets/images/toolbar/zoom-out.png"},
+        {name: "zoom_origin", path: "assets/images/toolbar/zoom-origin.png"}
+      ],
+      [
+        {name: "database", path: "assets/images/toolbar/database.png"},
+        {name: "plugin", path: "assets/images/toolbar/plugin.png"},
+        {name: "sound", path: "assets/images/toolbar/sound.png"},
+        {name: "event_search", path: "assets/images/toolbar/event-search.png"},
+        {name: "resource_manager", path: "assets/images/toolbar/resource-manager.png"},
+        {name: "character_generator", path: "assets/images/toolbar/character-generator.png"}
+      ],
+      [
+        {name: "play_test", path: "assets/images/toolbar/play.png"}
+      ]
+    ]
   },
   default_lang: "zh"
 }
