@@ -1,3 +1,6 @@
+import Dva, { connect } from 'dva';
+
+
 // 初始化配置
 function initializeConfig(){
 
@@ -16,6 +19,18 @@ function initializeConfig(){
     app: app_config,
     i18n: i18n_config
   }
+}
+
+// 初始化 dva
+function initializeDva(){
+
+  // 载入 dva model
+  const ModelProject = require('./models/project').default;
+
+  // 初始化 dva app
+  const dva_app = Dva();
+  dva_app.model(ModelProject);
+  window.App.dva = dva_app;
 }
 
 // 初始化游戏数据
@@ -90,6 +105,7 @@ function main(){
   initializeGameData();
   initializeManagement();
   initializeAssets();
+  initializeDva();
   initializeReactComponent();
 }
 

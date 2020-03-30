@@ -1,14 +1,15 @@
 import React from "react";
 
 // dva init
-import Dva, { connect } from 'dva';
-import ModelProject from '../models/project'
+import { connect } from 'dva';
+// import ModelProject from '../models/project'
+
 import AppHeaderInit from './header';
 import AppBodyInit from './body';
 import AppFooterInit from './footer';
 
-const dva_app = Dva();
-dva_app.model(ModelProject);
+// const dva_app = Dva();
+// dva_app.model(ModelProject);
 
 // render 组件初始化入口函数
 function renderComponentsEntry() {
@@ -25,24 +26,24 @@ function renderComponentsEntry() {
   }))(
     AppHeaderInit
   );
-  dva_app.router(() => <DvaHeader />);
-  dva_app.start('header');
+  App.dva.router(() => <DvaHeader />);
+  App.dva.start('header');
 
   const DvaBody = connect(({ project }) => ({
     project,
   }))(
     AppBodyInit
   );
-  dva_app.router(() => <DvaBody />);
-  dva_app.start('#container');
+  App.dva.router(() => <DvaBody />);
+  App.dva.start('#container');
 
   const DvaFooter = connect(({ project }) => ({
     project,
   }))(
     AppFooterInit
   );
-  dva_app.router(() => <DvaFooter />);
-  dva_app.start('footer');
+  App.dva.router(() => <DvaFooter />);
+  App.dva.start('footer');
 };
 
 renderComponentsEntry();
