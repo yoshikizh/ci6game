@@ -3,7 +3,9 @@ import React from "react";
 // dva init
 import Dva, { connect } from 'dva';
 import ModelProject from '../models/project'
-import {AppHeaderInit, AppBodyInit, AppFooterInit} from "./app_init";
+import AppHeaderInit from './header';
+import AppBodyInit from './body';
+import AppFooterInit from './footer';
 
 const dva_app = Dva();
 dva_app.model(ModelProject);
