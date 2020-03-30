@@ -31,15 +31,22 @@ export default {
     current_map: getCurrentMapInfo()
   },
   reducers: {
-    set_mode_event: (state) => {
-      state.current_mode = "event";
+    setCurrentModeToEvent: (state) => {
+      state.session.current_mode = "event";
       return _.clone(state);
     },
-    set_current_zoom: (state,params) => {
-      // console.log("set_current_zoom called");
-      // console.log(state,params);
-      state.current_zoom += params.n;
+    setCurrentModeToMap: (map) => {
+      state.session.current_mode = "map";
       return _.clone(state);
     },
+    setCurrentMapZoom: (state,params) => {
+      state.session.current_zoom += params.n;
+      return _.clone(state);
+    },
+    setCurrentCursorPos: (pos) => {
+      state.session.current_cursor_pos = pos;
+      return _.clone(state);
+    },
+
   }
 }

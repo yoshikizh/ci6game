@@ -1,6 +1,6 @@
 import React from "react";
 
-export const AppBodyInit = (props) => {
+const AppBodyInit = (props) => {
   return (
     <div id="container-wrapper" class="flex flex-row">
       <div id="container-tool-area">
@@ -10,7 +10,6 @@ export const AppBodyInit = (props) => {
         </div>
       </div>
       <div id="container-map-area"></div>
-
     </div>
   )
 }
