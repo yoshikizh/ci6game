@@ -6,6 +6,12 @@ const webpack = require('webpack');
 const env = process.env.NODE_ENV;
 const isDev = env === "development";
 
+const extractScss = new ExtractTextPlugin({
+    filename: "[name].[contenthash].css",
+    disable: isDev
+});
+
+
 const config = {
   target: 'web',
   entry: {
@@ -35,33 +41,25 @@ const config = {
       }, 
       {
         test: /\.scss$/,
-        use: [{
-          loader: "style-loader"
-        }, {
-          loader: "css-loader"
-        }, {
-          loader: "sass-loader"
-        }]
+        use: extractScss.extract({
+            use: [{
+                loader: "css-loader"
+            }, {
+                loader: "sass-loader"
+            }],
+            // use style-loader in development
+            fallback: "style-loader"
+        })
       },
       {
-        // test: /\.(png|jpg|gif)$/,
-        // use: [
-        //   {
-        //     loader: 'url-loader',
-        //     options: {
-        //       limit: 10240
-        //     }
-        //   }
-        // ]
-
         test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
           'file-loader',
           {
             loader: 'image-webpack-loader',
             options: {
-              bypassOnDebug: true, // webpack@1.x
-              disable: true, // webpack@2.x and newer
+              bypassOnDebug: true,
+              disable: true,
             },
           },
         ]

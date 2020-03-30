@@ -9,16 +9,13 @@ function buildToolbarImages(){
       arr.push(<a key={"a"+index+_index}><img src={require("../"+obj.path).default} /></a>);
     })
     if (index < images_length - 1) {
-      arr.push(<span class="toolbar-split-line" key={"span"+index}></span>);
+      arr.push(<span class="split-vertical-line" key={"span"+index}></span>);
     }
   });
   return arr;
 }
 
 export const AppHeaderInit = (props) => {
-
-  console.log(buildToolbarImages());
-
   return (
     <div id="header-wrapper" class="flex flex-row flex-row-between flex-col-center">
       <div class="flex flex-row flex-col-center">
@@ -34,18 +31,21 @@ export const AppHeaderInit = (props) => {
 
 export const AppBodyInit = (props) => {
   return (
-    <div>Body - {props.project.session.current_zoom}</div>
+    <div>Body</div>
   )
 }
 
 export const AppFooterInit = (props) => {
   const current_map = props.project.current_map;
   return (
-    <div id="footer-wrapper">
+    <div id="footer-wrapper" class="flex flex-row flex-row-start flex-col-center">
       <div id="map-status">
         ID:{current_map.id}:{current_map.name} ({current_map.width}x{current_map.height})
       </div>
-      <div id="map-zoom">{props.project.current_zoom}</div>
+      <div class="split-vertical-line"></div>
+      <div id="map-pos">{props.project.session.current_cursor_pos.join(",")}</div>
+      <div class="split-vertical-line"></div>
+      <div id="map-zoom">{props.project.session.current_zoom}%</div>
     </div>
   )
 }
