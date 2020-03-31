@@ -1,8 +1,12 @@
-
 #dva-app {width: 100%;}
 
+/* toolbar tiem 分割线 */
 .split-vertical-line {
-	width: 0px; border-left: 1px solid #8a929a; 
-	border-right: 1px solid #ffffff; 
-	margin-left: 10px; margin-right: 10px;
+	width: 0px; 
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-right-width: 1px;
+	border-right-style: solid;
+	margin-left: 10px; 
+	margin-right: 10px;
 }

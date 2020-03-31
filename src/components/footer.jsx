@@ -3,7 +3,7 @@ import React from "react";
 const AppFooterInit = (props) => {
   const current_map = App.dprops.project.current_map;
   return (
-    <div id="footer-wrapper" class="flex flex-row flex-col-center">
+    <div id="footer-wrapper" class="main-background-gradient flex flex-row flex-col-center">
       <div id="map-status">
         ID:{current_map.id}:{current_map.name} ({current_map.width}x{current_map.height})
       </div>
@@ -16,4 +16,3 @@ const AppFooterInit = (props) => {
 }
 
 export default AppFooterInit;
-

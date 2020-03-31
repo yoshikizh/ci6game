@@ -1,0 +1,91 @@
+$normal-font-color: #222222;
+$deep-font-color: #000000;
+$inverse-font-color: #ffffff;
+
+// 工具栏 item 激活背景色
+$background-toolbar-item-active: #ffffff;
+
+// 项目名称字体颜色
+$proj-name-color: #4f637d;
+
+$background-color-deep-gray: #b4bdc9;
+$background-color-highlight: #e4f0ff;
+
+$deep-border-color: #7a8088;
+$body-background-color: rgba(208,219,232,1);
+$header-footer-background-color: #d9e5f3;
+
+
+.background-toolbar-item-active {
+	background-color: $background-toolbar-item-active
+}
+
+.area-border-color {
+	border-color: $deep-border-color !important;
+}
+
+/* toolbar tiem 分割线 */
+.split-vertical-line {
+	border-left-color: #8a929a; 
+	border-right-color: #ffffff; 
+}
+
+.main-background-gradient {
+	background-color: $header-footer-background-color;
+	background: rgb(228,240,255);
+	background: -moz-linear-gradient(top,  rgba(228,240,255,1) 0%, rgba(208,219,232,1) 100%);
+	background: -webkit-linear-gradient(top,  rgba(228,240,255,1) 0%,rgba(208,219,232,1) 100%);
+	background: linear-gradient(to bottom,  rgba(228,240,255,1) 0%,rgba(208,219,232,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4f0ff', endColorstr='#d0dbe8',GradientType=0 );
+}
+
+#header-wrapper {
+	#header-proj {
+		color: $proj-name-color; font-weight: 900;
+	}
+	#header-toolbar {
+		a.active {
+			border-color: $deep-border-color !important; 
+			background-color: #ffffff; 
+		}
+		a {
+			&:hover {
+				@extend a.active
+			}
+		}
+	}
+	#header-user {
+
+	}
+}
+
+#container-wrapper {
+	#container-tool-area {
+		#container-tool-tileset-wrapper {
+			#container-tool-tileset {
+				border-color: $deep-border-color;
+			}
+			#container-tool-tileset-layer-tabs {
+				a {
+					border-color: $deep-border-color;
+					background-color: $background-color-deep-gray;
+				}
+				a:last-child { border-right-color: $deep-border-color; }
+				a:hover { background-color: $background-color-highlight; }
+				a.active { background-color: $background-color-highlight; }
+			}
+		}
+		#container-tool-maptree-wrapper {
+			border: 1px solid $deep-border-color;
+		}
+	}
+	#container-map-area {
+		border: 1px solid $deep-border-color;
+	}
+}
+
+
+
+
+
+

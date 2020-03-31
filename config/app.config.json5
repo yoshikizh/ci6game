@@ -1,9 +1,14 @@
 {
   default_proj_name: "New Project",
+  default_theme: "classics",
   interface_size: {
     header_height: 45,
     body_height: null,
     footer_height: 24,
+
+    // 区域间隔
+    area_margin: 5,  
+
     window_width: null,
     window_height: null
   },

@@ -20,7 +20,7 @@ function getDefaultSession(){
     current_manager: "map",
     current_draw: null,
     current_zoom: 100,
-    current_cursor_pos: [0,0]
+    current_cursor_pos: [0,0],
   }
 }
 

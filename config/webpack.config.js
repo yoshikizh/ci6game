@@ -11,7 +11,6 @@ const extractScss = new ExtractTextPlugin({
     disable: isDev
 });
 
-
 const config = {
   target: 'web',
   entry: {

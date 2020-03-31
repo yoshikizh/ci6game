@@ -84,6 +84,12 @@ function initializeManagement(){
 
 }
 
+// 初始化主题样式
+function initThemeStyle(){
+  const theme = App.config.app.default_theme;
+  require(`./assets/styles/scss/theme/${theme}.scss`);
+}
+
 // 初始化 React 组件
 function initializeReactComponent(){
 
@@ -106,6 +112,7 @@ function main(){
   initializeManagement();
   initializeAssets();
   initializeDva();
+  initThemeStyle();
   initializeReactComponent();
 }
 

@@ -1,0 +1,34 @@
+#container-wrapper {
+	#container-tool-area {
+		width: 256px;
+		#container-tool-tileset-wrapper {
+			#container-tool-tileset {
+				border-width: 1px;
+				border-style: solid;
+				border-left: none;
+			}
+			#container-tool-tileset-layer-tabs {
+				height: 30px;
+				a {
+					height: 28px; line-height:28px; 
+					border-width: 1px;
+					border-style: solid;
+					border-top: none; width: 40px; 
+					text-align: center;
+					cursor: pointer; border-right:none;
+				}
+				a:last-child { border-right-width: 1px; border-right-style:solid; }
+			}
+		}
+		#container-tool-maptree-wrapper {
+			border-width: 1px; 
+			border-style: solid;
+			border-left: none;
+		}
+	}
+	#container-map-area {
+		border-width: 1px; 
+		border-style: solid;
+		border-right: none;
+	}
+}
