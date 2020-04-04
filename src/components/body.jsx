@@ -34,7 +34,6 @@ const AppBodyInit = (props) => {
     // 分组 (8 index 一组)
     let groups = [];
     const tile_name_units = image_config.config.units;
-    const background_image = image_config.image;
 
     tile_name_units.forEach((tile_name,index) => {
       if (index % 8 === 0){
@@ -55,20 +54,60 @@ const AppBodyInit = (props) => {
         render_tilemaps.push(createTileEle(image_config,x,y))
       });
     });
-    return render_tilemaps;
   }
 
   function createTilemapA2(){
-    
+    const filename = tileset_filenames[1];
+    if ( filename === "") return;
+
+    const image_config = getTilemapConfig(filename)
+    const tile_name_units = image_config.config.units;
+
+    tile_name_units.forEach((tile_name,index) => {
+      const x = (index % 8) * (2 * 32);
+      const y = parseInt(index / 8) * (3 * 32);
+      render_tilemaps.push(createTileEle(image_config,x,y))
+    });
   }
   function createTilemapA3(){
-    
+    const filename = tileset_filenames[2];
+    if ( filename === "") return;
+
+    const image_config = getTilemapConfig(filename)
+    const tile_name_units = image_config.config.units;
+
+    tile_name_units.forEach((tile_name,index) => {
+      const x = (index % 8) * (2 * 32);
+      const y = parseInt(index / 8) * (2 * 32);
+      render_tilemaps.push(createTileEle(image_config,x,y))
+    });
   }
   function createTilemapA4(){
-    
+    const filename = tileset_filenames[3];
+    if ( filename === "") return;
+
+    const image_config = getTilemapConfig(filename)
+    const tile_name_units = image_config.config.units;
+
+    tile_name_units.forEach((tile_name,index) => {
+      const x = (index % 8) * (2 * 32);
+      const index_y = parseInt(index / 8);
+      const y = index_y % 2 === 0 ? (96 + 64) * index_y : (96 + 64) * index_y - 64;
+      render_tilemaps.push(createTileEle(image_config,x,y))
+    });
   }
   function createTilemapA5(){
-    
+    const filename = tileset_filenames[4];
+    if ( filename === "") return;
+
+    const image_config = getTilemapConfig(filename)
+    const tile_name_units = image_config.config.units;
+
+    tile_name_units.forEach((tile_name,index) => {
+      const x = (index % 8) * (1 * 32);
+      const y = parseInt(index / 8) * (1 * 32);
+      render_tilemaps.push(createTileEle(image_config,x,y))
+    });
   }
   function createTilemapB(){
     
@@ -97,8 +136,14 @@ const AppBodyInit = (props) => {
   }
 
   function createTilemapGrids(callback){
-    return createTilemapA1();
+    createTilemapA1();
+    createTilemapA2();
+    createTilemapA3();
+    createTilemapA4();
+    createTilemapA5();
   }
+
+  createTilemapGrids();
 
   return (
     <div id="container-wrapper" class="main-background-gradient flex flex-row">
@@ -106,7 +151,7 @@ const AppBodyInit = (props) => {
         <div id="container-tool-tileset-wrapper" class="area-border-color">
           <div id="container-tool-tileset">
             <div id="tilemap-grids-wrapper" class="flex flex-row flex-wrap">
-              {createTilemapGrids().map(div => div)}
+              {render_tilemaps.map(div => div)}
             </div>
           </div>
           <div id="container-tool-tileset-layer-tabs" class="inline-flex flex-row flex-row-center">
