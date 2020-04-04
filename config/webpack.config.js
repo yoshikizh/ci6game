@@ -51,6 +51,10 @@ const config = {
         })
       },
       {
+        test: /\.txt$/,
+        use: 'raw-loader',
+      },
+      {
         test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
           'file-loader',

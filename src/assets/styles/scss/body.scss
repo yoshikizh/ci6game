@@ -1,11 +1,14 @@
 #container-wrapper {
 	#container-tool-area {
-		width: 256px;
+		width: 257px;
 		#container-tool-tileset-wrapper {
 			#container-tool-tileset {
 				border-width: 1px;
 				border-style: solid;
 				border-left: none;
+				overflow-y: auto;
+				background-image: url(../../images/tileset-back-grid.png);
+				background-repeat: repeat;
 			}
 			#container-tool-tileset-layer-tabs {
 				height: 30px;

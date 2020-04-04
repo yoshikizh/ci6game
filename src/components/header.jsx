@@ -6,7 +6,7 @@ const AppHeaderInit = (props) => {
     <div id="header-wrapper" class="main-background-gradient flex flex-row flex-row-between flex-col-center">
       <div class="flex flex-row flex-col-center">
         <div id="header-proj">{App.dprops.project.session.proj_name}</div>
-        <Toolbar cc="123"/>
+        <Toolbar/>
       </div>
       <div id="header-user">Guest</div>
     </div>

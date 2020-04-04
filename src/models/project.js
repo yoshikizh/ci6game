@@ -5,11 +5,17 @@ function getCurrentMapInfo(){
   const map_info = game_data.map_infos[1];
   const map_id = map_info.id;
   const game_map = game_data.maps[map_id];
+
+  const tileset_id = game_data.maps[map_id].tilesetId;
+  const tileset = game_data.tilesets[tileset_id];
+  const tileset_filenames = tileset.tilesetNames;
+
   return {
     id: map_id,
     name: map_info.name,
     width: game_map.width,
-    height: game_map.height
+    height: game_map.height,
+    tileset_filenames: tileset_filenames
   }
 }
 

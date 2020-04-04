@@ -23,7 +23,7 @@ function calcWrapperSizeStyle(){
   dom_container.style.height = `${interface_size.body_height}px`;
   dom_footer.style.height = `${interface_size.footer_height}px`;
 
-  dom_container_map_area.style.width = `${interface_size.window_width - area_margin - 2}px`;
+  dom_container_map_area.style.width = `${interface_size.window_width - 257 - area_margin - 2}px`;
   dom_container_map_area.style.marginLeft = `${area_margin}px`;
 
   // 22 是区域按钮bar 高度
