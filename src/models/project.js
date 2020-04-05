@@ -50,10 +50,14 @@ export default {
       state.session.current_zoom += params.n;
       return _.clone(state);
     },
-    setCurrentCursorPos: (pos) => {
+    setCurrentCursorPos: (state,pos) => {
       state.session.current_cursor_pos = pos;
       return _.clone(state);
     },
+    setCurrentTilemapTab: (state,params) => {
+      state.session.current_tile_set = params.tab;
+      return _.clone(state);
+    }
 
   }
 }

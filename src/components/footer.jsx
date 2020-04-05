@@ -1,18 +1,20 @@
 import React from "react";
+import { connect } from 'dva';
 
 const AppFooterInit = (props) => {
-  const current_map = App.dprops.project.current_map;
+  const current_map = props.status_bar.map;
   return (
-    <div id="footer-wrapper" class="main-background-gradient flex flex-row flex-col-center">
+    <div id="footer-wrapper" className="main-background-gradient flex flex-row flex-col-center">
       <div id="map-status">
         ID:{current_map.id}:{current_map.name} ({current_map.width}x{current_map.height})
       </div>
-      <div class="split-vertical-line"></div>
-      <div id="map-pos">{App.dprops.project.session.current_cursor_pos.join(",")}</div>
-      <div class="split-vertical-line"></div>
-      <div id="map-zoom">{App.dprops.project.session.current_zoom}%</div>
+      <div className="split-vertical-line"></div>
+      <div id="map-pos">{props.status_bar.cursor_pos.join(",")}</div>
+      <div className="split-vertical-line"></div>
+      <div id="map-zoom">{props.status_bar.zoom}%</div>
     </div>
   )
 }
 
-export default AppFooterInit;
+export default connect(({ status_bar }) => ({ status_bar }))(AppFooterInit);
+

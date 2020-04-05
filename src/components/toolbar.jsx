@@ -9,7 +9,7 @@ function buildToolbarImages(){
       arr.push(<a key={"a"+index+_index}><img src={require("../"+obj.path).default} /></a>);
     })
     if (index < images_length - 1) {
-      arr.push(<span class="split-vertical-line" key={"span"+index}></span>);
+      arr.push(<span className="split-vertical-line" key={"span"+index}></span>);
     }
   });
   return arr;
@@ -17,7 +17,7 @@ function buildToolbarImages(){
 
 const Toolbar = (props) => {
   return (
-    <div id="header-toolbar" class="inline-flex flex-row flex-col-center">
+    <div id="header-toolbar" className="inline-flex flex-row flex-col-center">
       { buildToolbarImages().map(ele => ele )}
     </div>
   )

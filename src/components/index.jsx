@@ -57,13 +57,14 @@ function initComponentsEntry() {
     )
   }
 
-  const DvaAppInit = connect(({ project }) => ({
-    project,
-  }))(
-    ComponentsIndex
-  );
+  // const DvaAppInit = connect(({ toolbar }) => ({
+  //   toolbar
+  // }))(
+  //   ComponentsIndex
+  // );
 
-  App.dva.router(() => <DvaAppInit />);
+  App.dva.router(ComponentsIndex);
+  // App.dva.router(() => <DvaAppInit />);
   App.dva.start("#dva-app");
 };
 
