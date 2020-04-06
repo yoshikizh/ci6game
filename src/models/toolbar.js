@@ -8,13 +8,30 @@ export default {
     current_manager: "map",
     current_draw: null
   },
+
+  effects: {
+    * callTool ({ params }, { call, put, select }) {
+      const tool_name = params.tool_name;
+      const current_mode = yield select(state => state.toolbar.current_mode);
+
+      if (["map_edit","event"].includes(tool_name)){
+        yield put({ type: 'setCurrentMode', mode: tool_name });
+        yield put({ type: 'setCurrentDraw', draw: null });
+      }
+      if (["pencil","square","ellipse","fill","shadow_pen"].includes(tool_name)){
+        yield put({ type: 'setCurrentDraw', draw: current_mode === "map_edit" ? tool_name : null })
+      }
+    }
+  },
+
   reducers: {
-    setCurrentModeToEvent: (state) => {
-      state.current_mode = "event";
+    setCurrentMode: (state, params) => {
+      state.current_mode = params.mode;
       return _.clone(state);
     },
-    setCurrentModeToMap: (map) => {
-      state.current_mode = "map";
+    setCurrentDraw: (state, params) => {
+      console.log("s",params)
+      state.current_draw = params.draw;
       return _.clone(state);
     }
   }

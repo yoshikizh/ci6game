@@ -1,4 +1,5 @@
 import Dva, { connect } from 'dva';
+import "@babel/polyfill";
 
 
 // 初始化配置
