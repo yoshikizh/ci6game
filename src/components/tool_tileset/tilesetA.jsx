@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from 'dva';
+import { getTilemapConfig, createTileEle } from "./utils";
 
 const TilesetA = (props) => {
 
@@ -17,25 +18,6 @@ const TilesetA = (props) => {
     if (filename3 !== "") createTilemapA3();
     if (filename4 !== "") createTilemapA4();
     if (filename5 !== "") createTilemapA5();
-  }
-
-  const getTilemapConfig = (filename) => {
-    const image_config = App.config.tileset_names[filename];
-    const image = require(`../../assets/rtp/tilesets/${filename}.png`).default;
-    return { image: image, config: image_config };
-  }
-
-  const createTileEle = (image_config, x, y, key) => {
-    const width = image_config.config.width / 1.5;
-    const height = image_config.config.height / 1.5;
-    const style = {
-      backgroundImage: `url(${image_config.image})`,
-      backgroundPosition: `-${x}px -${y}px`,
-      backgroundSize: `${width}px ${height}px`
-    };
-    return(
-      <div key={key} className="tilemap-grid" style={style}></div>
-    );
   }
 
   const createTilemapA1 = () => {
