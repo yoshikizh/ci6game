@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from 'dva';
 
 const TabTileset = (props) => {
-
   const handleClick = (tab) => {
     props.dispatch({
       type: 'tool_tileset/setTab',

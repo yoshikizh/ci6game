@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { connect } from 'dva';
-import { getTilemapConfig, createTileEle } from "./utils";
+import { getTilemapConfig } from "./utils";
 
 const TilesetA = (props) => {
+
+  const [cursor_id, setCursorId] = useState(null);
 
   const render_tilemaps = [];
   const filename1 = props.tool_tileset.tileset_filenames[0];
@@ -18,6 +20,29 @@ const TilesetA = (props) => {
     if (filename3 !== "") createTilemapA3();
     if (filename4 !== "") createTilemapA4();
     if (filename5 !== "") createTilemapA5();
+  }
+
+  const onClickHandle = (cursor_id) => {
+    setCursorId(cursor_id);
+  };
+
+  const createTileEle = (image_config, x, y, key) => {
+    const width = image_config.config.width / 1.5;
+    const height = image_config.config.height / 1.5;
+    const style = {
+      backgroundImage: `url(${image_config.image})`,
+      backgroundPosition: cursor_id === key ? `-${x+3}px -${y+3}px` : `-${x}px -${y}px`,
+      backgroundSize: `${width}px ${height}px`,
+
+      border: cursor_id === key ? "3px solid black" : "none",
+      width: cursor_id === key ? "26px" : "32px",
+      height: cursor_id === key ? "26px" : "32px",
+      lineHeight: cursor_id === key ? "26px" : "32px"
+
+    };
+    return(
+      <div onClick={onClickHandle.bind(this,key)} key={key} className="tilemap-grid" style={style}></div>
+    );
   }
 
   const createTilemapA1 = () => {
@@ -44,12 +69,12 @@ const TilesetA = (props) => {
         if ([5,7].includes(tilename_index)) x = 14 * 32;
         if ([2,3,6,7].includes(tilename_index)) y += 96;
         const key = `A1_${index}_${tilename_index}_${x}_${y}`
-        render_tilemaps.push(createTileEle(image_config,x,y,key))
+        render_tilemaps.push(createTileEle(image_config,x,y,key));
       });
     });
   }
 
-  function createTilemapA2(){
+  const createTilemapA2 = () => {
     const image_config = getTilemapConfig(filename2);
     const tile_name_units = image_config.config.units;
 
@@ -57,10 +82,11 @@ const TilesetA = (props) => {
       const x = (index % 8) * (2 * 32);
       const y = parseInt(index / 8) * (3 * 32);
       const key = `A2_${index}_${x}_${y}`
-      render_tilemaps.push(createTileEle(image_config,x,y,key))
+      render_tilemaps.push(createTileEle(image_config,x,y,key));
     });
   }
-  function createTilemapA3(){
+
+  const createTilemapA3 = () => {
     const image_config = getTilemapConfig(filename3)
     const tile_name_units = image_config.config.units;
 
@@ -68,10 +94,11 @@ const TilesetA = (props) => {
       const x = (index % 8) * (2 * 32);
       const y = parseInt(index / 8) * (2 * 32);
       const key = `A3_${index}_${x}_${y}`
-      render_tilemaps.push(createTileEle(image_config,x,y,key))
+      render_tilemaps.push(createTileEle(image_config,x,y,key));
     });
   }
-  function createTilemapA4(){
+
+  const createTilemapA4 = () => {
     const image_config = getTilemapConfig(filename4);
     const tile_name_units = image_config.config.units;
 
@@ -80,10 +107,11 @@ const TilesetA = (props) => {
       const index_y = parseInt(index / 8);
       const y = index_y % 2 === 0 ? (96 + 64) * index_y : (96 + 64) * index_y - 64;
       const key = `A4_${index}_${x}_${y}`
-      render_tilemaps.push(createTileEle(image_config,x,y,key))
+      render_tilemaps.push(createTileEle(image_config,x,y,key));
     });
   }
-  function createTilemapA5(){
+
+  const createTilemapA5 = () => {
     const image_config = getTilemapConfig(filename5)
     const tile_name_units = image_config.config.units;
 
@@ -91,7 +119,7 @@ const TilesetA = (props) => {
       const x = (index % 8) * (1 * 32);
       const y = parseInt(index / 8) * (1 * 32);
       const key = `A5_${index}_${x}_${y}`
-      render_tilemaps.push(createTileEle(image_config,x,y,key))
+      render_tilemaps.push(createTileEle(image_config,x,y,key));
     });
   }
 
