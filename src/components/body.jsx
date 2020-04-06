@@ -1,5 +1,5 @@
 import React from "react";
-import ToolTileset from "./tool_tileset";
+import ToolTileset from "./tool_tileset/index";
 import MapTree from "./map_tree";
 
 const AppBodyInit = (props) => {
