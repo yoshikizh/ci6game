@@ -18,11 +18,16 @@ export default {
   namespace: "tool_tileset",
   state: {
     current_tab: 'A',
+    selected_tile_id: null,
     tileset_filenames: getCurrentMapTilesetNames()
   },
   reducers: {
     setTab: (state,params) => {
       state.current_tab = params.tab;
+      return _.clone(state);
+    },
+    selectTile: (state, params) => {
+      state.selected_tile_id = params.tile_id;
       return _.clone(state);
     }
   }

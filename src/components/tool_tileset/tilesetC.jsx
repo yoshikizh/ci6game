@@ -9,24 +9,29 @@ const TilesetC = (props) => {
   const render_tilemaps = [];
   const filename = props.tool_tileset.tileset_filenames[6];
 
-  const onClickHandle = (cursor_id) => {
-    setCursorId(cursor_id);
+  const onClickHandle = (tile_id) => {
+    props.dispatch({
+      type: 'tool_tileset/selectTile',
+      tile_id: tile_id
+    });
   };
 
   const createTileEle = (image_config, x, y, key) => {
     const width = image_config.config.width / 1.5;
     const height = image_config.config.height / 1.5;
+    const tile_id = props.tool_tileset.selected_tile_id;
+
     const style = {
       backgroundImage: `url(${image_config.image})`,
-      backgroundPosition: cursor_id === key ? `-${x+3}px -${y+3}px` : `-${x}px -${y}px`,
+      backgroundPosition: tile_id === key ? `-${x+3}px -${y+3}px` : `-${x}px -${y}px`,
       backgroundSize: `${width}px ${height}px`,
 
-      border: cursor_id === key ? "3px solid black" : "none",
-      width: cursor_id === key ? "26px" : "32px",
-      height: cursor_id === key ? "26px" : "32px",
-      lineHeight: cursor_id === key ? "26px" : "32px"
-
+      border: tile_id === key ? "3px solid black" : "none",
+      width: tile_id === key ? "26px" : "32px",
+      height: tile_id === key ? "26px" : "32px",
+      lineHeight: tile_id === key ? "26px" : "32px"
     };
+    
     return(
       <div onClick={onClickHandle.bind(this,key)} key={key} className="tilemap-grid" style={style}></div>
     );

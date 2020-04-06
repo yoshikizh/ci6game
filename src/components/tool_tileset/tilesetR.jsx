@@ -3,21 +3,21 @@ import { connect } from 'dva';
 
 const TilesetR = (props) => {
 
-  const [cursorindex, setCursorindex] = useState(null);
-
+  // const [cursorindex, setCursorindex] = useState(null);
   const tag_blocks = [];
   const filename = props.tool_tileset.tileset_filenames[6];
 
   const createBlock = (index,x,y,key) => {
+    const tile_id = props.tool_tileset.selected_tile_id;
     const style = {
       textAlign: "center",
       color: "white",
       cursor: "default",
       fontSize: "13px",
-      border: cursorindex === index ? "3px solid black" : "none",
-      width: cursorindex === index ? "26px" : "32px",
-      height: cursorindex === index ? "26px" : "32px",
-      lineHeight: cursorindex === index ? "26px" : "32px"
+      border: tile_id === key ? "3px solid black" : "none",
+      width: tile_id === key ? "26px" : "32px",
+      height: tile_id === key ? "26px" : "32px",
+      lineHeight: tile_id === key ? "26px" : "32px"
     };
 
     if (index > 0) {
@@ -66,7 +66,7 @@ const TilesetR = (props) => {
     };
 
     return(
-      <div key={key} onClick={onClickHandle.bind(this,index)} className="tilemap-grid" style={style}>{index === 0 ? '' : index}</div>
+      <div key={key} onClick={onClickHandle.bind(this,key)} className="tilemap-grid" style={style}>{index === 0 ? '' : index}</div>
     );
   };
 
@@ -79,8 +79,11 @@ const TilesetR = (props) => {
     };
   };
 
-  const onClickHandle = (index) => {
-    setCursorindex(index);
+  const onClickHandle = (tile_id) => {
+    props.dispatch({
+      type: 'tool_tileset/selectTile',
+      tile_id: tile_id
+    });
   };
 
   createTagBlocks();
