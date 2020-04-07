@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { connect } from 'dva';
 
 const TilesetR = (props) => {
-
-  // const [cursorindex, setCursorindex] = useState(null);
   const tag_blocks = [];
-  const filename = props.tool_tileset.tileset_filenames[6];
 
   const createBlock = (index,x,y,key) => {
     const tile_id = props.tool_tileset.selected_tile_id;

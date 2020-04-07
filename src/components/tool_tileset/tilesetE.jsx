@@ -7,7 +7,7 @@ const TilesetC = (props) => {
   const [cursor_id, setCursorId] = useState(null);
 
   const render_tilemaps = [];
-  const filename = props.tool_tileset.tileset_filenames[6];
+  const filename = props.tool_tileset.tileset_filenames[8];
 
   const onClickHandle = (tile_id) => {
     props.dispatch({
