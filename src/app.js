@@ -28,16 +28,17 @@ function initializeConfig(){
 function initializeDva(){
 
   // 载入 dva model
-  // const ModelProject = require('./models/project').default;
   const ModelStatusBar = require('./models/status_bar').default;
   const ModelToolTileset = require('./models/tool_tileset').default;
   const ModelToolbar = require('./models/toolbar').default;
+  const ModelMapTree = require('./models/map_tree').default;
 
   // 初始化 dva app
   const dva_app = Dva();
   dva_app.model(ModelStatusBar);
   dva_app.model(ModelToolTileset);
   dva_app.model(ModelToolbar);
+  dva_app.model(ModelMapTree);
   window.App.dva = dva_app;
 }
 

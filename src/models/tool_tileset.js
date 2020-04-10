@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-function getCurrentMapTilesetNames(){
+const getCurrentMapTilesetNames = () => {
   const game_data = App.game_data;
   const map_info = game_data.map_infos[1];
   const map_id = map_info.id;

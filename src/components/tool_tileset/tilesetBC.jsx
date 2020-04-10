@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { connect } from 'dva';
 import { getTilemapConfig } from "./utils";
 
@@ -10,7 +10,7 @@ const TilesetBC = (props) => {
     "C": 6
   };
 
-  const [cursor_id, setCursorId] = useState(null);
+  // const [cursor_id, setCursorId] = useState(null);
 
   const render_tilemaps = [];
   const filename = props.tool_tileset.tileset_filenames[tab_index_hash[tab]];

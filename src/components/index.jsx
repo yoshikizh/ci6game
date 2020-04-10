@@ -46,7 +46,7 @@ function calcWrapperSizeStyle(){
 function initComponentsEntry() {
 
   const ComponentsIndex = (props) => {
-    App.dprops = props;
+    // App.dprops = props;
 
     return (
       <>

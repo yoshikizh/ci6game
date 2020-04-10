@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { connect } from 'dva';
 import { getTilemapConfig } from "./utils";
 
@@ -10,7 +10,7 @@ const TilesetDE = (props) => {
     "E": 8
   };
 
-  const [cursor_id, setCursorId] = useState(null);
+  // const [cursor_id, setCursorId] = useState(null);
 
   const render_tilemaps = [];
   const filename = props.tool_tileset.tileset_filenames[tab_index_hash[tab]];
@@ -58,12 +58,11 @@ const TilesetDE = (props) => {
       if (group_index === 0){
         x = (index % 8) * (1 * 32);
         y = parseInt(index / 8) * (1 * 32);
-        key = `${tab}_${index}_${x}_${y}`
       } else {
         x = (map_width / 2) + (index % 8) * (1 * 32);
         y = parseInt((index % group_nums) / 8) * (1 * 32);
       }
-
+      key = `${tab}_${index}_${x}_${y}`
       render_tilemaps.push(createTileEle(image_config,x,y,key));
     });
 
