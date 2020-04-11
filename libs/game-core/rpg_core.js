@@ -3792,7 +3792,7 @@ TouchInput._onMouseUp = function(event) {
 TouchInput._onWheel = function(event) {
     this._events.wheelX += event.deltaX;
     this._events.wheelY += event.deltaY;
-    event.preventDefault();
+    // event.preventDefault();
 };
 
 /**

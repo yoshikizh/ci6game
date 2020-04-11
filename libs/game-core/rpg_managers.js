@@ -46,20 +46,20 @@ DataManager._lastAccessedId = 1;
 DataManager._errorUrl       = null;
 
 DataManager._databaseFiles = [
-    { name: '$dataActors',       src: 'Actors.json'       },
-    { name: '$dataClasses',      src: 'Classes.json'      },
-    { name: '$dataSkills',       src: 'Skills.json'       },
-    { name: '$dataItems',        src: 'Items.json'        },
-    { name: '$dataWeapons',      src: 'Weapons.json'      },
-    { name: '$dataArmors',       src: 'Armors.json'       },
-    { name: '$dataEnemies',      src: 'Enemies.json'      },
-    { name: '$dataTroops',       src: 'Troops.json'       },
-    { name: '$dataStates',       src: 'States.json'       },
-    { name: '$dataAnimations',   src: 'Animations.json'   },
-    { name: '$dataTilesets',     src: 'Tilesets.json'     },
-    { name: '$dataCommonEvents', src: 'CommonEvents.json' },
-    { name: '$dataSystem',       src: 'System.json'       },
-    { name: '$dataMapInfos',     src: 'MapInfos.json'     }
+    { name: '$dataActors',       src: 'Actors.json'       ,key: 'actors'},
+    { name: '$dataClasses',      src: 'Classes.json'      ,key: 'classes'},
+    { name: '$dataSkills',       src: 'Skills.json'       ,key: 'skills'},
+    { name: '$dataItems',        src: 'Items.json'        ,key: 'items'},
+    { name: '$dataWeapons',      src: 'Weapons.json'      ,key: 'weapons'},
+    { name: '$dataArmors',       src: 'Armors.json'       ,key: 'armors'},
+    { name: '$dataEnemies',      src: 'Enemies.json'      ,key: 'enemies'},
+    { name: '$dataTroops',       src: 'Troops.json'       ,key: 'troops'},
+    { name: '$dataStates',       src: 'States.json'       ,key: 'states'},
+    { name: '$dataAnimations',   src: 'Animations.json'   ,key: 'animations'},
+    { name: '$dataTilesets',     src: 'Tilesets.json'     ,key: 'tilesets'},
+    { name: '$dataCommonEvents', src: 'CommonEvents.json' ,key: 'common_events'},
+    { name: '$dataSystem',       src: 'System.json'       ,key: 'system'},
+    { name: '$dataMapInfos',     src: 'MapInfos.json'     ,key: 'map_infos'}
 ];
 
 DataManager.loadDatabase = function() {
@@ -68,12 +68,19 @@ DataManager.loadDatabase = function() {
     for (var i = 0; i < this._databaseFiles.length; i++) {
         var name = this._databaseFiles[i].name;
         var src = this._databaseFiles[i].src;
-        this.loadDataFile(name, prefix + src);
+        var key = this._databaseFiles[i].key;
+        // this.loadDataFile(name, prefix + src,key);
+        this.loadDataFileFromApp(name,key);
     }
     if (this.isEventTest()) {
         this.loadDataFile('$testEvent', prefix + 'Event.json');
     }
 };
+
+DataManager.loadDataFileFromApp = function(name,key) {
+    window[name] = App.game_data[key];
+    DataManager.onLoad(window[name]);
+}
 
 DataManager.loadDataFile = function(name, src) {
     var xhr = new XMLHttpRequest();
@@ -1797,6 +1804,7 @@ SceneManager._deltaTime = 1.0 / 60.0;
 if (!Utils.isMobileSafari()) SceneManager._currentTime = SceneManager._getTimeInMsWithoutMobileSafari();
 SceneManager._accumulator = 0.0;
 
+// 入口执行函数
 SceneManager.run = function(sceneClass) {
     try {
         this.initialize();
@@ -1807,6 +1815,7 @@ SceneManager.run = function(sceneClass) {
     }
 };
 
+// 初始化函数
 SceneManager.initialize = function() {
     this.initGraphics();
     this.checkFileAccess();
@@ -1817,6 +1826,7 @@ SceneManager.initialize = function() {
     this.setupErrorHandlers();
 };
 
+// 初始化图形设置, webgl , canvas,  绘图窗口高, 宽, 显示 loading 图片, fps等.
 SceneManager.initGraphics = function() {
     var type = this.preferableRendererType();
     Graphics.initialize(this._screenWidth, this._screenHeight, type);
@@ -1831,6 +1841,7 @@ SceneManager.initGraphics = function() {
     }
 };
 
+// 获取渲染模式 (从 url query 参数中获取)
 SceneManager.preferableRendererType = function() {
     if (Utils.isOptionValid('canvas')) {
         return 'canvas';
@@ -1841,22 +1852,26 @@ SceneManager.preferableRendererType = function() {
     }
 };
 
+// 手机不使用 webgl 渲染
 SceneManager.shouldUseCanvasRenderer = function() {
     return Utils.isMobileDevice();
 };
 
+// 检测浏览器是否支持 webgl
 SceneManager.checkWebGL = function() {
     if (!Graphics.hasWebGL()) {
         throw new Error('Your browser does not support WebGL.');
     }
 };
 
+// 检测是否可读取文件
 SceneManager.checkFileAccess = function() {
     if (!Utils.canReadGameFiles()) {
         throw new Error('Your browser does not allow to read local files.');
     }
 };
 
+// 初始化音频
 SceneManager.initAudio = function() {
     var noAudio = Utils.isOptionValid('noaudio');
     if (!WebAudio.initialize(noAudio) && !noAudio) {
@@ -1864,11 +1879,13 @@ SceneManager.initAudio = function() {
     }
 };
 
+// 初始化input输入
 SceneManager.initInput = function() {
     Input.initialize();
     TouchInput.initialize();
 };
 
+// 初始化 nw
 SceneManager.initNwjs = function() {
     if (Utils.isNwjs()) {
         var gui = require('nw.gui');
@@ -1882,21 +1899,25 @@ SceneManager.initNwjs = function() {
     }
 };
 
+// 检测插件 error
 SceneManager.checkPluginErrors = function() {
     PluginManager.checkErrors();
 };
 
+// 处理 Error
 SceneManager.setupErrorHandlers = function() {
     window.addEventListener('error', this.onError.bind(this));
     document.addEventListener('keydown', this.onKeyDown.bind(this));
 };
 
+// 请求更新 (每帧调用)
 SceneManager.requestUpdate = function() {
     if (!this._stopped) {
         requestAnimationFrame(this.update.bind(this));
     }
 };
 
+// 更新核心 (每帧调用)
 SceneManager.update = function() {
     try {
         this.tickStart();
@@ -1911,10 +1932,12 @@ SceneManager.update = function() {
     }
 };
 
+// 结束场景
 SceneManager.terminate = function() {
     window.close();
 };
 
+// 错误回调监听函数
 SceneManager.onError = function(e) {
     console.error(e.message);
     console.error(e.filename, e.lineno);
@@ -1926,6 +1949,7 @@ SceneManager.onError = function(e) {
     }
 };
 
+// 按键监听
 SceneManager.onKeyDown = function(event) {
     if (!event.ctrlKey && !event.altKey) {
         switch (event.keyCode) {
@@ -1943,6 +1967,7 @@ SceneManager.onKeyDown = function(event) {
     }
 };
 
+// 异常抓取
 SceneManager.catchException = function(e) {
     if (e instanceof Error) {
         Graphics.printError(e.name, e.message);
@@ -1954,19 +1979,23 @@ SceneManager.catchException = function(e) {
     this.stop();
 };
 
+// 图形渲染开始
 SceneManager.tickStart = function() {
     Graphics.tickStart();
 };
 
+// 图形渲染end
 SceneManager.tickEnd = function() {
     Graphics.tickEnd();
 };
 
+// 更新输入Input (每帧调用)
 SceneManager.updateInputData = function() {
     Input.update();
     TouchInput.update();
 };
 
+// 更新主函数 (每帧调用)
 SceneManager.updateMain = function() {
     if (Utils.isMobileSafari()) {
         this.changeScene();

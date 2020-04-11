@@ -45,7 +45,7 @@ function initializeDva(){
 // 初始化游戏数据
 function initializeGameData(){
   const data_actors = require(`../data/Actors.json5`);               // 角色数据
-  const data_classes = require(`../data/Animations.json5`);          // 职业数据
+  const data_classes = require(`../data/Classes.json5`);             // 职业数据
   const data_weapons = require(`../data/Weapons.json5`);             // 武器数据
   const data_armors = require(`../data/Armors.json5`);               // 防具数据
   const data_skills = require(`../data/Skills.json5`);               // 技能数据
