@@ -14,7 +14,6 @@ const extractScss = new ExtractTextPlugin({
 const config = {
   target: 'web',
   entry: {
-    libs: ['./libs/pixi.js'],
     app: './src/app.js'
   },
   output: {
