@@ -113,6 +113,11 @@ function initializeAssets(){
   require("./assets/styles/scss/app.scss");
 }
 
+// 初始化 PIXI 模块
+function initGameCore(){
+  require("./models/game/index");
+}
+
 // 入口函数
 function main(){
   window.App = new Object();
@@ -123,6 +128,7 @@ function main(){
   initializeDva();
   initThemeStyle();
   initializeReactComponent();
+  initGameCore();
 }
 
 window.addEventListener('load', function () {
