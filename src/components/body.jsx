@@ -11,7 +11,11 @@ const AppBodyInit = (props) => {
         <MapTree />
 
       </div>
-      <div id="container-map-area" className="area-border-color"></div>
+      <div id="container-map-area" className="area-border-color">
+
+      	<div id="rmmv-map-editor"></div>
+      	<div id="rmmv-player"></div>
+      </div>
     </div>
   )
 }
