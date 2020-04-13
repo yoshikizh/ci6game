@@ -78,7 +78,11 @@ DataManager.loadDatabase = function() {
 };
 
 DataManager.loadDataFileFromApp = function(name,key) {
-    window[name] = App.game_data[key];
+    if (name === '$dataMap'){
+        window[name] = App.game_data.maps[key];
+    } else {
+        window[name] = App.game_data[key];
+    }
     DataManager.onLoad(window[name]);
 }
 
@@ -113,8 +117,7 @@ DataManager.isDatabaseLoaded = function() {
 DataManager.loadMapData = function(mapId) {
     if (mapId > 0) {
         var filename = 'Map%1.json'.format(mapId.padZero(3));
-        this._mapLoader = ResourceHandler.createLoader('data/' + filename, this.loadDataFile.bind(this, '$dataMap', filename));
-        this.loadDataFile('$dataMap', filename);
+        this.loadDataFileFromApp('$dataMap',mapId);
     } else {
         this.makeEmptyMap();
     }

@@ -21,6 +21,10 @@ export default {
       if (["pencil","square","ellipse","fill","shadow_pen"].includes(tool_name)){
         yield put({ type: 'setCurrentDraw', draw: current_mode === "map_edit" ? tool_name : null })
       }
+      if (tool_name === "play_test"){
+        document.getElementById("rmmv-player").style.display = "block";
+        SceneManager.run(Scene_Boot);
+      }
     }
   },
 

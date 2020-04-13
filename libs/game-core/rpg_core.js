@@ -2448,7 +2448,7 @@ Graphics._createErrorPrinter = function() {
     this._errorPrinter = document.createElement('p');
     this._errorPrinter.id = 'ErrorPrinter';
     this._updateErrorPrinter();
-    document.body.appendChild(this._errorPrinter);
+    document.getElementById("rmmv-player").appendChild(this._errorPrinter);
 };
 
 /**
@@ -2475,7 +2475,7 @@ Graphics._createCanvas = function() {
     this._canvas = document.createElement('canvas');
     this._canvas.id = 'GameCanvas';
     this._updateCanvas();
-    document.body.appendChild(this._canvas);
+    document.getElementById("rmmv-player").appendChild(this._canvas);
 };
 
 /**
@@ -2503,7 +2503,7 @@ Graphics._createVideo = function() {
     this._video.volume = this._videoVolume;
     this._updateVideo();
     makeVideoPlayableInline(this._video);
-    document.body.appendChild(this._video);
+    document.getElementById("rmmv-player").appendChild(this._video);
 };
 
 /**
@@ -2527,7 +2527,7 @@ Graphics._createUpperCanvas = function() {
     this._upperCanvas = document.createElement('canvas');
     this._upperCanvas.id = 'UpperCanvas';
     this._updateUpperCanvas();
-    document.body.appendChild(this._upperCanvas);
+    document.getElementById("rmmv-player").appendChild(this._upperCanvas);
 };
 
 /**
@@ -2654,7 +2654,7 @@ Graphics._createModeBox = function() {
     text.style.textShadow = '1px 1px 0 rgba(0,0,0,0.5)';
     text.innerHTML = this.isWebGL() ? 'WebGL mode' : 'Canvas mode';
 
-    document.body.appendChild(box);
+    document.getElementById("rmmv-player").appendChild(box);
     box.appendChild(text);
 
     this._modeBox = box;
@@ -2688,7 +2688,7 @@ Graphics._createFontLoader = function(name) {
     div.style.width = '1px';
     div.style.height = '1px';
     div.appendChild(text);
-    document.body.appendChild(div);
+    document.getElementById("rmmv-player").appendChild(div);
 };
 
 /**
@@ -2716,7 +2716,7 @@ Graphics._centerElement = function(element) {
  * @private
  */
 Graphics._disableTextSelection = function() {
-    var body = document.body;
+    var body = document.getElementById("rmmv-player");
     body.style.userSelect = 'none';
     body.style.webkitUserSelect = 'none';
     body.style.msUserSelect = 'none';
@@ -2729,7 +2729,7 @@ Graphics._disableTextSelection = function() {
  * @private
  */
 Graphics._disableContextMenu = function() {
-    var elements = document.body.getElementsByTagName('*');
+    var elements = document.getElementById("rmmv-player").getElementsByTagName('*');
     var oncontextmenu = function() { return false; };
     for (var i = 0; i < elements.length; i++) {
         elements[i].oncontextmenu = oncontextmenu;
@@ -2923,7 +2923,7 @@ Graphics._isFullScreen = function() {
  * @private
  */
 Graphics._requestFullScreen = function() {
-    var element = document.body;
+    var element = document.getElementById("rmmv-player");
     if (element.requestFullScreen) {
         element.requestFullScreen();
     } else if (element.mozRequestFullScreen) {
