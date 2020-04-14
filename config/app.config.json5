@@ -10,7 +10,10 @@
     area_margin: 5,  
 
     window_width: null,
-    window_height: null
+    window_height: null,
+
+    player_width: null,
+    player_height: null
   },
   toolbar: {
     images: [

@@ -22,8 +22,8 @@ export default {
         yield put({ type: 'setCurrentDraw', draw: current_mode === "map_edit" ? tool_name : null })
       }
       if (tool_name === "play_test"){
-        document.getElementById("rmmv-player").style.display = "block";
-        SceneManager.run(Scene_Boot);
+        SceneManager.gameStart("map_editor","rmmv-map-editor")
+        // SceneManager.gameStart("run","rmmv-player")
       }
     }
   },

@@ -23,7 +23,8 @@ function calcWrapperSizeStyle(){
   dom_container.style.height = `${interface_size.body_height}px`;
   dom_footer.style.height = `${interface_size.footer_height}px`;
 
-  dom_container_map_area.style.width = `${interface_size.window_width - 257 - area_margin - 2}px`;
+  const map_area_width = interface_size.window_width - 257 - area_margin - 2;
+  dom_container_map_area.style.width = `${map_area_width}px`;
   dom_container_map_area.style.marginLeft = `${area_margin}px`;
 
   // 22 是区域按钮bar 高度
@@ -39,7 +40,8 @@ function calcWrapperSizeStyle(){
   const container_tool_tileset = document.getElementById("container-tool-tileset");
   container_tool_tileset.style.height = `${tool_tileset_wrapper_heihgt - tool_tileset_layer_tabs_height}px`;
 
-  
+  interface_size.player_width = map_area_width;
+  interface_size.player_height = interface_size.body_height - 2;
 }
 
 // render 组件初始化入口函数

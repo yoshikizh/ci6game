@@ -52,7 +52,8 @@
 		border-right: none;
 
 		#rmmv-map-editor {
-
+			overflow: auto;
+			position: relative;
 		}
 		#rmmv-player {
 			display: none;

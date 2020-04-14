@@ -1804,8 +1804,47 @@ SceneManager._screenHeight      = 624;
 SceneManager._boxWidth          = 816;
 SceneManager._boxHeight         = 624;
 SceneManager._deltaTime = 1.0 / 60.0;
+SceneManager._runMode = null;
+SceneManager._runElementId = null;
 if (!Utils.isMobileSafari()) SceneManager._currentTime = SceneManager._getTimeInMsWithoutMobileSafari();
 SceneManager._accumulator = 0.0;
+
+
+SceneManager.gameStart = function(mode,run_element_id){
+
+
+    SceneManager._runMode = mode;
+    document.getElementById(run_element_id).style.display = "block";
+    var interface_size = App.config.app.interface_size;
+    if (mode === "run") {
+        SceneManager._runElementId = run_element_id;
+        SceneManager._screenWidth = interface_size.player_width;
+        SceneManager._screenHeight = interface_size.player_height;
+        SceneManager._boxWidth = interface_size.player_width;
+        SceneManager._boxHeight = interface_size.player_height;
+        SceneManager.run(Scene_Boot);
+    }
+    if (mode === "map_editor") {
+
+        var first_map = App.game_data.maps[1];
+        var screen_width = first_map.width * 48;
+        var screen_height = first_map.height * 48;
+        var parent_element = document.getElementById(run_element_id);
+
+        SceneManager._runElementId = run_element_id;
+        SceneManager._screenWidth = screen_width;
+        SceneManager._screenHeight = screen_height;
+        SceneManager._boxWidth = screen_width;
+        SceneManager._boxHeight = screen_height;
+
+        var element_map_editor = document.getElementById("rmmv-map-editor")
+        document.getElementById("container-map-area").style.height = interface_size.player_height + 'px';
+        element_map_editor.style.width = interface_size.player_width + 'px';
+        element_map_editor.style.height = interface_size.player_height + 'px';
+
+        SceneManager.run(Scene_Map);
+    }
+}
 
 // 入口执行函数
 SceneManager.run = function(sceneClass) {

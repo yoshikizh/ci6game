@@ -551,10 +551,19 @@ Scene_Map.prototype.initialize = function() {
 
 Scene_Map.prototype.create = function() {
     Scene_Base.prototype.create.call(this);
+    if (SceneManager._runMode === "map_editor") {
+        this.createByEditMode();
+        return;
+    }
     this._transfer = $gamePlayer.isTransferring();
     var mapId = this._transfer ? $gamePlayer.newMapId() : $gameMap.mapId();
     DataManager.loadMapData(mapId);
 };
+
+Scene_Map.prototype.createByEditMode = function() {
+    var mapId = 1;
+    DataManager.loadMapData(mapId);
+}
 
 Scene_Map.prototype.isReady = function() {
     if (!this._mapLoaded && DataManager.isMapLoaded()) {
