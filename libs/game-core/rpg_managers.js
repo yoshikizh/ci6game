@@ -1809,23 +1809,39 @@ SceneManager._runElementId = null;
 if (!Utils.isMobileSafari()) SceneManager._currentTime = SceneManager._getTimeInMsWithoutMobileSafari();
 SceneManager._accumulator = 0.0;
 
+SceneManager.isRunMode = function(){
+    return this._runMode === "run";
+};
+
+SceneManager.clearRootChildren = function(root_element){
+    var ele_children = root_element.children;
+    for (var i = 0; i < ele_children.length; i++){
+        root_element.removeChild(ele_children[i]);
+    }
+}
 
 SceneManager.gameStart = function(mode,run_element_id){
 
-
     SceneManager._runMode = mode;
+
+    var element_map_editor = document.getElementById("rmmv-map-editor");
+    var element_player = document.getElementById("rmmv-player");
+    element_map_editor.style.display = "none";
+    element_player.style.display = "none";
+
+    
     document.getElementById(run_element_id).style.display = "block";
     var interface_size = App.config.app.interface_size;
-    if (mode === "run") {
+    if (this.isRunMode()) {
+        this.clearRootChildren(element_player);
         SceneManager._runElementId = run_element_id;
-        SceneManager._screenWidth = interface_size.player_width;
-        SceneManager._screenHeight = interface_size.player_height;
-        SceneManager._boxWidth = interface_size.player_width;
-        SceneManager._boxHeight = interface_size.player_height;
+        // SceneManager._screenWidth = interface_size.player_width;
+        // SceneManager._screenHeight = interface_size.player_height;
+        // SceneManager._boxWidth = interface_size.player_width;
+        // SceneManager._boxHeight = interface_size.player_height;
         SceneManager.run(Scene_Boot);
-    }
-    if (mode === "map_editor") {
-
+    } else {
+        this.clearRootChildren(element_map_editor);
         var first_map = App.game_data.maps[1];
         var screen_width = first_map.width * 48;
         var screen_height = first_map.height * 48;
@@ -1836,13 +1852,27 @@ SceneManager.gameStart = function(mode,run_element_id){
         SceneManager._screenHeight = screen_height;
         SceneManager._boxWidth = screen_width;
         SceneManager._boxHeight = screen_height;
-
-        var element_map_editor = document.getElementById("rmmv-map-editor")
+        
         document.getElementById("container-map-area").style.height = interface_size.player_height + 'px';
         element_map_editor.style.width = interface_size.player_width + 'px';
         element_map_editor.style.height = interface_size.player_height + 'px';
 
+        DataManager.loadDatabase();
+
+        // ConfigManager.load();
+        // ImageManager.reserveSystem('Window');
+
+        DataManager.setupNewGame();
         SceneManager.run(Scene_Map);
+
+        // clear some element
+        var need_delete_elements = [];
+        var element_map_editor_children = element_map_editor.children;
+        for (var i = 0; i < element_map_editor_children.length; i++){
+            if (element_map_editor_children[i].id !== 'GameCanvas')
+                need_delete_elements.push(element_map_editor_children[i]);
+        }
+        need_delete_elements.forEach(function(ele){ ele.remove() });
     }
 }
 

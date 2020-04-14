@@ -118,6 +118,10 @@ function initGameCore(){
   require("./models/game/index");
 }
 
+function initMapEditorArea(){
+  SceneManager.gameStart("map_editor","rmmv-map-editor");
+}
+
 // 入口函数
 function main(){
   window.App = new Object();
@@ -129,6 +133,7 @@ function main(){
   initThemeStyle();
   initializeReactComponent();
   initGameCore();
+  initMapEditorArea();
 }
 
 window.addEventListener('load', function () {
