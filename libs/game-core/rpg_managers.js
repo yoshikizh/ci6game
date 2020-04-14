@@ -1815,9 +1815,8 @@ SceneManager.isRunMode = function(){
 
 SceneManager.clearRootChildren = function(root_element){
     var ele_children = root_element.children;
-    for (var i = 0; i < ele_children.length; i++){
-        root_element.removeChild(ele_children[i]);
-    }
+    while(ele_children.length > 0)
+        root_element.removeChild(ele_children[0]);   
 }
 
 SceneManager.gameStart = function(mode,run_element_id){
@@ -1826,41 +1825,35 @@ SceneManager.gameStart = function(mode,run_element_id){
 
     var element_map_editor = document.getElementById("rmmv-map-editor");
     var element_player = document.getElementById("rmmv-player");
+
     element_map_editor.style.display = "none";
     element_player.style.display = "none";
 
-    
-    document.getElementById(run_element_id).style.display = "block";
     var interface_size = App.config.app.interface_size;
+    SceneManager._screenWidth = interface_size.player_width;
+    SceneManager._screenHeight = interface_size.player_height;
+    SceneManager._boxWidth = interface_size.player_width;
+    SceneManager._boxHeight = interface_size.player_height;
+
+
+    document.getElementById(run_element_id).style.display = "block";
+
     if (this.isRunMode()) {
         this.clearRootChildren(element_player);
         SceneManager._runElementId = run_element_id;
-        // SceneManager._screenWidth = interface_size.player_width;
-        // SceneManager._screenHeight = interface_size.player_height;
-        // SceneManager._boxWidth = interface_size.player_width;
-        // SceneManager._boxHeight = interface_size.player_height;
         SceneManager.run(Scene_Boot);
     } else {
         this.clearRootChildren(element_map_editor);
         var first_map = App.game_data.maps[1];
-        var screen_width = first_map.width * 48;
-        var screen_height = first_map.height * 48;
-        var parent_element = document.getElementById(run_element_id);
 
         SceneManager._runElementId = run_element_id;
-        SceneManager._screenWidth = screen_width;
-        SceneManager._screenHeight = screen_height;
-        SceneManager._boxWidth = screen_width;
-        SceneManager._boxHeight = screen_height;
-        
         document.getElementById("container-map-area").style.height = interface_size.player_height + 'px';
         element_map_editor.style.width = interface_size.player_width + 'px';
         element_map_editor.style.height = interface_size.player_height + 'px';
 
         DataManager.loadDatabase();
-
-        // ConfigManager.load();
-        // ImageManager.reserveSystem('Window');
+        ConfigManager.load();
+        ImageManager.reserveSystem('Window');
 
         DataManager.setupNewGame();
         SceneManager.run(Scene_Map);
