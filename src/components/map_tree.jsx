@@ -199,17 +199,11 @@ const MapTree = (props) => {
   }
 
   const onClickToggleMap = (map_id) => {
+
     props.dispatch({
       type: 'project/changeMap',
       params: {map_id: map_id}
     });
-
-    props.dispatch({
-      type: 'tool_tileset/setCurrentTilesetNames',
-      map_id: map_id
-    });
-
-    SceneManager.gameStart("map_editor","rmmv-map-editor",map_id);
   }
 
   const [expansion_state, setExpansionState] = useState(getDefaultExpansionState().expansion_state);
