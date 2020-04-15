@@ -5,3 +5,5 @@ export const getTilemapConfig = (filename) => {
   const image = require(`../../assets/rtp/tilesets/${filename}.png`).default;
   return { image: image, config: image_config };
 }
+
+
