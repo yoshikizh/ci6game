@@ -2,10 +2,12 @@ import React from "react";
 import { connect } from 'dva';
 import { getTilemapConfig } from "./utils";
 
-const TilesetDE = (props) => {
+const TilesetBtoE = (props) => {
 
   const tab = props.tab;
   const tab_index_hash = {
+    "B": 5,
+    "C": 6,
     "D": 7,
     "E": 8
   };
@@ -77,4 +79,4 @@ const TilesetDE = (props) => {
   );
 }
 
-export default connect(({ tool_tileset }) => ({ tool_tileset }))(TilesetDE);
+export default connect(({ tool_tileset }) => ({ tool_tileset }))(TilesetBtoE);

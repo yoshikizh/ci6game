@@ -19,7 +19,6 @@ export default {
     }
   },
 
-
   reducers: {
     setCurrentMapId: (state,map_id) => {
       state.current_map_id = map_id;
