@@ -198,6 +198,20 @@ const MapTree = (props) => {
     setDisplayState(_display_state);
   }
 
+  const onClickToggleMap = (map_id) => {
+    props.dispatch({
+      type: 'project/changeMap',
+      params: {map_id: map_id}
+    });
+
+    props.dispatch({
+      type: 'tool_tileset/setCurrentTilesetNames',
+      map_id: map_id
+    });
+
+    SceneManager.gameStart("map_editor","rmmv-map-editor",map_id);
+  }
+
   const [expansion_state, setExpansionState] = useState(getDefaultExpansionState().expansion_state);
   const [display_state, setDisplayState] = useState(getDefaultExpansionState().display_state);
 
@@ -227,7 +241,7 @@ const MapTree = (props) => {
                 }
 
                 <img src={require("../assets/images/mapfile.png").default} />
-                {obj.name}
+                <a onClick={onClickToggleMap.bind(this,obj.id)}>{obj.name}</a>
               </li>
             )
           })

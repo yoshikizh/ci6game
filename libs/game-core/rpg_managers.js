@@ -1806,6 +1806,7 @@ SceneManager._boxHeight         = 624;
 SceneManager._deltaTime = 1.0 / 60.0;
 SceneManager._runMode = null;
 SceneManager._runElementId = null;
+SceneManager._runMapIdForEditor = null;
 if (!Utils.isMobileSafari()) SceneManager._currentTime = SceneManager._getTimeInMsWithoutMobileSafari();
 SceneManager._accumulator = 0.0;
 
@@ -1819,7 +1820,7 @@ SceneManager.clearRootChildren = function(root_element){
         root_element.removeChild(ele_children[0]);   
 }
 
-SceneManager.gameStart = function(mode,run_element_id){
+SceneManager.gameStart = function(mode,run_element_id, run_map_id){
 
     SceneManager._runMode = mode;
 
@@ -1844,7 +1845,7 @@ SceneManager.gameStart = function(mode,run_element_id){
         SceneManager.run(Scene_Boot);
     } else {
         this.clearRootChildren(element_map_editor);
-        var first_map = App.game_data.maps[1];
+        this._runMapIdForEditor = run_map_id;
 
         SceneManager._runElementId = run_element_id;
         document.getElementById("container-map-area").style.height = interface_size.player_height + 'px';

@@ -552,9 +552,11 @@ Scene_Map.prototype.initialize = function() {
 Scene_Map.prototype.create = function() {
     Scene_Base.prototype.create.call(this);
     this._transfer = $gamePlayer.isTransferring();
-    var mapId = 1;
+    var mapId;
     if (SceneManager._runMode === "run") {
-        var mapId = this._transfer ? $gamePlayer.newMapId() : $gameMap.mapId();
+        mapId = this._transfer ? $gamePlayer.newMapId() : $gameMap.mapId();
+    } else {
+        mapId = SceneManager._runMapIdForEditor;
     }
     DataManager.loadMapData(mapId);
 };
@@ -697,7 +699,11 @@ Scene_Map.prototype.processMapTouch = function() {
             if (this._touchCount === 0 || this._touchCount >= 15) {
                 var x = $gameMap.canvasToMapX(TouchInput.x);
                 var y = $gameMap.canvasToMapY(TouchInput.y);
-                $gameTemp.setDestination(x, y);
+                if (SceneManager.isRunMode()){
+                    $gameTemp.setDestination(x, y);
+                } else {
+                    $gamePlayer.locate(x,y);
+                }
             }
             this._touchCount++;
         } else {

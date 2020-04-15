@@ -28,6 +28,7 @@ function initializeConfig(){
 function initializeDva(){
 
   // 载入 dva model
+  const ModelProject = require('./models/project').default;
   const ModelStatusBar = require('./models/status_bar').default;
   const ModelToolTileset = require('./models/tool_tileset').default;
   const ModelToolbar = require('./models/toolbar').default;
@@ -35,6 +36,7 @@ function initializeDva(){
 
   // 初始化 dva app
   const dva_app = Dva();
+  dva_app.model(ModelProject);
   dva_app.model(ModelStatusBar);
   dva_app.model(ModelToolTileset);
   dva_app.model(ModelToolbar);
@@ -59,6 +61,12 @@ function initializeGameData(){
   const data_common_events = require(`../data/CommonEvents.json5`);  // 公共事件数据
   const data_map_infos = require(`../data/MapInfos.json5`);          // 地图信息数据
   const data_map001 = require(`../data/Map001.json5`);               // 初始地图数据
+  const data_map002 = require(`../data/Map002.json5`);               // 初始地图数据
+  const data_map003 = require(`../data/Map003.json5`);               // 初始地图数据
+  const data_map004 = require(`../data/Map004.json5`);               // 初始地图数据
+  const data_map005 = require(`../data/Map005.json5`);               // 初始地图数据
+  const data_map006 = require(`../data/Map006.json5`);               // 初始地图数据
+  const data_map007 = require(`../data/Map007.json5`);               // 初始地图数据
 
   window.App.game_data = {
     actors: data_actors,
@@ -75,7 +83,7 @@ function initializeGameData(){
     system: data_system,
     common_events: data_common_events,
     map_infos: data_map_infos,
-    maps: [null, data_map001]
+    maps: [null, data_map001,data_map002,data_map003,data_map004,data_map005,data_map006,data_map007]
   };
 }
 
@@ -119,7 +127,8 @@ function initGameCore(){
 }
 
 function initMapEditorArea(){
-  SceneManager.gameStart("map_editor","rmmv-map-editor");
+
+  SceneManager.gameStart("map_editor","rmmv-map-editor",App.game_data.map_infos[1].id);
 }
 
 // 入口函数

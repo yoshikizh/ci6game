@@ -4,6 +4,8 @@ import { getTilemapConfig } from "./utils";
 
 const TilesetA = (props) => {
 
+  console.log(props.tool_tileset.tileset_filenames)
+
   const render_tilemaps = [];
   const filename1 = props.tool_tileset.tileset_filenames[0];
   const filename2 = props.tool_tileset.tileset_filenames[1];

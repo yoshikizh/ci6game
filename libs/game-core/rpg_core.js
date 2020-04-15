@@ -2488,15 +2488,12 @@ Graphics._updateCanvas = function() {
     this._canvas.height = this._height;
     this._canvas.style.zIndex = 1;
     
-    // if (SceneManager._runMode === "run") {
-    //     this._centerElement(this._canvas);
-    // } else {
-        var width = this._canvas.width * this._realScale;
-        var height = this._canvas.height * this._realScale;
-        this._canvas.style.width = width + 'px';
-        this._canvas.style.height = height + 'px';
-    // }
+    // this._centerElement(this._canvas);
 
+    var width = this._canvas.width * this._realScale;
+    var height = this._canvas.height * this._realScale;
+    this._canvas.style.width = width + 'px';
+    this._canvas.style.height = height + 'px';
 };
 
 /**
