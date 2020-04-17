@@ -16,6 +16,19 @@ export default {
       yield put({ type: 'setCurrentMapId', map_id: map_id });
       yield put({ type: 'tool_tileset/setCurrentTilesetNames', map_id: map_id });
 
+      const map_info = App.game_data.map_infos[map_id];
+      const data_map = App.game_data.maps[map_id];
+
+      console.log(map_id)
+      console.log(map_info)
+      console.log(data_map)
+      yield put({ type: 'status_bar/setMapInfo', info: {
+        id: map_id,
+        name: map_info.name,
+        width: data_map.width,
+        height: data_map.height
+      }});
+
       SceneManager._runMapIdForEditor = map_id;
       $gamePlayer.reserveTransfer(map_id,0,0,2,1);
     }

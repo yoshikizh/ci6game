@@ -19,8 +19,8 @@ const TilesetBtoE = (props) => {
 
   const onClickHandle = (tile_id) => {
     props.dispatch({
-      type: 'tool_tileset/selectTile',
-      tile_id: tile_id
+      type: 'tool_tileset/changeTile',
+      params: {tile_id: tile_id}
     });
   };
 
@@ -64,7 +64,7 @@ const TilesetBtoE = (props) => {
         x = (map_width / 2) + (index % 8) * (1 * 32);
         y = parseInt((index % group_nums) / 8) * (1 * 32);
       }
-      key = `${tab}_${index}_${x}_${y}`
+      key = `${tab}|${filename}|${index}|${x}|${y}`
       render_tilemaps.push(createTileEle(image_config,x,y,key));
     });
 

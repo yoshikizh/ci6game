@@ -699,11 +699,7 @@ Scene_Map.prototype.processMapTouch = function() {
             if (this._touchCount === 0 || this._touchCount >= 15) {
                 var x = $gameMap.canvasToMapX(TouchInput.x);
                 var y = $gameMap.canvasToMapY(TouchInput.y);
-                if (SceneManager.isRunMode()){
-                    $gameTemp.setDestination(x, y);
-                } else {
-                    $gamePlayer.locate(x,y);
-                }
+                $gameTemp.setDestination(x, y);
             }
             this._touchCount++;
         } else {
@@ -733,11 +729,6 @@ Scene_Map.prototype.updateScene = function() {
 };
 
 Scene_Map.prototype.createDisplayObjects = function() {
-    if (SceneManager.isRunMode()){
-        this.createSpriteset();
-        return;
-    }
-
     this.createSpriteset();
     this.createMapNameWindow();
     this.createWindowLayer();

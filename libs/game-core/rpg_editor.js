@@ -74,6 +74,43 @@ Game_Player.prototype.initialize = function() {
     if (SceneManager.isEditorMode()) this.setTransparent(true);
 };
 
+Scene_Map.prototype.createDisplayObjects = function() {
+    if (SceneManager.isEditorMode()){
+        this.createSpriteset();
+        this.createMapNameWindow();
+        return;
+    }
+    this.createSpriteset();
+    this.createMapNameWindow();
+    this.createWindowLayer();
+    this.createAllWindows();
+};
+
+
+Scene_Map.prototype.processMapTouch = function() {
+    if (TouchInput.isTriggered() || this._touchCount > 0) {
+        if (TouchInput.isPressed()) {
+            if (this._touchCount === 0 || this._touchCount >= 15) {
+                var x = $gameMap.canvasToMapX(TouchInput.x);
+                var y = $gameMap.canvasToMapY(TouchInput.y);
+                if (SceneManager.isRunMode()){
+                    $gameTemp.setDestination(x, y);
+                } else {
+                    $gamePlayer.locate(x,y);
+
+                    // App.dva_props.app._models[2].reducers.setCurrentCursorPos({
+                    //   type: 'status_bar/setCurrentCursorPos',
+                    //   params: {pos: [x,canvasToMapY]}
+                    // });
+
+                }
+            }
+            this._touchCount++;
+        } else {
+            this._touchCount = 0;
+        }
+    }
+};
 
 Scene_Map.prototype.start = function() {
     Scene_Base.prototype.start.call(this);
@@ -122,7 +159,7 @@ Spriteset_Map.prototype.update = function() {
     Spriteset_Base.prototype.update.call(this);
 
     // 编辑器模式仅更新
-    if (!SceneManager.isRunMode()) {
+    if (SceneManager.isEditorMode()) {
         this.updateParallax();
         this.updateTilemap();
         return;

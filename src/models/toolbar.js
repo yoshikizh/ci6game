@@ -33,7 +33,6 @@ export default {
       return _.clone(state);
     },
     setCurrentDraw: (state, params) => {
-      console.log("s",params)
       state.current_draw = params.draw;
       return _.clone(state);
     }

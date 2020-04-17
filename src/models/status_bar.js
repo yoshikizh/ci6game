@@ -17,9 +17,10 @@ const getCurrentMapInfo = () => {
 export default {
   namespace: "status_bar",
   state: {
+    tilename: "",
     zoom: 100,
     cursor_pos: [0,0],
-    map: getCurrentMapInfo()
+    map_status: getCurrentMapInfo()
   },
   reducers: {
     zoomIn: (state,params) => {
@@ -30,8 +31,16 @@ export default {
       state.zoom -= params.n;
       return _.clone(state);
     },
-    setCurrentCursorPos: (state,pos) => {
-      state.cursor_pos = pos;
+    setTilename: (state, params) => {
+      state.tilename = params.tilename;
+      return _.clone(state);
+    },
+    setCurrentCursorPos: (state,params) => {
+      state.cursor_pos = params.pos;
+      return _.clone(state);
+    },
+    setMapInfo: (state, params) => {
+      state.map_status = params.info;
       return _.clone(state);
     }
   }

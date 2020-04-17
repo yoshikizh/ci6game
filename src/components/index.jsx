@@ -46,10 +46,7 @@ function calcWrapperSizeStyle(){
 
 // render 组件初始化入口函数
 function initComponentsEntry() {
-
   const ComponentsIndex = (props) => {
-    // App.dprops = props;
-
     return (
       <>
         <AppHeaderInit />

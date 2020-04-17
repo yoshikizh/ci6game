@@ -3,9 +3,6 @@ import { connect } from 'dva';
 import { getTilemapConfig } from "./utils";
 
 const TilesetA = (props) => {
-
-  console.log(props.tool_tileset.tileset_filenames)
-
   const render_tilemaps = [];
   const filename1 = props.tool_tileset.tileset_filenames[0];
   const filename2 = props.tool_tileset.tileset_filenames[1];
@@ -24,8 +21,8 @@ const TilesetA = (props) => {
 
   const onClickHandle = (tile_id) => {
     props.dispatch({
-      type: 'tool_tileset/selectTile',
-      tile_id: tile_id
+      type: 'tool_tileset/changeTile',
+      params: {tile_id: tile_id}
     });
   };
 
@@ -73,7 +70,7 @@ const TilesetA = (props) => {
         if ([4,6].includes(tilename_index)) x = 8 * 32;
         if ([5,7].includes(tilename_index)) x = 14 * 32;
         if ([2,3,6,7].includes(tilename_index)) y += 96;
-        const key = `A1_${filename1}_${index}_${tilename_index}_${x}_${y}`
+        const key = `A1|${filename1}|${index}|${tilename_index}|${x}|${y}`
         render_tilemaps.push(createTileEle(image_config,x,y,key));
       });
     });
@@ -86,7 +83,7 @@ const TilesetA = (props) => {
     tile_name_units.forEach((tile_name,index) => {
       const x = (index % 8) * (2 * 32);
       const y = parseInt(index / 8) * (3 * 32);
-      const key = `A2_${filename2}_${index}_${x}_${y}`
+      const key = `A2|${filename2}|${index}|${x}|${y}`;
       render_tilemaps.push(createTileEle(image_config,x,y,key));
     });
   }
@@ -98,7 +95,7 @@ const TilesetA = (props) => {
     tile_name_units.forEach((tile_name,index) => {
       const x = (index % 8) * (2 * 32);
       const y = parseInt(index / 8) * (2 * 32);
-      const key = `A3_${filename3}_${index}_${x}_${y}`
+      const key = `A3|${filename3}|${index}|${x}|${y}`
       render_tilemaps.push(createTileEle(image_config,x,y,key));
     });
   }
@@ -111,7 +108,7 @@ const TilesetA = (props) => {
       const x = (index % 8) * (2 * 32);
       const index_y = parseInt(index / 8);
       const y = index_y % 2 === 0 ? (96 + 64) * index_y : (96 + 64) * index_y - 64;
-      const key = `A4_${filename4}_${index}_${x}_${y}`
+      const key = `A4|${filename4}|${index}|${x}|${y}`
       render_tilemaps.push(createTileEle(image_config,x,y,key));
     });
   }
@@ -123,7 +120,7 @@ const TilesetA = (props) => {
     tile_name_units.forEach((tile_name,index) => {
       const x = (index % 8) * (1 * 32);
       const y = parseInt(index / 8) * (1 * 32);
-      const key = `A5_${filename5}_${index}_${x}_${y}`
+      const key = `A5|${filename5}|${index}|${x}|${y}`
       render_tilemaps.push(createTileEle(image_config,x,y,key));
     });
   }
