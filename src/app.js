@@ -132,14 +132,13 @@ function initGameCore(){
 }
 
 function initMapEditorArea(){
-  SceneManager.gameStart("map_editor","rmmv-map-editor",App.game_data.map_infos[1].id);
+  SceneManager.gameStart("editor","rmmv-map-editor",App.game_data.map_infos[1].id);
 }
 
 // 入口函数
 function main(){
   window.App = new Object();
   initializeConfig();
-  // initializeGlobalObject();
   initializeGameData();
   initializeManagement();
   initializeAssets();

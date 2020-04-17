@@ -7402,7 +7402,6 @@ Game_Player.prototype.constructor = Game_Player;
 Game_Player.prototype.initialize = function() {
     Game_Character.prototype.initialize.call(this);
     this.setTransparent($dataSystem.optTransparent);
-    if (!SceneManager.isRunMode()) this.setTransparent(true);
 };
 
 Game_Player.prototype.initMembers = function() {

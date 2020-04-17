@@ -586,38 +586,10 @@ Scene_Map.prototype.start = function() {
     } else if (this.needsFadeIn()) {
         this.startFadeIn(this.fadeSpeed(), false);
     }
-
-    // 编辑器模式仅仅运行一次
-    if (!SceneManager.isRunMode()) {
-        $gamePlayer.update(true);
-    }
-
     this.menuCalling = false;
 };
 
 Scene_Map.prototype.update = function() {
-    if (!SceneManager.isRunMode()) {
-        if (!SceneManager.isSceneChanging()) {
-            this.updateTransferPlayer();
-        }
-
-        this.updateDestination();
-        // $gameMap.update(active);
-        var active = this.isActive();
-        // $gamePlayer.update(active);
-
-        // this._spriteset.update();
-        Scene_Base.prototype.update.call(this);
-
-
-        // this.updateFade();
-        // this.updateChildren();
-        // this._spriteset.update();
-
-
-        return;
-    }
-
     this.updateDestination();
     this.updateMainMultiply();
     if (this.isSceneChangeOk()) {
