@@ -15,7 +15,9 @@ export default {
       if (map_id === current_map_id) return;
       yield put({ type: 'setCurrentMapId', map_id: map_id });
       yield put({ type: 'tool_tileset/setCurrentTilesetNames', map_id: map_id });
-      SceneManager.gameStart("map_editor","rmmv-map-editor",map_id);
+
+      SceneManager._runMapIdForEditor = map_id;
+      $gamePlayer.reserveTransfer(map_id,0,0,2,1);
     }
   },
 

@@ -24,6 +24,11 @@ function initializeConfig(){
   }
 }
 
+// // 初始化全局对象
+// function initializeGlobalObject(){
+//   window.UtilsEditor = require('./utils_editor.js').default;
+// }
+
 // 初始化 dva
 function initializeDva(){
 
@@ -127,7 +132,6 @@ function initGameCore(){
 }
 
 function initMapEditorArea(){
-
   SceneManager.gameStart("map_editor","rmmv-map-editor",App.game_data.map_infos[1].id);
 }
 
@@ -135,6 +139,7 @@ function initMapEditorArea(){
 function main(){
   window.App = new Object();
   initializeConfig();
+  // initializeGlobalObject();
   initializeGameData();
   initializeManagement();
   initializeAssets();

@@ -10,14 +10,14 @@ export default class CacheManagement {
 	}
 
 	constructor() {
-		this.images = {};
+		this.rtp = {};
 	}
 
-	getImage(key){
-		return this.images[key];
+	getRtp(key){
+		return this.rtp[key];
 	}
 
-	setImage(key,value){
-		this.images[key] = value;
+	setRtp(key,value){
+		this.rtp[key] = value;
 	}
 }

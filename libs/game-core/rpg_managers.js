@@ -1814,6 +1814,14 @@ SceneManager.isRunMode = function(){
     return this._runMode === "run";
 };
 
+SceneManager.overScene = function(){
+    AudioManager.stopAll();
+    this._scene.removeChildren();
+    this._scene = null;
+    this.stop();
+};
+
+
 SceneManager.clearRootChildren = function(root_element){
     var ele_children = root_element.children;
     while(ele_children.length > 0)
