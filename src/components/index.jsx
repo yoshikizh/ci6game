@@ -56,14 +56,7 @@ function initComponentsEntry() {
     )
   }
 
-  // const DvaAppInit = connect(({ toolbar }) => ({
-  //   toolbar
-  // }))(
-  //   ComponentsIndex
-  // );
-
   App.dva.router(ComponentsIndex);
-  // App.dva.router(() => <DvaAppInit />);
   App.dva.start("#dva-app");
 };
 

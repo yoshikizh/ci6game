@@ -19,9 +19,6 @@ export default {
       const map_info = App.game_data.map_infos[map_id];
       const data_map = App.game_data.maps[map_id];
 
-      console.log(map_id)
-      console.log(map_info)
-      console.log(data_map)
       yield put({ type: 'status_bar/setMapInfo', info: {
         id: map_id,
         name: map_info.name,

@@ -4,8 +4,6 @@ import { connect } from 'dva';
 const Toolbar = (props) => {
 
   const onClickHandle = (tool_name) => {
-    console.log(tool_name)
-
     props.dispatch({
       type: "toolbar/callTool",
       params: { tool_name: tool_name }
