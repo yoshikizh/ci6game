@@ -135,6 +135,10 @@ function initMapEditorArea(){
   SceneManager.gameStart("editor","rmmv-map-editor",App.game_data.map_infos[1].id);
 }
 
+function initAppApi(){
+  require("./app_api");
+}
+
 // 入口函数
 function main(){
   window.App = new Object();
@@ -146,6 +150,7 @@ function main(){
   initThemeStyle();
   initializeReactComponent();
   initGameCore();
+  initAppApi();
   initMapEditorArea();
 }
 

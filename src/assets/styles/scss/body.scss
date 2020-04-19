@@ -54,6 +54,16 @@
 		#rmmv-map-editor {
 			// overflow: auto;
 		}
+		#rmmv-map-editor-control-layer-wrapper {
+			position: absolute;
+			overflow: auto;
+			#rmmv-map-editor-control-layer {
+				position: relative;
+				.line {
+					position: absolute;
+				}
+			}
+		}
 		#rmmv-player {
 			display: none;
 		}

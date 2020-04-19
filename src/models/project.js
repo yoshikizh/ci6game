@@ -32,8 +32,8 @@ export default {
   },
 
   reducers: {
-    setCurrentMapId: (state,map_id) => {
-      state.current_map_id = map_id;
+    setCurrentMapId: (state,params) => {
+      state.current_map_id = params.map_id;
       return _.clone(state);
     }
 

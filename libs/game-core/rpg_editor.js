@@ -61,7 +61,7 @@ SceneManager.gameStart = function(mode,run_element_id, run_map_id){
         var need_delete_elements = [];
         var element_map_editor_children = element_map_editor.children;
         for (var i = 0; i < element_map_editor_children.length; i++){
-            if (element_map_editor_children[i].id !== 'GameCanvas')
+            if (!["GameCanvas","rmmv-map-editor-control-layer"].includes(element_map_editor_children[i].id))
                 need_delete_elements.push(element_map_editor_children[i]);
         }
         need_delete_elements.forEach(function(ele){ ele.remove() });
@@ -95,14 +95,6 @@ Scene_Map.prototype.processMapTouch = function() {
                 var y = $gameMap.canvasToMapY(TouchInput.y);
                 if (SceneManager.isRunMode()){
                     $gameTemp.setDestination(x, y);
-                } else {
-                    $gamePlayer.locate(x,y);
-
-                    // App.dva_props.app._models[2].reducers.setCurrentCursorPos({
-                    //   type: 'status_bar/setCurrentCursorPos',
-                    //   params: {pos: [x,canvasToMapY]}
-                    // });
-
                 }
             }
             this._touchCount++;

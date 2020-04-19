@@ -8,6 +8,14 @@ import AppHeaderInit from './header';
 import AppBodyInit from './body';
 import AppFooterInit from './footer';
 
+function calcWrapperSizeStyleBase(){
+  const interface_size = App.config.app.interface_size;
+  const area_margin = interface_size.area_margin;
+  const map_area_width = interface_size.window_width - 257 - area_margin - 2;
+  interface_size.player_width = map_area_width;
+  interface_size.player_height = interface_size.body_height - 2;
+}
+
 function calcWrapperSizeStyle(){
   const dom_header = document.getElementById("header-wrapper");
   const dom_container = document.getElementById("container-wrapper");
@@ -15,6 +23,7 @@ function calcWrapperSizeStyle(){
   const dom_container_map_area = document.getElementById("container-map-area");
   const container_tool_tileset_wrapper = document.getElementById("container-tool-tileset-wrapper");
   const container_tool_maptree_wrapper = document.getElementById("container-tool-maptree-wrapper");
+  const dom_map_editor_control_layer_wrapper = document.getElementById("rmmv-map-editor-control-layer-wrapper");
 
   const interface_size = App.config.app.interface_size;
   const area_margin = interface_size.area_margin;
@@ -42,6 +51,10 @@ function calcWrapperSizeStyle(){
 
   interface_size.player_width = map_area_width;
   interface_size.player_height = interface_size.body_height - 2;
+
+  dom_map_editor_control_layer_wrapper.style.width = `${map_area_width}px`;
+  dom_map_editor_control_layer_wrapper.style.height = `${interface_size.body_height - 2}px`;
+
 }
 
 // render 组件初始化入口函数
@@ -60,5 +73,6 @@ function initComponentsEntry() {
   App.dva.start("#dva-app");
 };
 
+calcWrapperSizeStyleBase();
 initComponentsEntry();
 calcWrapperSizeStyle();
