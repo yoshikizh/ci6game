@@ -32,7 +32,7 @@
         {name: "undo", path: "assets/images/toolbar/undo.png"}
       ],
       [
-        {name: "map_edit", path: "assets/images/toolbar/map-edit.png"},
+        {name: "map", path: "assets/images/toolbar/map-edit.png"},
         {name: "event", path: "assets/images/toolbar/event.png"}
       ],
       [

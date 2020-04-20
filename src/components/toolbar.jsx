@@ -20,7 +20,7 @@ const Toolbar = (props) => {
         const tool_name = obj.name;
 
         let class_name = "";
-        if (tool_name === "map_edit" && props.toolbar.current_mode === "map_edit" ){
+        if (tool_name === "map" && props.toolbar.current_mode === "map" ){
           class_name = "active";
         }
         if (tool_name === "event" && props.toolbar.current_mode === "event"){
