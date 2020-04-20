@@ -7,8 +7,11 @@ Sprite_Destination.prototype.update = function() {
     Sprite.prototype.update.call(this);
     if ($gameTemp.isDestinationValid()){
         this.updatePosition();
-        if (SceneManager.isRunMode())
+        if (SceneManager.isRunMode()){
             this.updateAnimation();
+        } else {
+            this.opacity = App.props.Header.toolbar.current_mode === "map" ? 100 : 255;
+        }
         this.visible = true;
     } else {
         this._frameCount = 0;
@@ -137,24 +140,24 @@ Scene_Map.prototype.processMapTouch = function() {
                 if (SceneManager.isRunMode()){
                     $gameTemp.setDestination(x, y);
                 } else {
-                    $gameTemp.setDestination(x, y);
-                    // var tileWidth = $gameMap.tileWidth();
-                    // var tileHeight = $gameMap.tileHeight();
-                    // var _x = ($gameMap.adjustX(x) + 0.5) * tileWidth;
-                    // var _y = ($gameMap.adjustY(y) + 0.5) * tileHeight;
-
-                    // console.log(_x - 24,_y - 24)
-                    // _x = _x + $gameMap._displayX * 48 - 24;
-                    // _y = _y + $gameMap._displayY * 48 - 24;
-                    // var _x = TouchInput.x + $gameMap._displayX * 48;
-                    // var _y = TouchInput.y + $gameMap._displayY * 48;
-
-                    // App.props.MapEditorSelectGridLayer.dispatch({type: "project/setCurrentMapCursorPos", pos: [_x,_y]})
+                    if (App.props.Header.toolbar.current_mode === "event"){
+                        $gameTemp.setDestination(x, y);
+                    }
+                    if (App.props.Header.toolbar.current_mode === "map"){
+                        // 绘制地图
+                    }
                 }
             }
             this._touchCount++;
         } else {
             this._touchCount = 0;
+        }
+    }
+    if (TouchInput.isReleased()){
+        // 松开 - 拖动事件
+        console.log("released!")
+        if (App.props.Header.toolbar.current_mode === "event"){
+            $gameTemp.setDestination(x, y);
         }
     }
 };
