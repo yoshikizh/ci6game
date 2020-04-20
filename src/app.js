@@ -22,6 +22,9 @@ function initializeConfig(){
     i18n: i18n_config,
     tileset_names: tileset_names
   }
+
+  // 配置全局调用的 dva props
+  window.App.props = {};
 }
 
 // // 初始化全局对象

@@ -5,7 +5,9 @@ export default {
   state: {
     user_name: "Guest",
     proj_name: App.game_data.system.gameTitle,
-    current_map_id: App.game_data.map_infos[1].id
+    current_map_id: App.game_data.map_infos[1].id,
+    current_map_cursor_pos: [0,0],
+    current_editor_mode: "map"
   },
 
   effects: {
@@ -34,6 +36,10 @@ export default {
   reducers: {
     setCurrentMapId: (state,params) => {
       state.current_map_id = params.map_id;
+      return _.clone(state);
+    },
+    setCurrentMapCursorPos: (state, params) => {
+      state.current_map_cursor_pos = params.pos;
       return _.clone(state);
     }
 

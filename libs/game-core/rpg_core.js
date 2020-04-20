@@ -5580,6 +5580,7 @@ ShaderTilemap.prototype.updateTransform = function() {
     }
     var startX = Math.floor((ox - this._margin) / this._tileWidth);
     var startY = Math.floor((oy - this._margin) / this._tileHeight);
+
     this._updateLayerPositions(startX, startY);
     if (this._needsRepaint ||
         this._lastStartX !== startX || this._lastStartY !== startY) {

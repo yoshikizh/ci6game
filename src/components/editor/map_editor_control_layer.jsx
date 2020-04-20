@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from 'dva';
+import MapEditorSelectGridLayer from "./map_editor_select_grid_layer";
 
 const MapEditorControlLayer = (props) => {
 
@@ -34,6 +35,7 @@ const MapEditorControlLayer = (props) => {
     const native_event = e.nativeEvent;
     const _x = native_event.offsetX;
     const _y = native_event.offsetY;
+
   }
 
   const getRowLinesArray = () => {
@@ -87,8 +89,9 @@ const MapEditorControlLayer = (props) => {
 
   return (
     <div id="rmmv-map-editor-control-layer" style={getStyle()} onClick={handleClick}>
-      {getRowLinesArray().map(obj => obj)}
-      {getColLinesArray().map(obj => obj)}
+      {/*<MapEditorSelectGridLayer />*/}
+{/*      {getRowLinesArray().map(obj => obj)}
+      {getColLinesArray().map(obj => obj)}*/}
     </div>
   )
 }

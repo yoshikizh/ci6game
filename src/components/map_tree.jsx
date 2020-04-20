@@ -3,7 +3,6 @@ import { connect } from 'dva';
 var _ = require('lodash');
 
 const MapTree = (props) => {
-
   const getParentLevel = (map_id) => {
     let level = 0;
     let _id = map_id
