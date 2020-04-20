@@ -3,20 +3,45 @@ SceneManager._runElementId = null;
 SceneManager._runMapIdForEditor = null;
 SceneManager._frame_count = 0;
 
+Game_Temp.prototype.clearDestination = function() {
+    if (SceneManager.isEditorMode()) return;
+    this._destinationX = null;
+    this._destinationY = null;
+};
+Game_Temp.prototype.setDestination = function(x, y) {
+    if (SceneManager.isEditorMode()) {
+        if (!x || !y) {
+            return;
+        }
+    }
+    this._destinationX = x;
+    this._destinationY = y;
+};
+Game_Temp.prototype.isDestinationValid = function() {
+    if (SceneManager.isEditorMode()) {
+        return true;
+    }
+    return this._destinationX !== null;
+};
+
+
 Sprite_Destination.prototype.update = function() {
     Sprite.prototype.update.call(this);
-    if ($gameTemp.isDestinationValid()){
-        this.updatePosition();
-        if (SceneManager.isRunMode()){
+    if (SceneManager.isRunMode()){
+        if ($gameTemp.isDestinationValid()){
+            this.updatePosition();
             this.updateAnimation();
+            this.visible = true;
         } else {
-            this.opacity = App.props.Header.toolbar.current_mode === "map" ? 100 : 255;
+            this._frameCount = 0;
+            this.visible = false;
         }
-        this.visible = true;
     } else {
-        this._frameCount = 0;
-        this.visible = false;
+        this.updatePosition();
+        this.opacity = App.props.Header.toolbar.current_mode === "map" ? 100 : 255;
+        this.visible = true;
     }
+
 };
 
 Sprite_Destination.prototype.createBitmap = function() {
@@ -140,17 +165,24 @@ Scene_Map.prototype.processMapTouch = function() {
                 if (SceneManager.isRunMode()){
                     $gameTemp.setDestination(x, y);
                 } else {
-                    if (App.props.Header.toolbar.current_mode === "event"){
-                        $gameTemp.setDestination(x, y);
-                    }
-                    if (App.props.Header.toolbar.current_mode === "map"){
-                        // 绘制地图
-                    }
+                    // if (App.props.Header.toolbar.current_mode === "event"){
+                    //     $gameTemp.setDestination(x, y);
+                    // }
+                    // if (App.props.Header.toolbar.current_mode === "map"){
+                    //     // 绘制地图
+                    // }
                 }
             }
             this._touchCount++;
         } else {
             this._touchCount = 0;
+        }
+    }
+    if (TouchInput.isTriggered()) {
+        var x = $gameMap.canvasToMapX(TouchInput.x);
+        var y = $gameMap.canvasToMapY(TouchInput.y);
+        if (App.props.Header.toolbar.current_mode === "event"){
+            $gameTemp.setDestination(x, y);
         }
     }
     if (TouchInput.isReleased()){
