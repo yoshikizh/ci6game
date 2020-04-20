@@ -6,8 +6,7 @@ export default {
     user_name: "Guest",
     proj_name: App.game_data.system.gameTitle,
     current_map_id: App.game_data.map_infos[1].id,
-    current_map_cursor_pos: [0,0],
-    current_editor_mode: "map"
+    current_map_cursor_pos: [0,0]
   },
 
   effects: {

@@ -17,6 +17,7 @@ export default {
       if (["map","event"].includes(tool_name)){
         yield put({ type: 'setCurrentMode', mode: tool_name });
         yield put({ type: 'setCurrentDraw', draw: null });
+        yield put({ type: 'status_bar/setShowEditBtn', is_show: tool_name === "event" });
       }
       if (["pencil","square","ellipse","fill","shadow_pen"].includes(tool_name)){
         yield put({ type: 'setCurrentDraw', draw: current_mode === "map" ? tool_name : null })

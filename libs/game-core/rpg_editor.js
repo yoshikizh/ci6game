@@ -10,7 +10,8 @@ Game_Temp.prototype.clearDestination = function() {
 };
 Game_Temp.prototype.setDestination = function(x, y) {
     if (SceneManager.isEditorMode()) {
-        if (!x || !y) {
+        console.log(x,y)
+        if (x === undefined || y === undefined) {
             return;
         }
     }
@@ -182,6 +183,7 @@ Scene_Map.prototype.processMapTouch = function() {
         var x = $gameMap.canvasToMapX(TouchInput.x);
         var y = $gameMap.canvasToMapY(TouchInput.y);
         if (App.props.Header.toolbar.current_mode === "event"){
+            console.log(x,y)
             $gameTemp.setDestination(x, y);
         }
     }

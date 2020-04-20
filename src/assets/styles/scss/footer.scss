@@ -4,4 +4,13 @@
 	.split-vertical-line { height: 18px; }
 
 	#map-tilename { margin-left: 20px; }
+	a#edit-current-event { 
+		display: block; 
+		padding: 2px 10px;
+		font-size: 10px; 
+		color: black;
+		cursor: pointer;
+		border: 1px solid #7a8088;
+		border-radius: 2px;
+	}
 }

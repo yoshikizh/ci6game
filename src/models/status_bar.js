@@ -20,7 +20,8 @@ export default {
     tilename: "",
     zoom: 100,
     cursor_pos: [0,0],
-    map_status: getCurrentMapInfo()
+    map_status: getCurrentMapInfo(),
+    show_edit_btn: false
   },
   reducers: {
     zoomIn: (state,params) => {
@@ -41,6 +42,10 @@ export default {
     },
     setMapInfo: (state, params) => {
       state.map_status = params.info;
+      return _.clone(state);
+    },
+    setShowEditBtn: (state, params) => {
+      state.show_edit_btn = params.is_show;
       return _.clone(state);
     }
   }
