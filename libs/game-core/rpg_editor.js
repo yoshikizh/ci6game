@@ -254,8 +254,24 @@ Scene_Map.prototype.createDisplayObjects = function() {
   this.createAllWindows();
 };
 
+Game_Map.prototype.findEvent = function(x,y){
+  return this.events().filter((e)=>{ return e.x === x && e.y === y})[0];
+};
 
+Game_Map.prototype.existEvent = function(x,y){
+  return this.events().filter((e)=>{ return e.x === x && e.y === y}).length > 0;
+};
+
+Game_Map.prototype.existEventExcept = function(except_event,x,y){
+  return this.events().filter((e)=>{ return e._eventId !== except_event._eventId && e.x === x && e.y === y}).length > 0;
+};
+
+
+
+Scene_Map.current_drag_event = null;
 Scene_Map.prototype.processMapTouch = function() {
+
+  // 拖动中
   if (TouchInput.isTriggered() || this._touchCount > 0) {
     if (TouchInput.isPressed()) {
       if (this._touchCount === 0 || this._touchCount >= 15) {
@@ -264,12 +280,16 @@ Scene_Map.prototype.processMapTouch = function() {
         if (SceneManager.isRunMode()){
           $gameTemp.setDestination(x, y);
         } else {
-          // if (App.props.Header.toolbar.current_mode === "event"){
-          //     $gameTemp.setDestination(x, y);
-          // }
-          // if (App.props.Header.toolbar.current_mode === "map"){
-          //     // 绘制地图
-          // }
+          if (App.props.Header.toolbar.current_mode === "event"){
+            if (Scene_Map.current_drag_event) {
+              if (!$gameMap.existEvent(x,y)){
+                Scene_Map.current_drag_event.locate(x,y);
+              }
+            }
+          }
+          if (App.props.Header.toolbar.current_mode === "map"){
+              // 绘制地图
+          }
         }
       }
       this._touchCount++;
@@ -277,6 +297,8 @@ Scene_Map.prototype.processMapTouch = function() {
       this._touchCount = 0;
     }
   }
+
+  // 拖动开始
   if (TouchInput.isTriggered()) {
     var x = $gameMap.canvasToMapX(TouchInput.x);
     var y = $gameMap.canvasToMapY(TouchInput.y);
@@ -288,12 +310,24 @@ Scene_Map.prototype.processMapTouch = function() {
         type: "project/changeCurrentMapPos",
         params: {pos: [x,y]}
       });
+
+      Scene_Map.current_drag_event = $gameMap.findEvent(x,y) || null;
     }
   }
+
+  // 松开 - 拖动事件
   if (TouchInput.isReleased()){
-    // 松开 - 拖动事件
     console.log("released!")
     if (App.props.Header.toolbar.current_mode === "event"){
+
+      var x = $gameMap.canvasToMapX(TouchInput.x);
+      var y = $gameMap.canvasToMapY(TouchInput.y);
+
+      if (Scene_Map.current_drag_event && !$gameMap.existEventExcept(Scene_Map.current_drag_event,x,y)) {
+        Scene_Map.current_drag_event.locate(x,y);
+        Scene_Map.current_drag_event = null;
+        console.log("!!!!")
+      }
       $gameTemp.setDestination(x, y);
     }
   }
