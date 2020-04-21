@@ -29,6 +29,10 @@ export default {
 
       SceneManager._runMapIdForEditor = map_id;
       $gamePlayer.reserveTransfer(map_id,0,0,2,1);
+    },
+    * changeCurrentMapPos ({ params }, { call, put, select }) {
+      yield put({ type: 'setCurrentMapCursorPos', pos: params.pos });
+      yield put({ type: 'status_bar/setCurrentCursorPos', pos: params.pos });
     }
   },
 
