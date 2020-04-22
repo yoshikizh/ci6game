@@ -26,7 +26,7 @@ export default {
   },
 
   effects: {
-    * changeTile ({ params }, { call, put, select }) {
+    * changeTile (params, { call, put, select }) {
       const tile_id = params.tile_id;
       const tile_arr = tile_id.split("|");
       const tile_type = tile_arr[0];

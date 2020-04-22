@@ -2,6 +2,9 @@ import React from "react";
 import { connect } from 'dva';
 
 const AppFooterInit = (props) => {
+
+  App.props.Footer = props;
+
   const current_map = props.status_bar.map_status;
 
   return (
@@ -18,6 +21,7 @@ const AppFooterInit = (props) => {
       <div id="map-zoom">{props.status_bar.zoom}%</div>
       <div className="split-vertical-line"></div>
       { props.status_bar.show_edit_btn ? <div><a id="edit-current-event" className="ok-btn-background-gradient">Edit</a></div> : "" }
+      { props.status_bar.show_new_btn ? <div><a id="new-current-event" className="ok-btn-background-gradient">New</a></div> : "" }
     </div>
   )
 }

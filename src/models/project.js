@@ -10,7 +10,7 @@ export default {
   },
 
   effects: {
-    * changeMap ({ params }, { call, put, select }) {
+    * changeMap ( params, { call, put, select }) {
       const map_id = params.map_id;
       const current_map_id = yield select(state => state.project.current_map_id);
       if (map_id === current_map_id) return;
@@ -30,7 +30,7 @@ export default {
       SceneManager._runMapIdForEditor = map_id;
       $gamePlayer.reserveTransfer(map_id,0,0,2,1);
     },
-    * changeCurrentMapPos ({ params }, { call, put, select }) {
+    * changeCurrentMapPos (params, { call, put, select }) {
       yield put({ type: 'setCurrentMapCursorPos', pos: params.pos });
       yield put({ type: 'status_bar/setCurrentCursorPos', pos: params.pos });
     }

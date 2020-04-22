@@ -201,7 +201,7 @@ const MapTree = (props) => {
 
     props.dispatch({
       type: 'project/changeMap',
-      params: {map_id: map_id}
+      map_id: map_id
     });
   }
 

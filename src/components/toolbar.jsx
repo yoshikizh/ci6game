@@ -8,7 +8,7 @@ const Toolbar = (props) => {
   const onClickHandle = (tool_name) => {
     props.dispatch({
       type: "toolbar/callTool",
-      params: { tool_name: tool_name }
+      tool_name: tool_name
     });
 
   };

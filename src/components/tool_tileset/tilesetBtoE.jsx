@@ -20,7 +20,7 @@ const TilesetBtoE = (props) => {
   const onClickHandle = (tile_id) => {
     props.dispatch({
       type: 'tool_tileset/changeTile',
-      params: {tile_id: tile_id}
+      tile_id: tile_id
     });
   };
 

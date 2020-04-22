@@ -8,16 +8,29 @@ Game_Temp.prototype.clearDestination = function() {
   this._destinationX = null;
   this._destinationY = null;
 };
+
 Game_Temp.prototype.setDestination = function(x, y) {
   if (SceneManager.isEditorMode()) {
-    console.log(x,y)
     if (x === undefined || y === undefined) {
       return;
     }
   }
   this._destinationX = x;
   this._destinationY = y;
+
+  if ($gameMap.existEvent(x,y)){
+    App.props.Footer.dispatch({
+      type: "status_bar/setShowEditBtn",
+      is_show: true
+    });
+  } else {
+    App.props.Footer.dispatch({
+      type: "status_bar/setNewEditBtn",
+      is_show: true
+    });
+  }
 };
+
 Game_Temp.prototype.isDestinationValid = function() {
   if (SceneManager.isEditorMode()) {
     return true;
@@ -140,7 +153,6 @@ Sprite_Destination.prototype.update = function() {
     this.opacity = App.props.Header.toolbar.current_mode === "map" ? 100 : 255;
     this.visible = true;
   }
-
 };
 
 Sprite_Destination.prototype.createBitmap = function() {
@@ -184,7 +196,7 @@ SceneManager.isEditorMode = function(){
 SceneManager.clearRootChildren = function(root_element){
   var ele_children = root_element.children;
   while(ele_children.length > 0)
-    root_element.removeChild(ele_children[0]);   
+    root_element.removeChild(ele_children[0]);
 }
 
 SceneManager.gameStart = function(mode,run_element_id, run_map_id){
@@ -308,7 +320,7 @@ Scene_Map.prototype.processMapTouch = function() {
       // 更新 state
       App.props.Editor.dispatch({
         type: "project/changeCurrentMapPos",
-        params: {pos: [x,y]}
+        pos: [x,y]
       });
 
       Scene_Map.current_drag_event = $gameMap.findEvent(x,y) || null;
@@ -317,16 +329,13 @@ Scene_Map.prototype.processMapTouch = function() {
 
   // 松开 - 拖动事件
   if (TouchInput.isReleased()){
-    console.log("released!")
     if (App.props.Header.toolbar.current_mode === "event"){
-
       var x = $gameMap.canvasToMapX(TouchInput.x);
       var y = $gameMap.canvasToMapY(TouchInput.y);
 
       if (Scene_Map.current_drag_event && !$gameMap.existEventExcept(Scene_Map.current_drag_event,x,y)) {
         Scene_Map.current_drag_event.locate(x,y);
         Scene_Map.current_drag_event = null;
-        console.log("!!!!")
       }
       $gameTemp.setDestination(x, y);
     }

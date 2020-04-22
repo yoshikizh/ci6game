@@ -21,7 +21,8 @@ export default {
     zoom: 100,
     cursor_pos: [0,0],
     map_status: getCurrentMapInfo(),
-    show_edit_btn: false
+    show_edit_btn: false,
+    show_new_btn: false
   },
   reducers: {
     zoomIn: (state,params) => {
@@ -46,6 +47,16 @@ export default {
     },
     setShowEditBtn: (state, params) => {
       state.show_edit_btn = params.is_show;
+      if (params.is_show){
+        state.show_new_btn = false;
+      }
+      return _.clone(state);
+    },
+    setNewEditBtn: (state, params) => {
+      state.show_new_btn = params.is_show;
+      if (params.is_show){
+        state.show_edit_btn = false;
+      }
       return _.clone(state);
     }
   }
