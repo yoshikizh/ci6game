@@ -28,6 +28,8 @@ const MapEditorControlLayer = (props) => {
     const _x = parseInt((player_width * 0.5 + scroll_x) / 48);
     const _y = parseInt((player_height * 0.5 + scroll_y) / 48);
 
+    console.log(_x,_y)
+
     $gamePlayer.locate(_x,_y);
   }
 
@@ -79,11 +81,12 @@ const MapEditorControlLayer = (props) => {
     return arr;
   }
 
-
+  
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll,true);
+    const parent_ele = document.getElementById("rmmv-map-editor-control-layer-wrapper");
+    parent_ele.addEventListener('scroll', handleScroll,true);
     return function(){
-      window.removeEventListener('scroll',handleScroll)
+      parent_ele.removeEventListener('scroll',handleScroll)
     };
   });
 

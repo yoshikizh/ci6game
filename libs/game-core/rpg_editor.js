@@ -114,14 +114,14 @@ Sprite_Character.prototype.updateOther = function() {
   }
 };
 
-// Sprite_Character.prototype.updatePosition = function() {
-//     this.x = this._character.screenX();
-//     this.y = this._character.screenY();
-//     this.z = this._character.screenZ();
-//     if (SceneManager.isEditorMode) {
-//       this.y = this._character.screenY();
-//     }
-// };
+Sprite_Character.prototype.updatePosition = function() {
+    this.x = this._character.screenX();
+    this.y = this._character.screenY();
+    this.z = this._character.screenZ();
+    if (SceneManager.isEditorMode) {
+      this.y = this._character.screenY();
+    }
+};
 
 
 Sprite_Character.prototype.updateTileFrame = function() {
@@ -325,12 +325,13 @@ Scene_Map.prototype.processMapTouch = function() {
           if (App.props.Header.toolbar.current_mode === "event"){
             if (Scene_Map.current_drag_event) {
               if (!$gameMap.existEvent(x,y)){
-                Scene_Map.current_drag_event.locate(x,y);
+                if (x >= 0 && y >= 0)
+                  Scene_Map.current_drag_event.locate(x,y);
               }
             }
           }
           if (App.props.Header.toolbar.current_mode === "map"){
-              // 绘制地图
+            // 绘制地图
           }
         }
       }
@@ -363,11 +364,13 @@ Scene_Map.prototype.processMapTouch = function() {
       var x = $gameMap.canvasToMapX(TouchInput.x);
       var y = $gameMap.canvasToMapY(TouchInput.y);
 
-      if (Scene_Map.current_drag_event && !$gameMap.existEventExcept(Scene_Map.current_drag_event,x,y)) {
-        Scene_Map.current_drag_event.locate(x,y);
-        Scene_Map.current_drag_event = null;
+      if (x >= 0 && y >= 0) {
+        if (Scene_Map.current_drag_event && !$gameMap.existEventExcept(Scene_Map.current_drag_event,x,y)) {
+          Scene_Map.current_drag_event.locate(x,y);
+          Scene_Map.current_drag_event = null;
+        }
+        $gameTemp.setDestination(x, y);
       }
-      $gameTemp.setDestination(x, y);
     }
   }
 };
