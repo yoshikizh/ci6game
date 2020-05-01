@@ -309,7 +309,7 @@ Game_Map.prototype.existEventExcept = function(except_event,x,y){
 
 
 // 设置光标位置tile到地图
-Scene_Map.prototype.refreshTileByCurrentPos(x,y){
+Scene_Map.prototype.refreshTileByCurrentPos = function(x,y){
   // 自动图层id排列
   //                2090,
   //                2080,
@@ -333,10 +333,7 @@ Scene_Map.prototype.refreshTileByCurrentPos(x,y){
       $dataMap.data[target_index] = target_id;
       SceneManager._scene._spriteset._tilemap.refresh();
     }
-
   }
-
-
 }
 
 Scene_Map.current_drag_event = null;
