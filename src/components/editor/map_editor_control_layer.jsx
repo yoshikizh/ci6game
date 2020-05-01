@@ -28,8 +28,6 @@ const MapEditorControlLayer = (props) => {
     const _x = parseInt((player_width * 0.5 + scroll_x) / 48);
     const _y = parseInt((player_height * 0.5 + scroll_y) / 48);
 
-    console.log(_x,_y)
-
     $gamePlayer.locate(_x,_y);
   }
 

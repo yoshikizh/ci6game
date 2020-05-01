@@ -10,7 +10,6 @@ TouchInput.initialize = function() {
   } else {
     this._setupEventHandlers("container-map-area");
   }
-  
 };
 
 TouchInput._setupEventHandlers = function(dom_id) {
@@ -309,6 +308,36 @@ Game_Map.prototype.existEventExcept = function(except_event,x,y){
 };
 
 
+// 设置光标位置tile到地图
+Scene_Map.prototype.refreshTileByCurrentPos(x,y){
+  // 自动图层id排列
+  //                2090,
+  //                2080,
+  //           2082,2051,2084,
+  // 2091,2081,2057,2048,2054,2081,2093
+  //           2088,2060,2086,
+  //                2080,
+  //                2092,
+  const selected_tile_id = App.props.tool_tileset.tool_tileset.selected_tile_id;
+  if (selected_tile_id){
+
+    const split_arr = selected_tile_id.split("|");
+    const tile_type = split_arr[0];
+    if (tile_type === 'A1'){
+      const tile_x = parseInt(split_arr[3]);
+      const tile_y = parseInt(split_arr[2]);
+      const start_index = (tile_x + tile_y * 8);
+      const base_id = Tilemap.TILE_ID_A1 + start_index * 48;
+      const target_id = base_id;
+      const target_index = x + y * $gameMap.width();
+      $dataMap.data[target_index] = target_id;
+      SceneManager._scene._spriteset._tilemap.refresh();
+    }
+
+  }
+
+
+}
 
 Scene_Map.current_drag_event = null;
 Scene_Map.prototype.processMapTouch = function() {
@@ -330,8 +359,10 @@ Scene_Map.prototype.processMapTouch = function() {
               }
             }
           }
+
+          // 拖动绘制地图
           if (App.props.Header.toolbar.current_mode === "map"){
-            // 绘制地图
+            this.refreshTileByCurrentPos(x,y);
           }
         }
       }
@@ -355,6 +386,11 @@ Scene_Map.prototype.processMapTouch = function() {
       });
 
       Scene_Map.current_drag_event = $gameMap.findEvent(x,y) || null;
+    }
+
+    // 开始绘制地图
+    if (App.props.Header.toolbar.current_mode === "map"){
+      this.refreshTileByCurrentPos(x,y);
     }
   }
 

@@ -10,6 +10,8 @@ import TabTileset from './tab'
 
 const ToolTileset = (props) => {
 
+  App.props.tool_tileset = props;
+
   return (
     <div id="container-tool-tileset-wrapper" className="area-border-color">
       <div id="container-tool-tileset">
