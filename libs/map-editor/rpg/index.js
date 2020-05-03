@@ -308,9 +308,148 @@ Game_Map.prototype.existEventExcept = function(except_event,x,y){
 };
 
 
+
+Scene_Map.prototype.isCurrentTileA1 = function(pos,current_id){
+  const target_index = pos[0] + pos[1] * $gameMap.width();
+  const target_id = $dataMap.data[target_index];
+
+  // console.log("-------start-----")
+  // console.log(target_id)
+  // console.log(current_id)
+  // console.log(target_id >= current_id && target_id < current_id + 48);
+  // console.log("-------end-----")
+
+  return target_id >= current_id && target_id < current_id + 48;
+};
+
+// 刷新当前图块以及周边图块
+Scene_Map.prototype.refreshCurrentTileAndTheRound = function(x,y){
+
+  const selected_tile_id = App.props.tool_tileset.tool_tileset.selected_tile_id;
+  if (selected_tile_id){
+
+    const split_arr = selected_tile_id.split("|");
+    const tile_type = split_arr[0];
+    if (tile_type === 'A1'){
+
+      const tile_x = parseInt(split_arr[3]);
+      const tile_y = parseInt(split_arr[2]);
+      const start_index = (tile_x + tile_y * 8);
+      const base_id = Tilemap.TILE_ID_A1;
+      let target_id = base_id + start_index * 48;
+
+      this.updateDataTileByCurrentPosA1(x,y,target_id);
+
+
+      if (this.isCurrentTileA1([x-1, y],target_id)){
+        this.updateDataTileByCurrentPosA1(x-1, y,target_id);
+      }
+      if (this.isCurrentTileA1([x, y-1],target_id)){
+        this.updateDataTileByCurrentPosA1(x, y-1,target_id);
+      }
+      if (this.isCurrentTileA1([x+1, y],target_id)){
+        this.updateDataTileByCurrentPosA1(x+1, y,target_id);
+      }
+      if (this.isCurrentTileA1([x, y+1],target_id)){
+        this.updateDataTileByCurrentPosA1(x, y+1,target_id);
+      }
+      if (this.isCurrentTileA1([x-1, y-1],target_id)){
+        this.updateDataTileByCurrentPosA1(x-1, y-1,target_id);
+      }
+      if (this.isCurrentTileA1([x+1, y-1],target_id)){
+        this.updateDataTileByCurrentPosA1(x+1, y-1,target_id);
+      }
+      if (this.isCurrentTileA1([x-1, y+1],target_id)){
+        this.updateDataTileByCurrentPosA1(x-1, y+1,target_id);
+      }
+      if (this.isCurrentTileA1([x+1, y+1],target_id)){
+        this.updateDataTileByCurrentPosA1(x+1, y+1,target_id);
+      }
+    }
+
+    SceneManager._scene._spriteset._tilemap.refresh();
+  }
+};
+
+// 0: 不包含 1: 包含  null: 不检测跳过
+Scene_Map.prototype.conditionScanRoundTiles = function(conditions, x, y, target_id){
+
+  const pos_left  = [x-1, y];
+  const pos_up    = [x, y-1];
+  const pos_right = [x+1, y];
+  const pos_down  = [x, y+1];
+  const pos_left_top   = [x-1, y-1];
+  const pos_right_top  = [x+1, y-1];
+  const pos_left_down  = [x-1, y+1];
+  const pos_right_down = [x+1, y+1];
+
+  var result = true;
+  for(var i = 0; i < conditions.length; i++){
+    if (conditions[i] === null){
+      continue;
+    }
+    var dir = i + 1;
+    var exist = conditions[i] === 1;
+
+
+      if (dir === 1){
+        if (exist !== this.isCurrentTileA1(pos_left_down,target_id)){
+          result = false;
+          break;
+        }
+      }
+      if (dir === 2){
+        if (exist !== this.isCurrentTileA1(pos_down,target_id)){
+          result = false;
+          break;
+        }
+      }
+      if (dir === 3){
+        if (exist !== this.isCurrentTileA1(pos_right_down,target_id)){
+          result = false;
+          break;
+        }
+      }
+      if (dir === 4){
+        if (exist !== this.isCurrentTileA1(pos_left,target_id)){
+          result = false;
+          break;
+        }
+      }
+      if (dir === 6){
+        if (exist !== this.isCurrentTileA1(pos_right,target_id)){
+          result = false;
+          break;
+        }
+      }
+      if (dir === 7){
+        if (exist !== this.isCurrentTileA1(pos_left_top,target_id)){
+          result = false;
+          break;
+        }
+      }
+      if (dir === 8){
+        if (exist !== this.isCurrentTileA1(pos_up,target_id)){
+          result = false;
+          break;
+        }
+      }
+      if (dir === 9){
+        if (exist !== this.isCurrentTileA1(pos_right_top,target_id)){
+          result = false;
+          break;
+        }
+      }
+    
+  }
+  return result;
+}
+
+
 // 设置光标位置tile到地图
-Scene_Map.prototype.refreshTileByCurrentPos = function(x,y){
-  // 自动图层id排列
+Scene_Map.prototype.updateDataTileByCurrentPosA1 = function(x,y,target_id){
+
+  // 自动图层id排列如
   //                2090,
   //                2080,
   //           2082,2051,2084,
@@ -318,22 +457,162 @@ Scene_Map.prototype.refreshTileByCurrentPos = function(x,y){
   //           2088,2060,2086,
   //                2080,
   //                2092,
-  const selected_tile_id = App.props.tool_tileset.tool_tileset.selected_tile_id;
-  if (selected_tile_id){
 
-    const split_arr = selected_tile_id.split("|");
-    const tile_type = split_arr[0];
-    if (tile_type === 'A1'){
-      const tile_x = parseInt(split_arr[3]);
-      const tile_y = parseInt(split_arr[2]);
-      const start_index = (tile_x + tile_y * 8);
-      const base_id = Tilemap.TILE_ID_A1 + start_index * 48;
-      const target_id = base_id;
-      const target_index = x + y * $gameMap.width();
-      $dataMap.data[target_index] = target_id;
-      SceneManager._scene._spriteset._tilemap.refresh();
-    }
+  // 获取 周围8格坐标
+  const pos_left  = [x-1, y];
+  const pos_up    = [x, y-1];
+  const pos_right = [x+1, y];
+  const pos_down  = [x, y+1];
+  const pos_left_top   = [x-1, y-1];
+  const pos_right_top  = [x+1, y-1];
+  const pos_left_down  = [x-1, y+1];
+  const pos_right_down = [x+1, y+1];
+
+  if (this.conditionScanRoundTiles([1,1,1,1,null,1,1,1,1],x,y,target_id)){
+    target_id += 0;
+  } 
+  else if (this.conditionScanRoundTiles([1,1,1,1,null,1,0,1,1],x,y,target_id)){
+    target_id += 1;
   }
+  else if (this.conditionScanRoundTiles([1,1,1,1,null,1,1,1,0],x,y,target_id)){
+    target_id += 2;
+  }
+  else if (this.conditionScanRoundTiles([1,1,1,1,null,1,0,1,0],x,y,target_id)){
+    target_id += 3;
+  }
+  else if (this.conditionScanRoundTiles([1,1,0,1,null,1,1,1,1],x,y,target_id)){
+    target_id += 4;
+  }
+  else if (this.conditionScanRoundTiles([1,1,0,1,null,1,0,1,1],x,y,target_id)){
+    target_id += 5;
+  }
+  else if (this.conditionScanRoundTiles([1,1,0,1,null,1,1,1,0],x,y,target_id)){
+    target_id += 6;
+  }
+  else if (this.conditionScanRoundTiles([1,1,0,1,null,1,0,1,0],x,y,target_id)){
+    target_id += 7;
+  }
+  else if (this.conditionScanRoundTiles([0,1,1,1,null,1,1,1,1],x,y,target_id)){
+    target_id += 8;
+  }
+  else if (this.conditionScanRoundTiles([0,1,1,1,null,1,0,1,1],x,y,target_id)){
+    target_id += 9;
+  }
+  else if (this.conditionScanRoundTiles([0,1,1,1,null,1,1,1,0],x,y,target_id)){
+    target_id += 10;
+  }
+  else if (this.conditionScanRoundTiles([0,1,1,1,null,1,0,1,0],x,y,target_id)){
+    target_id += 11;
+  }
+  else if (this.conditionScanRoundTiles([0,1,0,1,null,1,1,1,1],x,y,target_id)){
+    target_id += 12;
+  }
+  else if (this.conditionScanRoundTiles([0,1,0,1,null,1,0,1,1],x,y,target_id)){
+    target_id += 13;
+  }
+  else if (this.conditionScanRoundTiles([0,1,0,1,null,1,1,1,0],x,y,target_id)){
+    target_id += 14;
+  }
+  else if (this.conditionScanRoundTiles([0,1,0,1,null,1,0,1,0],x,y,target_id)){
+    target_id += 15;
+  }
+  else if (this.conditionScanRoundTiles([null,1,1,0,null,1,null,1,1],x,y,target_id)){
+    target_id += 16;
+  }
+  else if (this.conditionScanRoundTiles([null,1,1,0,null,1,null,1,0],x,y,target_id)){
+    target_id += 17;
+  }
+  else if (this.conditionScanRoundTiles([null,1,0,0,null,1,null,1,1],x,y,target_id)){
+    target_id += 18;
+  }
+  else if (this.conditionScanRoundTiles([null,1,0,0,null,1,null,1,0],x,y,target_id)){
+    target_id += 19;
+  }
+  else if (this.conditionScanRoundTiles([1,1,1,1,null,1,null,0,null],x,y,target_id)){
+    target_id += 20;
+  }
+  else if (this.conditionScanRoundTiles([1,1,0,1,null,1,null,0,null],x,y,target_id)){
+    target_id += 21;
+  }
+  else if (this.conditionScanRoundTiles([0,1,1,1,null,1,null,0,null],x,y,target_id)){
+    target_id += 22;
+  }
+  else if (this.conditionScanRoundTiles([0,1,0,1,null,1,null,0,null],x,y,target_id)){
+    target_id += 23;
+  }
+  else if (this.conditionScanRoundTiles([1,1,null,1,null,0,1,1,null],x,y,target_id)){
+    target_id += 24;
+  }
+  else if (this.conditionScanRoundTiles([0,1,null,1,null,0,1,1,null],x,y,target_id)){
+    target_id += 25;
+  }
+  else if (this.conditionScanRoundTiles([1,1,null,1,null,0,0,1,null],x,y,target_id)){
+    target_id += 26;
+  }
+  else if (this.conditionScanRoundTiles([0,1,null,1,null,0,0,1,null],x,y,target_id)){
+    target_id += 27;
+  }
+  else if (this.conditionScanRoundTiles([null,0,null,1,null,1,1,1,1],x,y,target_id)){
+    target_id += 28;
+  }
+  else if (this.conditionScanRoundTiles([null,0,null,1,null,1,0,1,1],x,y,target_id)){
+    target_id += 29;
+  }
+  else if (this.conditionScanRoundTiles([null,0,null,1,null,1,1,1,0],x,y,target_id)){
+    target_id += 30;
+  }
+  else if (this.conditionScanRoundTiles([null,0,null,1,null,1,0,1,0],x,y,target_id)){
+    target_id += 31;
+  }
+  else if (this.conditionScanRoundTiles([null,1,null,0,null,0,null,1,null],x,y,target_id)){
+    target_id += 32;
+  }
+  else if (this.conditionScanRoundTiles([null,0,null,1,null,1,null,0,null],x,y,target_id)){
+    target_id += 33;
+  }
+  else if (this.conditionScanRoundTiles([null,1,1,0,null,1,null,0,null],x,y,target_id)){
+    target_id += 34;
+  }
+  else if (this.conditionScanRoundTiles([null,1,null,0,null,1,null,0,null],x,y,target_id)){
+    target_id += 35;
+  }
+  else if (this.conditionScanRoundTiles([1,1,null,1,null,0,null,0,null],x,y,target_id)){
+    target_id += 36;
+  }
+  else if (this.conditionScanRoundTiles([0,1,null,1,null,0,null,0,null],x,y,target_id)){
+    target_id += 37;
+  }
+  else if (this.conditionScanRoundTiles([null,0,null,1,null,0,1,1,null],x,y,target_id)){
+    target_id += 38;
+  }
+  else if (this.conditionScanRoundTiles([null,0,null,1,null,0,0,1,null],x,y,target_id)){
+    target_id += 39;
+  }
+  else if (this.conditionScanRoundTiles([null,0,null,0,null,1,null,1,1],x,y,target_id)){
+    target_id += 40;
+  }
+  else if (this.conditionScanRoundTiles([null,0,null,0,null,1,null,1,0],x,y,target_id)){
+    console.log("hit 41")
+    target_id += 41;
+  }
+  else if (this.conditionScanRoundTiles([null,1,null,0,null,0,null,0,null],x,y,target_id)){
+    console.log("hit 42")
+    target_id += 42;
+  }
+  else if (this.conditionScanRoundTiles([null,0,null,0,null,1,null,0,null],x,y,target_id)){
+    target_id += 43;
+  }
+  else if (this.conditionScanRoundTiles([null,0,null,0,null,0,null,1,null],x,y,target_id)){
+    target_id += 44;
+  }
+  else if (this.conditionScanRoundTiles([null,0,null,1,null,0,null,0,null],x,y,target_id)){
+    target_id += 45;
+  }
+  else if (this.conditionScanRoundTiles([null,0,null,0,null,0,null,0,null],x,y,target_id)){
+    target_id += 46;
+  }
+  const target_index = x + y * $gameMap.width();
+  $dataMap.data[target_index] = target_id;
 }
 
 Scene_Map.current_drag_event = null;
@@ -359,7 +638,7 @@ Scene_Map.prototype.processMapTouch = function() {
 
           // 拖动绘制地图
           if (App.props.Header.toolbar.current_mode === "map"){
-            this.refreshTileByCurrentPos(x,y);
+            this.refreshCurrentTileAndTheRound(x,y);
           }
         }
       }
@@ -387,7 +666,7 @@ Scene_Map.prototype.processMapTouch = function() {
 
     // 开始绘制地图
     if (App.props.Header.toolbar.current_mode === "map"){
-      this.refreshTileByCurrentPos(x,y);
+      this.refreshCurrentTileAndTheRound(x,y);
     }
   }
 
