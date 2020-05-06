@@ -63,13 +63,25 @@ const TilesetA = (props) => {
 
     groups.forEach((arr,index) => {
       arr.forEach((tile_name,tilename_index) => {
+
+        // RAMARK A1 tilemap 第一行的 index 1和2 需要交换位置
+        let draw_index = tilename_index;
+        if (index === 0){
+          if (draw_index === 1) {
+            draw_index = 2;
+          } else if( draw_index === 2 ) {
+            draw_index = 1;
+          }
+        }
+
         let x = 0;
         let y = index * 6 * 32;
-        if ([0,2].includes(tilename_index)) x = 0;
-        if ([1,3].includes(tilename_index)) x = 6 * 32;
-        if ([4,6].includes(tilename_index)) x = 8 * 32;
-        if ([5,7].includes(tilename_index)) x = 14 * 32;
-        if ([2,3,6,7].includes(tilename_index)) y += 96;
+        if ([0,2].includes(draw_index)) x = 0;
+        if ([1,3].includes(draw_index)) x = 6 * 32;
+        if ([4,6].includes(draw_index)) x = 8 * 32;
+        if ([5,7].includes(draw_index)) x = 14 * 32;
+        if ([2,3,6,7].includes(draw_index)) y += 96;
+
         const key = `A1|${filename1}|${index}|${tilename_index}|${x}|${y}`
         render_tilemaps.push(createTileEle(image_config,x,y,key));
       });
