@@ -6,7 +6,7 @@ export default {
     proj_name: App.config.app.default_proj_name,
     current_mode: "map",
     current_manager: "map",
-    current_draw: null
+    current_draw: 'pencil'
   },
 
   effects: {
@@ -16,7 +16,7 @@ export default {
 
       if (["map","event"].includes(tool_name)){
         yield put({ type: 'setCurrentMode', mode: tool_name });
-        yield put({ type: 'setCurrentDraw', draw: null });
+        // yield put({ type: 'setCurrentDraw', draw: null });
 
         const [x,y] = yield select(state => state.project.current_map_cursor_pos);
         const exist_event = $gameMap.existEvent(x,y);

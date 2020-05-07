@@ -21,6 +21,37 @@ Scene_Map.prototype.isCurrentTileA1 = function(pos,current_id){
   return this.isCurrentTileA1ByIndex(target_index,current_id);
 };
 
+Scene_Map.prototype.onDrawTileTouchStart = function(x,y){
+  const current_draw = App.props.Header.toolbar.current_draw;
+  if (current_draw === 'pencil'){
+    this.refreshCurrentTileAndTheRound(x,y);
+  }
+  if (current_draw === 'square'){
+
+  }
+  if (current_draw === 'ellipse'){
+
+  }
+  if (current_draw === 'fill'){
+
+  }
+  if (current_draw === 'shadow_pen'){
+
+  }
+}
+
+Scene_Map.prototype.onDrawTileTouchMove = function(x,y){
+  const current_draw = App.props.Header.toolbar.current_draw;
+  if (current_draw === 'pencil'){
+    this.refreshCurrentTileAndTheRound(x,y);
+  }
+}
+
+Scene_Map.prototype.onDrawTileTouchEnd = function(x,y){
+  
+}
+
+
 // 刷新当前图块以及周边图块
 Scene_Map.prototype.refreshCurrentTileAndTheRound = function(x,y){
 
@@ -325,11 +356,9 @@ Scene_Map.prototype.updateDataTileByCurrentPosA1 = function(x,y,target_id,is_aut
       target_id += 40;
     }
     else if (this.conditionScanRoundTiles([null,0,null,0,null,1,null,1,0],x,y,target_id)){
-      console.log("hit 41")
       target_id += 41;
     }
     else if (this.conditionScanRoundTiles([null,1,null,0,null,0,null,0,null],x,y,target_id)){
-      console.log("hit 42")
       target_id += 42;
     }
     else if (this.conditionScanRoundTiles([null,0,null,0,null,1,null,0,null],x,y,target_id)){
@@ -363,7 +392,10 @@ Scene_Map.prototype.processMapTouch = function() {
         if (SceneManager.isRunMode()){
           $gameTemp.setDestination(x, y);
         } else {
-          if (App.props.Header.toolbar.current_mode === "event"){
+
+          var toolbar = App.props.Header.toolbar;
+
+          if (toolbar.current_mode === "event"){
             if (Scene_Map.current_drag_event) {
               if (!$gameMap.existEvent(x,y)){
                 if (x >= 0 && y >= 0)
@@ -373,8 +405,8 @@ Scene_Map.prototype.processMapTouch = function() {
           }
 
           // 拖动绘制地图
-          if (App.props.Header.toolbar.current_mode === "map"){
-            this.refreshCurrentTileAndTheRound(x,y);
+          if (toolbar.current_mode === "map"){
+            this.onDrawTileTouchMove(x,y);
           }
         }
       }
@@ -402,16 +434,17 @@ Scene_Map.prototype.processMapTouch = function() {
 
     // 开始绘制地图
     if (App.props.Header.toolbar.current_mode === "map"){
-      this.refreshCurrentTileAndTheRound(x,y);
+      this.onDrawTileTouchStart(x,y);
     }
   }
 
   // 松开 - 拖动事件
   if (TouchInput.isReleased()){
-    if (App.props.Header.toolbar.current_mode === "event"){
-      var x = $gameMap.canvasToMapX(TouchInput.x);
-      var y = $gameMap.canvasToMapY(TouchInput.y);
 
+    var x = $gameMap.canvasToMapX(TouchInput.x);
+    var y = $gameMap.canvasToMapY(TouchInput.y);
+
+    if (App.props.Header.toolbar.current_mode === "event"){
       if (x >= 0 && y >= 0) {
         if (Scene_Map.current_drag_event && !$gameMap.existEventExcept(Scene_Map.current_drag_event,x,y)) {
           Scene_Map.current_drag_event.locate(x,y);
@@ -419,6 +452,9 @@ Scene_Map.prototype.processMapTouch = function() {
         }
         $gameTemp.setDestination(x, y);
       }
+    }
+    if (App.props.Header.toolbar.current_mode === "map"){
+      this.onDrawTileTouchEnd(x,y);
     }
   }
 };
