@@ -134,6 +134,11 @@ function initGameCore(){
   require("./models/game/index");
 }
 
+// 初始化 Hack
+function initializeHack(){
+  require("./hack/rpg/_index");
+}
+
 function initMapEditorArea(){
   SceneManager.gameStart("editor","rmmv-map-editor",App.game_data.map_infos[1].id);
 }
@@ -145,6 +150,7 @@ function initAppApi(){
 // 入口函数
 function main(){
   window.App = new Object();
+  initializeHack();
   initializeConfig();
   initializeGameData();
   initializeManagement();

@@ -1,0 +1,9 @@
+require("./game_map");
+require("./game_player");
+require("./game_temp");
+require("./scene_manager");
+require("./scene_map");
+require("./sprite_character");
+require("./sprite_destination");
+require("./spriteset_map");
+require("./touch_input");
