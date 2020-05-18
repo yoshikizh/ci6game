@@ -107,6 +107,9 @@ function initializeManagement(){
   // 初始化 Api 管理器
   window.ApiManager = {};
 
+  // 初始化 Temp 管理器
+  window.TempManager = require('./managements/temp_management').default;
+
 }
 
 // 初始化主题样式
