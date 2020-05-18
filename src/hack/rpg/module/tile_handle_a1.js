@@ -149,7 +149,7 @@ class TileHandleA1 extends TileHandle {
     if (is_auto_tile){
 
       // 根据周围8各自计算出 需要增加的 inner_tile_id
-      let inner_tile_id = this.getCenterAutoTileIdByAround(x,y,tile_id,layer);
+      let inner_tile_id = this.getCenterAutoTileIdByAround48(x,y,tile_id,layer);
       tile_id += inner_tile_id
 
     } else {

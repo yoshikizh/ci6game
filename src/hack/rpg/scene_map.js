@@ -1,6 +1,7 @@
 import TileHandleA1 from "./module/tile_handle_a1";
 import TileHandleA2 from "./module/tile_handle_a2";
 import TileHandleA3 from "./module/tile_handle_a3";
+import TileHandleA4 from "./module/tile_handle_a4";
 
 // 绘图模式 on touch start
 Scene_Map.prototype.onDrawTileTouchStart = function(x,y){
@@ -51,6 +52,9 @@ Scene_Map.prototype.refreshCurrentTileAndTheRound = function(x,y){
     }
     if (tile_type === 'A3'){
       tile_handle = new TileHandleA3(x,y,tile_config_str);
+    }
+    if (tile_type === 'A4'){
+      tile_handle = new TileHandleA4(x,y,tile_config_str);
     }
     tile_handle.refresh()
   }

@@ -116,7 +116,7 @@ class TileHandleA2 extends TileHandle {
     let tile_id = start_tile_id;
 
     // 根据周围8各自计算出 需要增加的 inner_tile_id
-    let inner_tile_id = this.getCenterAutoTileIdByAround(x,y,tile_id,layer);
+    let inner_tile_id = this.getCenterAutoTileIdByAround48(x,y,tile_id,layer);
     tile_id += inner_tile_id
 
     const map_width = $gameMap.width();

@@ -25,6 +25,10 @@ class TileHandle {
     return tile_id >= Tilemap.TILE_ID_A3 && tile_id < Tilemap.TILE_ID_A3 + 32 * 48;
   }
 
+  isA4Tile(tile_id){
+    return tile_id >= Tilemap.TILE_ID_A4 && tile_id < Tilemap.TILE_ID_A4 + 48 * 48;
+  }
+
 
   // 根据 pos 获得 tile_id
   getTileIdByPos(x,y,layer){
@@ -113,7 +117,12 @@ class TileHandle {
         const tile_handle = TileHandleA3.createTileHandleA3(x,y,tile_id_layer_0);
         tile_handle.drawTileByPosA3(x,y,tile_id_layer_0,0);
       }
-
+      if (this.isA4Tile(tile_id_layer_0)){
+        console.log("hit a4")
+        const TileHandleA4 = require("./tile_handle_a4").default;
+        const tile_handle = TileHandleA4.createTileHandleA4(x,y,tile_id_layer_0);
+        tile_handle.drawTileByPosA4(x,y,tile_id_layer_0,0);
+      }
 
     }
     if (tile_id_layer_1 && tile_id_layer_1 !== 0){
@@ -205,8 +214,8 @@ class TileHandle {
     return result;
   }
 
-  // [自动图块使用] 根据周边tile_id状况来获取中心tile的内部tile_id
-  getCenterAutoTileIdByAround(x,y,tile_id,layer){
+  // [自动图块使用 48种判断] 根据周边tile_id状况来获取中心tile的内部tile_id
+  getCenterAutoTileIdByAround48(x,y,tile_id,layer){
 
     let center_inner_target_id;
     if (this.conditionScanRoundAutoTiles([1,1,1,1,null,1,1,1,1],x,y,tile_id,layer)){
@@ -353,6 +362,66 @@ class TileHandle {
     return center_inner_target_id;
   }
 
+
+  // [自动图块使用 16种判断] 根据周边tile_id状况来获取中心tile的内部tile_id
+  getCenterAutoTileIdByAround16(x,y,tile_id,layer){
+
+    let center_inner_target_id;
+
+    if (this.conditionScanRoundAutoTiles([null,1,null,1,null,1,null,1,null],x,y,tile_id,layer,false)){
+      center_inner_target_id = 0;
+    }
+    else if (this.conditionScanRoundAutoTiles([null,1,null,0,null,1,null,1,null],x,y,tile_id,layer,false)){
+      center_inner_target_id = 1;
+    }
+    else if (this.conditionScanRoundAutoTiles([null,1,null,1,null,1,null,0,null],x,y,tile_id,layer,false)){
+      center_inner_target_id = 2;
+    }
+    else if (this.conditionScanRoundAutoTiles([null,1,null,0,null,1,null,0,null],x,y,tile_id,layer,false)){
+      center_inner_target_id = 3;
+    }
+    else if (this.conditionScanRoundAutoTiles([null,1,null,1,null,0,null,1,null],x,y,tile_id,layer,false)){
+      center_inner_target_id = 4;
+    }
+    else if (this.conditionScanRoundAutoTiles([null,1,null,0,null,0,null,1,null],x,y,tile_id,layer,false)){
+      center_inner_target_id = 5;
+    }
+    else if (this.conditionScanRoundAutoTiles([null,1,null,1,null,0,null,0,null],x,y,tile_id,layer,false)){
+      center_inner_target_id = 6;
+    }
+    else if (this.conditionScanRoundAutoTiles([null,1,null,0,null,0,null,0,null],x,y,tile_id,layer,false)){
+      center_inner_target_id = 7;
+    }
+    else if (this.conditionScanRoundAutoTiles([null,0,null,1,null,1,null,1,null],x,y,tile_id,layer,false)){
+      center_inner_target_id = 8;
+    }
+    else if (this.conditionScanRoundAutoTiles([null,0,null,0,null,1,null,1,null],x,y,tile_id,layer,false)){
+      center_inner_target_id = 9;
+    }
+    else if (this.conditionScanRoundAutoTiles([null,0,null,1,null,1,null,0,null],x,y,tile_id,layer,false)){
+      center_inner_target_id = 10;
+    }
+    else if (this.conditionScanRoundAutoTiles([null,0,null,0,null,1,null,0,null],x,y,tile_id,layer,false)){
+      center_inner_target_id = 11;
+    }
+    else if (this.conditionScanRoundAutoTiles([null,0,null,1,null,0,null,1,null],x,y,tile_id,layer,false)){
+      center_inner_target_id = 12;
+    }
+    else if (this.conditionScanRoundAutoTiles([null,0,null,0,null,0,null,1,null],x,y,tile_id,layer,false)){
+      center_inner_target_id = 13;
+    }
+    else if (this.conditionScanRoundAutoTiles([null,0,null,1,null,0,null,0,null],x,y,tile_id,layer,false)){
+      center_inner_target_id = 14;
+    }
+    else if (this.conditionScanRoundAutoTiles([null,0,null,0,null,0,null,0,null],x,y,tile_id,layer,false)){
+      center_inner_target_id = 15;
+    }
+
+    // Todo
+    // 65(两边有)  64(右边有)  61(左边有)  60(两边无)
+
+    return center_inner_target_id;
+  }
 
 }
 

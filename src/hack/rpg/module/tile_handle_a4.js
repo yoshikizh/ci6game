@@ -1,20 +1,20 @@
 import TileHandle from "./tile_handle";
 
-class TileHandleA3 extends TileHandle {
+class TileHandleA4 extends TileHandle {
 
   constructor(x,y,config_str){
     super(x,y);
     const config_arr = config_str.split("|");
     this.tile_index = parseInt(config_arr[2]);
-    this.start_tile_id = Tilemap.TILE_ID_A3;
+    this.start_tile_id = Tilemap.TILE_ID_A4;
     this.tile_id = this.start_tile_id + this.tile_index * 48;
   };
 
 
-  static createTileHandleA3(x,y,tile_id){
-    const tile_index = parseInt(tile_id - Tilemap.TILE_ID_A3) / 48;
+  static createTileHandleA4(x,y,tile_id){
+    const tile_index = parseInt(tile_id - Tilemap.TILE_ID_A4) / 48;
     const config_str = `||${tile_index}`;
-    const tile_handle = new TileHandleA3(x,y,config_str);
+    const tile_handle = new TileHandleA4(x,y,config_str);
     return tile_handle;
   }
 
@@ -42,9 +42,9 @@ class TileHandleA3 extends TileHandle {
 
   }
 
-  drawTileByPosA3(x,y,tile_id,layer){
+  drawTileByPosA4(x,y,tile_id,layer){
     const start_tile_id = tile_id - (tile_id - this.start_tile_id) % 48;
-    const tile_index = this.getTileIndexByTilePos(x,y,layer);
+    // const tile_index = this.getTileIndexByTilePos(x,y,layer);
 
     this.drawTileCore(x, y, start_tile_id, layer);
   }
@@ -68,7 +68,14 @@ class TileHandleA3 extends TileHandle {
     let tile_id = start_tile_id;
 
     // 根据周围8各自计算出 需要增加的 inner_tile_id
-    let inner_tile_id = this.getCenterAutoTileIdByAround16(x,y,tile_id,layer);
+    const tile_index = this.getTileIndexByTileId(tile_id);
+    let inner_tile_id;
+
+    if (parseInt(tile_index / 8) % 2 === 0){
+      inner_tile_id = this.getCenterAutoTileIdByAround48(x,y,tile_id,layer);
+    } else {
+      inner_tile_id = this.getCenterAutoTileIdByAround16(x,y,tile_id,layer);
+    }
     tile_id += inner_tile_id
 
     const map_width = $gameMap.width();
@@ -78,4 +85,4 @@ class TileHandleA3 extends TileHandle {
 }
 
 
-export default TileHandleA3;
+export default TileHandleA4;
