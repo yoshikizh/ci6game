@@ -29,6 +29,9 @@ class TileHandle {
     return tile_id >= Tilemap.TILE_ID_A4 && tile_id < Tilemap.TILE_ID_A4 + 48 * 48;
   }
 
+  isA5Tile(tile_id){
+    return tile_id >= Tilemap.TILE_ID_A5 && tile_id < Tilemap.TILE_ID_A5 + 128;
+  }
 
   // 根据 pos 获得 tile_id
   getTileIdByPos(x,y,layer){
@@ -118,12 +121,15 @@ class TileHandle {
         tile_handle.drawTileByPosA3(x,y,tile_id_layer_0,0);
       }
       if (this.isA4Tile(tile_id_layer_0)){
-        console.log("hit a4")
         const TileHandleA4 = require("./tile_handle_a4").default;
         const tile_handle = TileHandleA4.createTileHandleA4(x,y,tile_id_layer_0);
         tile_handle.drawTileByPosA4(x,y,tile_id_layer_0,0);
       }
-
+      if (this.isA5Tile(tile_id_layer_0)){
+        const TileHandleA5 = require("./tile_handle_a5").default;
+        const tile_handle = TileHandleA5.createTileHandleA5(x,y,tile_id_layer_0);
+        tile_handle.drawTileByPosA5(x,y,tile_id_layer_0,0);
+      }
     }
     if (tile_id_layer_1 && tile_id_layer_1 !== 0){
       if (this.isA1Tile(tile_id_layer_1)){
