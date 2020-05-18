@@ -93,8 +93,6 @@ class TileHandle {
     this.drawTileByPos(x-1, y+1);
   }
 
-
-
   // 通过x,y绘制tile
   drawTileByPos(x,y){
     if (this.checkTileIsPadding(x,y)) {
@@ -103,6 +101,7 @@ class TileHandle {
 
     const tile_id_layer_0 = this.getTileIdByPos(x,y,0);
     const tile_id_layer_1 = this.getTileIdByPos(x,y,1);
+    // const tile_id_layer_2 = this.getTileIdByPos(x,y,2);
 
     if (tile_id_layer_0 && tile_id_layer_0 !== 0){
       if (this.isA1Tile(tile_id_layer_0)){

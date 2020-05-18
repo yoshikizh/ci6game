@@ -12,7 +12,7 @@ class TileHandleA3 extends TileHandle {
 
 
   static createTileHandleA3(x,y,tile_id){
-    const tile_index = parseInt(tile_id - Tilemap.TILE_ID_A3) / 48;
+    const tile_index = parseInt((tile_id - Tilemap.TILE_ID_A3) / 48);
     const config_str = `||${tile_index}`;
     const tile_handle = new TileHandleA3(x,y,config_str);
     return tile_handle;
@@ -33,6 +33,7 @@ class TileHandleA3 extends TileHandle {
 
     // stap1 清空当前坐标的 tile
     this.clearTileLayerByPos(x,y,0);
+    this.clearTileLayerByPos(x,y,1);
 
     // step2 根据周围4格情况绘制当前坐标x,y的 tile (中心点强迫绘制)
     this.drawCurrentPosTile();

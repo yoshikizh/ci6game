@@ -3,6 +3,7 @@ import TileHandleA2 from "./module/tile_handle_a2";
 import TileHandleA3 from "./module/tile_handle_a3";
 import TileHandleA4 from "./module/tile_handle_a4";
 import TileHandleA5 from "./module/tile_handle_a5";
+import TileHandleBToE from "./module/tile_handle_btoe";
 
 // 绘图模式 on touch start
 Scene_Map.prototype.onDrawTileTouchStart = function(x,y){
@@ -59,6 +60,18 @@ Scene_Map.prototype.refreshCurrentTileAndTheRound = function(x,y){
     }
     if (tile_type === 'A5'){
       tile_handle = new TileHandleA5(x,y,tile_config_str);
+    }
+    if (tile_type === 'B'){
+      tile_handle = new TileHandleBToE(x,y,tile_config_str);
+    }
+    if (tile_type === 'C'){
+      tile_handle = new TileHandleBToE(x,y,tile_config_str);
+    }
+    if (tile_type === 'D'){
+      tile_handle = new TileHandleBToE(x,y,tile_config_str);
+    }
+    if (tile_type === 'E'){
+      tile_handle = new TileHandleBToE(x,y,tile_config_str);
     }
     tile_handle.refresh()
   }

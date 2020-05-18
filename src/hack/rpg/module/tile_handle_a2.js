@@ -20,7 +20,7 @@ class TileHandleA2 extends TileHandle {
   };
 
   static createTileHandleA2(x,y,tile_id){
-    const tile_index = parseInt(tile_id - Tilemap.TILE_ID_A2) / 48;
+    const tile_index = parseInt((tile_id - Tilemap.TILE_ID_A2) / 48);
     const config_str = `||${tile_index}`;
     const tile_handle = new TileHandleA2(x,y,config_str);
     return tile_handle;
