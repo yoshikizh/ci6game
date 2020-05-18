@@ -26,9 +26,9 @@ const TilesetA = (props) => {
     });
   };
 
-  const createTileEle = (image_config, x, y, key) => {
-    const width = image_config.config.width / 1.5;
-    const height = image_config.config.height / 1.5;
+  const createTileEle = (image_config, x, y, key, scale = 1.5) => {
+    const width = image_config.config.width / scale;
+    const height = image_config.config.height / scale;
     const tile_id = props.tool_tileset.selected_tile_id;
 
     const style = {
@@ -105,10 +105,10 @@ const TilesetA = (props) => {
     const tile_name_units = image_config.config.units;
 
     tile_name_units.forEach((tile_name,index) => {
-      const x = (index % 8) * (2 * 32);
+      const x = (index % 8) * (1 * 32);
       const y = parseInt(index / 8) * (2 * 32);
       const key = `A3|${filename3}|${index}|${x}|${y}`
-      render_tilemaps.push(createTileEle(image_config,x,y,key));
+      render_tilemaps.push(createTileEle(image_config,x,y,key,3));
     });
   }
 

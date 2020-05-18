@@ -106,19 +106,7 @@ class TileHandleA1 extends TileHandle {
     }
 
     // 更新周围的8格
-    this.drawAround(x,y);
-  }
-
-  // 更新周围的8格
-  drawAround(x,y){
-    this.drawTileByPos(x-1, y);
-    this.drawTileByPos(x-1, y-1);
-    this.drawTileByPos(x, y-1);
-    this.drawTileByPos(x+1, y-1);
-    this.drawTileByPos(x+1, y);
-    this.drawTileByPos(x+1, y+1);
-    this.drawTileByPos(x, y+1);
-    this.drawTileByPos(x-1, y+1);
+    this.drawAround8(x,y);
   }
 
   drawTileByPosA1(x,y,tile_id,layer){

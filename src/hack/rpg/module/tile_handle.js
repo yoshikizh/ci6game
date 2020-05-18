@@ -21,6 +21,11 @@ class TileHandle {
     return tile_id >= Tilemap.TILE_ID_A2 && tile_id < Tilemap.TILE_ID_A2 + 32 * 48;
   }
 
+  isA3Tile(tile_id){
+    return tile_id >= Tilemap.TILE_ID_A3 && tile_id < Tilemap.TILE_ID_A3 + 32 * 48;
+  }
+
+
   // 根据 pos 获得 tile_id
   getTileIdByPos(x,y,layer){
     const map_width = $gameMap.width();
@@ -61,6 +66,28 @@ class TileHandle {
     }
   };
 
+  // 更新周围的8格
+  drawAround4(x,y){
+    this.drawTileByPos(x-1, y);
+    this.drawTileByPos(x, y-1);
+    this.drawTileByPos(x+1, y);
+    this.drawTileByPos(x, y+1);
+  }
+
+  // 更新周围的8格
+  drawAround8(x,y){
+    this.drawTileByPos(x-1, y);
+    this.drawTileByPos(x-1, y-1);
+    this.drawTileByPos(x, y-1);
+    this.drawTileByPos(x+1, y-1);
+    this.drawTileByPos(x+1, y);
+    this.drawTileByPos(x+1, y+1);
+    this.drawTileByPos(x, y+1);
+    this.drawTileByPos(x-1, y+1);
+  }
+
+
+
   // 通过x,y绘制tile
   drawTileByPos(x,y){
     if (this.checkTileIsPadding(x,y)) {
@@ -76,13 +103,18 @@ class TileHandle {
         const tile_handle = TileHandleA1.createTileHandleA1(x,y,tile_id_layer_0);
         tile_handle.drawTileByPosA1(x,y,tile_id_layer_0,0);
       }
-
       if (this.isA2Tile(tile_id_layer_0)){
         const TileHandleA2 = require("./tile_handle_a2").default;
         const tile_handle = TileHandleA2.createTileHandleA2(x,y,tile_id_layer_0);
         tile_handle.drawTileByPosA2(x,y,tile_id_layer_0,0);
-
       }
+      if (this.isA3Tile(tile_id_layer_0)){
+        const TileHandleA3 = require("./tile_handle_a3").default;
+        const tile_handle = TileHandleA3.createTileHandleA3(x,y,tile_id_layer_0);
+        tile_handle.drawTileByPosA3(x,y,tile_id_layer_0,0);
+      }
+
+
     }
     if (tile_id_layer_1 && tile_id_layer_1 !== 0){
       if (this.isA1Tile(tile_id_layer_1)){
@@ -100,8 +132,8 @@ class TileHandle {
   }
 
   // [自动图块使用] 扫描检测周边格子是满足条件, conditions 为一组周边8个格子的情况 -> 0: 不包含 1: 包含  null: 不检测跳过
-  // 超过地图边界这返回 -> 包含
-  conditionScanRoundAutoTiles(conditions, x, y, tile_id, layer){
+  // 超过地图边界这根据 over_padding 确定包含或不包含
+  conditionScanRoundAutoTiles(conditions, x, y, tile_id, layer, over_padding = true){
 
     const pos_left  = [x-1, y];
     const pos_up    = [x, y-1];
@@ -121,49 +153,49 @@ class TileHandle {
       let exist = conditions[i] === 1;
 
       if (dir === 1){
-        if (exist !== (this.checkTileIsPadding(pos_left_down[0],pos_left_down[1]) || this.isCurrentTile(pos_left_down[0],pos_left_down[1],tile_id,layer))){
+        if (exist !== ((this.checkTileIsPadding(pos_left_down[0],pos_left_down[1]) && over_padding) || this.isCurrentTile(pos_left_down[0],pos_left_down[1],tile_id,layer))){
           result = false;
           break;
         }
       }
       if (dir === 2){
-        if (exist !== (this.checkTileIsPadding(pos_down[0],pos_down[1]) || this.isCurrentTile(pos_down[0],pos_down[1],tile_id,layer))){
+        if (exist !== ((this.checkTileIsPadding(pos_down[0],pos_down[1]) && over_padding) || this.isCurrentTile(pos_down[0],pos_down[1],tile_id,layer))){
           result = false;
           break;
         }
       }
       if (dir === 3){
-        if (exist !== (this.checkTileIsPadding(pos_right_down[0],pos_right_down[1]) || this.isCurrentTile(pos_right_down[0],pos_right_down[1],tile_id,layer))){
+        if (exist !== ((this.checkTileIsPadding(pos_right_down[0],pos_right_down[1]) && over_padding) || this.isCurrentTile(pos_right_down[0],pos_right_down[1],tile_id,layer))){
           result = false;
           break;
         }
       }
       if (dir === 4){
-        if (exist !== (this.checkTileIsPadding(pos_left[0],pos_left[1]) || this.isCurrentTile(pos_left[0],pos_left[1],tile_id,layer))){
+        if (exist !== ((this.checkTileIsPadding(pos_left[0],pos_left[1]) && over_padding) || this.isCurrentTile(pos_left[0],pos_left[1],tile_id,layer))){
           result = false;
           break;
         }
       }
       if (dir === 6){
-        if (exist !== (this.checkTileIsPadding(pos_right[0],pos_right[1]) || this.isCurrentTile(pos_right[0],pos_right[1],tile_id,layer))){
+        if (exist !== ((this.checkTileIsPadding(pos_right[0],pos_right[1]) && over_padding) || this.isCurrentTile(pos_right[0],pos_right[1],tile_id,layer))){
           result = false;
           break;
         }
       }
       if (dir === 7){
-        if (exist !== (this.checkTileIsPadding(pos_left_top[0],pos_left_top[1]) || this.isCurrentTile(pos_left_top[0],pos_left_top[1],tile_id,layer))){
+        if (exist !== ((this.checkTileIsPadding(pos_left_top[0],pos_left_top[1]) && over_padding) || this.isCurrentTile(pos_left_top[0],pos_left_top[1],tile_id,layer))){
           result = false;
           break;
         }
       }
       if (dir === 8){
-        if (exist !== (this.checkTileIsPadding(pos_up[0],pos_up[1]) || this.isCurrentTile(pos_up[0],pos_up[1],tile_id,layer))){
+        if (exist !== ((this.checkTileIsPadding(pos_up[0],pos_up[1]) && over_padding) || this.isCurrentTile(pos_up[0],pos_up[1],tile_id,layer))){
           result = false;
           break;
         }
       }
       if (dir === 9){
-        if (exist !== (this.checkTileIsPadding(pos_right_top[0],pos_right_top[1]) || this.isCurrentTile(pos_right_top[0],pos_right_top[1],tile_id,layer))){
+        if (exist !== ((this.checkTileIsPadding(pos_right_top[0],pos_right_top[1]) && over_padding) || this.isCurrentTile(pos_right_top[0],pos_right_top[1],tile_id,layer))){
           result = false;
           break;
         }

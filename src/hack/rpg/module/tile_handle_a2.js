@@ -26,7 +26,6 @@ class TileHandleA2 extends TileHandle {
     return tile_handle;
   }
 
-
   refresh(){
     if (this.checkTileIsPadding(this.x,this.y)) {
       return;
@@ -67,20 +66,8 @@ class TileHandleA2 extends TileHandle {
     this.drawCurrentPosTile();
 
     // step3 绘制周围8格
-    this.drawAround(x,y);
+    this.drawAround8(x,y);
 
-  }
-
-  // 更新周围的8格
-  drawAround(x,y){
-    this.drawTileByPos(x-1, y);
-    this.drawTileByPos(x-1, y-1);
-    this.drawTileByPos(x, y-1);
-    this.drawTileByPos(x+1, y-1);
-    this.drawTileByPos(x+1, y);
-    this.drawTileByPos(x+1, y+1);
-    this.drawTileByPos(x, y+1);
-    this.drawTileByPos(x-1, y+1);
   }
 
   drawTileByPosA2(x,y,tile_id,layer){
