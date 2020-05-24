@@ -17,6 +17,10 @@ class TileHandleA2 extends TileHandle {
     this.is_current_tile_layer1 = TileHandleA2.LAYER1_TILE_IDS.includes(this.tile_index);
     this.is_current_layer1and2 = TileHandleA2.LAYER0AND1_TILE_IDS.includes(this.tile_index);
 
+    if (this.is_current_layer1and2){
+      this.tile_id_extra = this.start_tile_id + (this.tile_index - 1) * 48;
+    }
+
   };
 
   static createTileHandleA2(x,y,tile_id){
@@ -70,7 +74,7 @@ class TileHandleA2 extends TileHandle {
 
   }
 
-  drawTileByPosA2(x,y,tile_id,layer){
+  drawTileByPos(x,y,tile_id,layer){
     const start_tile_id = tile_id - (tile_id - this.start_tile_id) % 48;
     const tile_index = this.getTileIndexByTilePos(x,y,layer);
 

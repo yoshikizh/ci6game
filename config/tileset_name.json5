@@ -645,7 +645,7 @@
   },
   "SF_Outside_A3": {
     width: 768,
-    height: 384,
+    height: 768,
     units: [
       "Roof A (Metal)|屋根A（金属）",
       "Roof B (Metal, Red Rust)|屋根B（金属・赤錆）",

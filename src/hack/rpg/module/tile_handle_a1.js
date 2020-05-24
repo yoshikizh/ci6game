@@ -17,6 +17,8 @@ class TileHandleA1 extends TileHandle {
     // A1 私有属性
     this.is_auto_tile = TileHandleA1.AUTO_A1_TILE_INDEX.includes(this.tile_index);
     this.is_special_tile = TileHandleA1.SPECIAL_A1_TILE_ID.includes(this.tile_index);
+
+    this.tile_id_extra = this.start_tile_id;
   }
 
   static createTileHandleA1(x,y,tile_id){
@@ -109,7 +111,7 @@ class TileHandleA1 extends TileHandle {
     this.drawAround8(x,y);
   }
 
-  drawTileByPosA1(x,y,tile_id,layer){
+  drawTileByPos(x,y,tile_id,layer){
     const start_tile_id = tile_id - (tile_id - this.start_tile_id) % 48;
     const is_special_tile = this.checkIsSpecialTileByTileId(start_tile_id);
     const is_auto_tile = this.checkIsAutoTileByTileId(start_tile_id);

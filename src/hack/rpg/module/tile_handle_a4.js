@@ -43,7 +43,7 @@ class TileHandleA4 extends TileHandle {
 
   }
 
-  drawTileByPosA4(x,y,tile_id,layer){
+  drawTileByPos(x,y,tile_id,layer){
     const start_tile_id = tile_id - (tile_id - this.start_tile_id) % 48;
     // const tile_index = this.getTileIndexByTilePos(x,y,layer);
 

@@ -43,7 +43,7 @@ class TileHandleA5 extends TileHandle {
 
   }
 
-  drawTileByPosA5(x,y,tile_id,layer){
+  drawTileByPos(x,y,tile_id,layer){
     this.drawTileCore(x, y, tile_id, layer);
   }
 

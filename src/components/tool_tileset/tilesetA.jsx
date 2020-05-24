@@ -109,6 +109,7 @@ const TilesetA = (props) => {
       const y = parseInt(index / 8) * (2 * 32);
       const key = `A3|${filename3}|${index}|${x}|${y}`
       const scale = 3;
+
       render_tilemaps.push(createTileEle(image_config,x,y,key,scale));
     });
   }

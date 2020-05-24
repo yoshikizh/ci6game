@@ -6,35 +6,69 @@ class TileHandle {
     this.tile_x = null;                                     // => 图块的 x
     this.tile_y = null;                                     // => 图块的 y
     this.tile_index = null;                                 // => 图块的 index
-    this.tile_id = null;                                    // => 图块id
+    this.tile_id = null;                                    // => 图块 id
+    this.tile_id_extra = null;                              // => 额外的 tile_Id
+  }
+
+  static updateFixByPos(x,y){
+
+  }
+
+  // 静态的方法
+  static checkTileIsPadding(x,y){
+    return x < 0 || y < 0 || x >= $gameMap.width() || y >= $gameMap.height();
+  }
+
+  static isA1Tile(tile_id){
+    return tile_id >= Tilemap.TILE_ID_A1 && tile_id < Tilemap.TILE_ID_A1 + 16 * 48;
+  }
+
+  static isA2Tile(tile_id){
+    return tile_id >= Tilemap.TILE_ID_A2 && tile_id < Tilemap.TILE_ID_A2 + 32 * 48;
+  }
+
+  static isA3Tile(tile_id){
+    return tile_id >= Tilemap.TILE_ID_A3 && tile_id < Tilemap.TILE_ID_A3 + 32 * 48;
+  }
+
+  static isA4Tile(tile_id){
+    return tile_id >= Tilemap.TILE_ID_A4 && tile_id < Tilemap.TILE_ID_A4 + 48 * 48;
+  }
+
+  static isA5Tile(tile_id){
+    return tile_id >= Tilemap.TILE_ID_A5 && tile_id < Tilemap.TILE_ID_A5 + 128;
+  }
+
+  static isBTile(tile_id){
+    return tile_id >= Tilemap.TILE_ID_B && tile_id < Tilemap.TILE_ID_B + 256;
+  }
+  static isCTile(tile_id){
+    return tile_id >= Tilemap.TILE_ID_C && tile_id < Tilemap.TILE_ID_C + 256;
+  }
+  static isDTile(tile_id){
+    return tile_id >= Tilemap.TILE_ID_D && tile_id < Tilemap.TILE_ID_D + 256;
+  }
+  static isETile(tile_id){
+    return tile_id >= Tilemap.TILE_ID_E && tile_id < Tilemap.TILE_ID_E + 256;
+  }
+  static isBtoETile(tile_id){
+    return tile_id >= Tilemap.TILE_ID_B && tile_id < Tilemap.TILE_ID_E + 256;
   }
 
   checkTileIsPadding(x,y){
     return x < 0 || y < 0 || x >= $gameMap.width() || y >= $gameMap.height();
   }
 
-  isA1Tile(tile_id){
-    return tile_id >= Tilemap.TILE_ID_A1 && tile_id < Tilemap.TILE_ID_A1 + 16 * 48;
-  }
-
-  isA2Tile(tile_id){
-    return tile_id >= Tilemap.TILE_ID_A2 && tile_id < Tilemap.TILE_ID_A2 + 32 * 48;
-  }
-
-  isA3Tile(tile_id){
-    return tile_id >= Tilemap.TILE_ID_A3 && tile_id < Tilemap.TILE_ID_A3 + 32 * 48;
-  }
-
-  isA4Tile(tile_id){
-    return tile_id >= Tilemap.TILE_ID_A4 && tile_id < Tilemap.TILE_ID_A4 + 48 * 48;
-  }
-
-  isA5Tile(tile_id){
-    return tile_id >= Tilemap.TILE_ID_A5 && tile_id < Tilemap.TILE_ID_A5 + 128;
-  }
 
   // 根据 pos 获得 tile_id
   getTileIdByPos(x,y,layer){
+    const map_width = $gameMap.width();
+    const pos_index = x + y * map_width;
+    return $dataMap.data[pos_index + layer * $gameMap.gridCount()];
+  }
+
+  // 静态的方法
+  static getTileIdByPos(x,y,layer){
     const map_width = $gameMap.width();
     const pos_index = x + y * map_width;
     return $dataMap.data[pos_index + layer * $gameMap.gridCount()];
@@ -75,71 +109,194 @@ class TileHandle {
 
   // 更新周围的8格
   drawAround4(x,y){
-    this.drawTileByPos(x-1, y);
-    this.drawTileByPos(x, y-1);
-    this.drawTileByPos(x+1, y);
-    this.drawTileByPos(x, y+1);
+    this.drawTileByPosBase(x-1, y);
+    this.drawTileByPosBase(x, y-1);
+    this.drawTileByPosBase(x+1, y);
+    this.drawTileByPosBase(x, y+1);
   }
 
   // 更新周围的8格
   drawAround8(x,y){
-    this.drawTileByPos(x-1, y);
-    this.drawTileByPos(x-1, y-1);
-    this.drawTileByPos(x, y-1);
-    this.drawTileByPos(x+1, y-1);
-    this.drawTileByPos(x+1, y);
-    this.drawTileByPos(x+1, y+1);
-    this.drawTileByPos(x, y+1);
-    this.drawTileByPos(x-1, y+1);
+    this.drawTileByPosBase(x-1, y);
+    this.drawTileByPosBase(x-1, y-1);
+    this.drawTileByPosBase(x, y-1);
+    this.drawTileByPosBase(x+1, y-1);
+    this.drawTileByPosBase(x+1, y);
+    this.drawTileByPosBase(x+1, y+1);
+    this.drawTileByPosBase(x, y+1);
+    this.drawTileByPosBase(x-1, y+1);
+  }
+
+  static getTileHandleByTileId(x,y,tile_id,layer){
+
+    if (TileHandle.checkTileIsPadding(x,y)) {
+      return null;
+    }
+
+    let tile_handle;
+    if (layer === 0){
+      if (TileHandle.isA1Tile(tile_id)){
+        const TileHandleA1 = require("./tile_handle_a1").default;
+        tile_handle = TileHandleA1.createTileHandleA1(x,y,tile_id);
+      }
+      if (TileHandle.isA2Tile(tile_id)){
+        const TileHandleA2 = require("./tile_handle_a2").default;
+        tile_handle = TileHandleA2.createTileHandleA2(x,y,tile_id);
+      }
+      if (TileHandle.isA3Tile(tile_id)){
+        const TileHandleA3 = require("./tile_handle_a3").default;
+        tile_handle = TileHandleA3.createTileHandleA3(x,y,tile_id);
+      }
+      if (TileHandle.isA4Tile(tile_id)){
+        const TileHandleA4 = require("./tile_handle_a4").default;
+        tile_handle = TileHandleA4.createTileHandleA4(x,y,tile_id);
+      }
+      if (TileHandle.isA5Tile(tile_id)){
+        const TileHandleA5 = require("./tile_handle_a5").default;
+        tile_handle = TileHandleA5.createTileHandleA5(x,y,tile_id);
+      }
+    }
+    if (layer === 1){
+      if (TileHandle.isA1Tile(tile_id)){
+        const TileHandleA1 = require("./tile_handle_a1").default;
+        tile_handle = TileHandleA1.createTileHandleA1(x,y,tile_id);
+      }
+      if (TileHandle.isA2Tile(tile_id)){
+        const TileHandleA2 = require("./tile_handle_a2").default;
+        tile_handle = TileHandleA2.createTileHandleA2(x,y,tile_id);
+      }
+    }
+    if (layer === 2){
+      if (TileHandle.isBTile(tile_id)){
+        const TileHandleBToE = require("./tile_handle_btoe").default;
+        tile_handle = TileHandleBToE.createTileHandleBToE(x,y,tile_id,'B');
+      }
+      if (TileHandle.isCTile(tile_id)){
+        const TileHandleBToE = require("./tile_handle_btoe").default;
+        tile_handle = TileHandleBToE.createTileHandleBToE(x,y,tile_id,'C');
+      }
+      if (TileHandle.isDTile(tile_id)){
+        const TileHandleBToE = require("./tile_handle_btoe").default;
+        tile_handle = TileHandleBToE.createTileHandleBToE(x,y,tile_id,'D');
+      }
+      if (TileHandle.isETile(tile_id)){
+        const TileHandleBToE = require("./tile_handle_btoe").default;
+        tile_handle = TileHandleBToE.createTileHandleBToE(x,y,tile_id,'E');
+      }
+
+
+    }
+
+    return tile_handle;
+
+  }
+
+  // 静态的方法
+  static drawTileByPosBase(x,y){
+
+    if (TileHandle.checkTileIsPadding(x,y)) {
+      return;
+    }
+
+    const tile_id_layer_0 = TileHandle.getTileIdByPos(x,y,0);
+    const tile_id_layer_1 = TileHandle.getTileIdByPos(x,y,1);
+    const tile_id_layer_2 = TileHandle.getTileIdByPos(x,y,2);
+
+    if (tile_id_layer_0 && tile_id_layer_0 !== 0){
+      if (TileHandle.isA1Tile(tile_id_layer_0)){
+        const TileHandleA1 = require("./tile_handle_a1").default;
+        const tile_handle = TileHandleA1.createTileHandleA1(x,y,tile_id_layer_0);
+        tile_handle.drawTileByPos(x,y,tile_id_layer_0,0);
+      }
+      if (TileHandle.isA2Tile(tile_id_layer_0)){
+        const TileHandleA2 = require("./tile_handle_a2").default;
+        const tile_handle = TileHandleA2.createTileHandleA2(x,y,tile_id_layer_0);
+        tile_handle.drawTileByPos(x,y,tile_id_layer_0,0);
+      }
+      if (TileHandle.isA3Tile(tile_id_layer_0)){
+        const TileHandleA3 = require("./tile_handle_a3").default;
+        const tile_handle = TileHandleA3.createTileHandleA3(x,y,tile_id_layer_0);
+        tile_handle.drawTileByPos(x,y,tile_id_layer_0,0);
+      }
+      if (TileHandle.isA4Tile(tile_id_layer_0)){
+        const TileHandleA4 = require("./tile_handle_a4").default;
+        const tile_handle = TileHandleA4.createTileHandleA4(x,y,tile_id_layer_0);
+        tile_handle.drawTileByPos(x,y,tile_id_layer_0,0);
+      }
+      if (TileHandle.isA5Tile(tile_id_layer_0)){
+        const TileHandleA5 = require("./tile_handle_a5").default;
+        const tile_handle = TileHandleA5.createTileHandleA5(x,y,tile_id_layer_0);
+        tile_handle.drawTileByPos(x,y,tile_id_layer_0,0);
+      }
+    }
+    if (tile_id_layer_1 && tile_id_layer_1 !== 0){
+      if (TileHandle.isA1Tile(tile_id_layer_1)){
+        const TileHandleA1 = require("./tile_handle_a1").default;
+        const tile_handle = TileHandleA1.createTileHandleA1(x,y,tile_id_layer_1);
+        tile_handle.drawTileByPos(x,y,tile_id_layer_1,1);
+      }
+      if (TileHandle.isA2Tile(tile_id_layer_1)){
+        const TileHandleA2 = require("./tile_handle_a2").default;
+        const tile_handle = TileHandleA2.createTileHandleA2(x,y,tile_id_layer_1);
+        tile_handle.drawTileByPos(x,y,tile_id_layer_1,1);
+      }
+    }
+    if (TileHandle.isBtoETile(tile_id_layer_2)){
+      const TileHandleBToE = require("./tile_handle_btoe").default;
+      const tile_handle = TileHandleBToE.createTileHandleBToE(x,y,tile_id_layer_2);
+      tile_handle.drawTileByPos(x,y,tile_id_layer_2,2);
+    }
+
+
   }
 
   // 通过x,y绘制tile
-  drawTileByPos(x,y){
+  drawTileByPosBase(x,y){
+
     if (this.checkTileIsPadding(x,y)) {
       return;
     }
 
     const tile_id_layer_0 = this.getTileIdByPos(x,y,0);
     const tile_id_layer_1 = this.getTileIdByPos(x,y,1);
-    // const tile_id_layer_2 = this.getTileIdByPos(x,y,2);
 
     if (tile_id_layer_0 && tile_id_layer_0 !== 0){
-      if (this.isA1Tile(tile_id_layer_0)){
+      if (TileHandle.isA1Tile(tile_id_layer_0)){
         const TileHandleA1 = require("./tile_handle_a1").default;
         const tile_handle = TileHandleA1.createTileHandleA1(x,y,tile_id_layer_0);
-        tile_handle.drawTileByPosA1(x,y,tile_id_layer_0,0);
+        tile_handle.drawTileByPos(x,y,tile_id_layer_0,0);
       }
-      if (this.isA2Tile(tile_id_layer_0)){
+      if (TileHandle.isA2Tile(tile_id_layer_0)){
         const TileHandleA2 = require("./tile_handle_a2").default;
         const tile_handle = TileHandleA2.createTileHandleA2(x,y,tile_id_layer_0);
-        tile_handle.drawTileByPosA2(x,y,tile_id_layer_0,0);
+        tile_handle.drawTileByPos(x,y,tile_id_layer_0,0);
       }
-      if (this.isA3Tile(tile_id_layer_0)){
+      if (TileHandle.isA3Tile(tile_id_layer_0)){
         const TileHandleA3 = require("./tile_handle_a3").default;
         const tile_handle = TileHandleA3.createTileHandleA3(x,y,tile_id_layer_0);
-        tile_handle.drawTileByPosA3(x,y,tile_id_layer_0,0);
+        tile_handle.drawTileByPos(x,y,tile_id_layer_0,0);
       }
-      if (this.isA4Tile(tile_id_layer_0)){
+      if (TileHandle.isA4Tile(tile_id_layer_0)){
         const TileHandleA4 = require("./tile_handle_a4").default;
         const tile_handle = TileHandleA4.createTileHandleA4(x,y,tile_id_layer_0);
-        tile_handle.drawTileByPosA4(x,y,tile_id_layer_0,0);
+        tile_handle.drawTileByPos(x,y,tile_id_layer_0,0);
       }
-      if (this.isA5Tile(tile_id_layer_0)){
+      if (TileHandle.isA5Tile(tile_id_layer_0)){
         const TileHandleA5 = require("./tile_handle_a5").default;
         const tile_handle = TileHandleA5.createTileHandleA5(x,y,tile_id_layer_0);
-        tile_handle.drawTileByPosA5(x,y,tile_id_layer_0,0);
+        tile_handle.drawTileByPos(x,y,tile_id_layer_0,0);
       }
     }
     if (tile_id_layer_1 && tile_id_layer_1 !== 0){
-      if (this.isA1Tile(tile_id_layer_1)){
+      if (TileHandle.isA1Tile(tile_id_layer_1)){
         const TileHandleA1 = require("./tile_handle_a1").default;
         const tile_handle = TileHandleA1.createTileHandleA1(x,y,tile_id_layer_1);
-        tile_handle.drawTileByPosA1(x,y,tile_id_layer_1,1);
+        tile_handle.drawTileByPos(x,y,tile_id_layer_1,1);
       }
-      if (this.isA2Tile(tile_id_layer_1)){
+      if (TileHandle.isA2Tile(tile_id_layer_1)){
         const TileHandleA2 = require("./tile_handle_a2").default;
         const tile_handle = TileHandleA2.createTileHandleA2(x,y,tile_id_layer_1);
-        tile_handle.drawTileByPosA2(x,y,tile_id_layer_1,1);
+        tile_handle.drawTileByPos(x,y,tile_id_layer_1,1);
 
       }
     }

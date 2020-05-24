@@ -19,7 +19,7 @@ class TileHandleBToE extends TileHandle {
   };
 
 
-  static createTileHandleA5(x,y,tile_id,tile_type){
+  static createTileHandleBToE(x,y,tile_id,tile_type){
     const tile_index = tile_id;
     const config_str = `${tile_type}||${tile_index}`;
     const tile_handle = new TileHandleBToE(x,y,config_str);
@@ -50,7 +50,7 @@ class TileHandleBToE extends TileHandle {
 
   }
 
-  drawTileByPosBtoE(x,y,tile_id,layer){
+  drawTileByPos(x,y,tile_id,layer){
     this.drawTileCore(x, y, tile_id, layer);
   }
 
