@@ -7,6 +7,8 @@ import { connect } from 'dva';
 import AppHeaderInit from './header';
 import AppBodyInit from './body';
 import AppFooterInit from './footer';
+import AppDatabase from './database';
+import AppEvent from './event';
 
 function calcWrapperSizeStyleBase(){
   const interface_size = App.config.app.interface_size;
@@ -71,6 +73,8 @@ function initComponentsEntry() {
         <AppHeaderInit />
         <AppBodyInit />
         <AppFooterInit />
+        <AppDatabase />
+        <AppEvent />
       </>
     )
   }

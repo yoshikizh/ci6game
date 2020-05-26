@@ -23,3 +23,9 @@ div { word-break: break-all; }
 .flex-col-top { align-items: flex-start; -webkit-align-items: flex-start; }
 .flex-col-center { align-items: center; -webkit-align-items: center; }
 .flex-col-bottom { align-items: flex-end ; -webkit-align-items: flex-end ; }
+
+
+.grid { display: grid; }
+
+.mt10 { margin-top: 10px; }
+.mt5 { margin-top: 5px; }

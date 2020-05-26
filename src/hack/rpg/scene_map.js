@@ -49,28 +49,6 @@ Scene_Map.prototype.onDrawTileTouchStart = function(x,y){
   }
 }
 
-function Utils(){};
-Utils.rangeToArray = function(num1, num2){
-  const sorted_range = [num1,num2].sort(function(a,b){return a-b});
-  let array = [];
-  for(var i = sorted_range[0]; i <= sorted_range[1]; i++){
-    array.push(i);
-  }
-  return array;
-}
-
-Utils.rectToArray = function(x1,y1,x2,y2){
-  const x_array = Utils.rangeToArray(x1,x2);
-  const y_array = Utils.rangeToArray(y1,y2);
-  let array = [];
-  x_array.forEach(function(_x){
-    y_array.forEach(function(_y){
-      array.push(`${_x}_${_y}`);
-    });
-  });
-  return array;
-}
-
 Scene_Map.prototype.getdir8 = function(x, y, ori_x, ori_y){
   let dir = 5;
   if (x === ori_x){
@@ -152,10 +130,10 @@ Scene_Map.prototype.onDrawTileTouchMove = function(x,y){
 
 
       // 上一次的 rect
-      const arr1 = Utils.rectToArray(last_pos_x,last_pos_y,start_pos_x,start_pos_y);
+      const arr1 = Ut.rectToArray(last_pos_x,last_pos_y,start_pos_x,start_pos_y);
 
       // 当前的 rect
-      const arr2 = Utils.rectToArray(x,y,start_pos_x,start_pos_y);
+      const arr2 = Ut.rectToArray(x,y,start_pos_x,start_pos_y);
 
       // 两个集合对比, 计算出增加的部分 和 减少的部分
       const need_delete_arr = arr1.filter(function (val) { return arr2.indexOf(val) === -1 });
@@ -227,14 +205,10 @@ Scene_Map.prototype.onDrawTileTouchMove = function(x,y){
         _this.refreshCurrentTileAndTheRound(_x,_y);
       });
 
-
       SceneManager._scene._spriteset._tilemap.refresh();
       Scene_Map.current_draw_tile_process.last_pos = [x,y];
     }
-
   }
-
-
 }
 
 // 绘图模式 on touch end
@@ -245,11 +219,8 @@ Scene_Map.prototype.onDrawTileTouchEnd = function(x,y){
 
   }
   if (current_draw === 'square'){
-
-
     const current_draw_tile_process = Scene_Map.current_draw_tile_process;
     if (Scene_Map.current_draw_tile_process){
-
 
       const origin_tile_handle = current_draw_tile_process.origin_tile_handle;
       const tile_id = origin_tile_handle.tile_id;
@@ -265,7 +236,7 @@ Scene_Map.prototype.onDrawTileTouchEnd = function(x,y){
       const map_width = $gameMap.width();
       const grid_count = $gameMap.gridCount();
 
-      const need_refresh_arr = Utils.rectToArray(x,y,start_pos_x,start_pos_y);
+      const need_refresh_arr = Ut.rectToArray(x,y,start_pos_x,start_pos_y);
 
       need_refresh_arr.forEach(function(str){
         const arr = str.split("_");
@@ -273,11 +244,7 @@ Scene_Map.prototype.onDrawTileTouchEnd = function(x,y){
         const _y = parseInt(arr[1]);
         _this.refreshCurrentTileAndTheRound(_x,_y);
       });
-
-
-
     }
-
 
     Scene_Map.current_draw_tile_process = null;
   }

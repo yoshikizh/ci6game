@@ -41,6 +41,7 @@ function initializeDva(){
   const ModelToolTileset = require('./models/tool_tileset').default;
   const ModelToolbar = require('./models/toolbar').default;
   const ModelMapTree = require('./models/map_tree').default;
+  const ModelEvent = require('./models/event').default;
 
   // 初始化 dva app
   const dva_app = Dva();
@@ -49,6 +50,7 @@ function initializeDva(){
   dva_app.model(ModelToolTileset);
   dva_app.model(ModelToolbar);
   dva_app.model(ModelMapTree);
+  dva_app.model(ModelEvent);
   window.App.dva = dva_app;
 }
 
@@ -150,9 +152,14 @@ function initAppApi(){
   require("./app_api");
 }
 
+function initializeUtils(){
+  require("./utils");
+}
+
 // 入口函数
 function main(){
   window.App = new Object();
+  initializeUtils();
   initializeHack();
   initializeConfig();
   initializeGameData();

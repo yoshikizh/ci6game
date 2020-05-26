@@ -21,6 +21,8 @@ export default {
     zoom: 100,
     cursor_pos: [0,0],
     map_status: getCurrentMapInfo(),
+    event_id: null,
+    event_name: null,
     show_edit_btn: false,
     show_new_btn: false
   },

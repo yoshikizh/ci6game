@@ -14,3 +14,10 @@
 .tilemap-grid {
 	width: 32px; height: 32px;
 }
+
+.area { 
+	border: 1px solid white; border-radius: 4px; background-color: #b2c5da; 
+	padding: 5px;
+	.title { text-size: 10px; }
+
+}
