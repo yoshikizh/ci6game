@@ -21,3 +21,17 @@
 	.title { text-size: 10px; }
 
 }
+
+
+.cycle-layer {
+	width: 100%; border: 1px solid #7a8088;
+	position: relative;
+
+	.back { 
+		width: 100%; position: absolute; z-index: 0;
+	}
+	.content { 
+		width: 100%; position: absolute; z-index: 1; overflow-y: auto;
+	}
+}
+

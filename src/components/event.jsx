@@ -47,11 +47,8 @@ const EventInit = (props) => {
     });
   };
   const onClickApplyEventHandle = () => {
-    props.dispatch({
-      type: 'event/hideEventWindow'
-    });
-  };
 
+  };
 
 
   createCycles();
@@ -118,7 +115,6 @@ const EventInit = (props) => {
                   {render_cycles.map(div => div)}
                 </div>
                 <div id="event-body-container-contents-code-content"></div>
-
 
               </div>
             </div>

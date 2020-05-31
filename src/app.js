@@ -42,6 +42,7 @@ function initializeDva(){
   const ModelToolbar = require('./models/toolbar').default;
   const ModelMapTree = require('./models/map_tree').default;
   const ModelEvent = require('./models/event').default;
+  const ModelDatabase = require('./models/database').default;
 
   // 初始化 dva app
   const dva_app = Dva();
@@ -51,6 +52,7 @@ function initializeDva(){
   dva_app.model(ModelToolbar);
   dva_app.model(ModelMapTree);
   dva_app.model(ModelEvent);
+  dva_app.model(ModelDatabase);
   window.App.dva = dva_app;
 }
 

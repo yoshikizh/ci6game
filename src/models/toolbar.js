@@ -39,6 +39,9 @@ export default {
       if (tool_name === "play_test"){
         SceneManager.gameStart("run","rmmv-player")
       }
+      if (tool_name === "database"){
+        yield put({ type: 'database/showDatabaseWindow' });
+      }
     }
   },
 
