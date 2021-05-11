@@ -39,7 +39,7 @@
     "react-dom": "16.13.1",
     "@babel/preset-react": "7.9.1",
     "dva": "2.4.1",
-    "lodash": "4.17.15"
+    "lodash": "4.17.21"
   },
   "author": "yoshikizh",
   "license": "ISC",
